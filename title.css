@@ -1,5 +1,5 @@
 #list, #editor, #tClose, #tDelete{
-    display:none;
+    display: none;
 }
 #toolbar {
     display: flex;

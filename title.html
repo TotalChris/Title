@@ -6,7 +6,10 @@
     <body onload="init()">
         <div id="toolbar">
             <h3>Title</h3>
-            <button id="tNew">New Note</button>
+            <select id="shelflist">
+                <option id="tNewShelf" value="tNewShelf">+ New Shelf</option>
+            </select>
+            <button id="tNewNote">New Note</button>
             <button id="tDelete">Delete</button>
             <button id="tClose">Close</button>
         </div>
@@ -20,6 +23,13 @@
                 <textarea id="doc"></textarea>
             </div>
         </div>
+        <dialog id="dShelfName">
+            <p>Enter a new shelf name:</p>
+            <form method="dialog">
+              <input type="text" id="tShelfNameValue">
+              <button value="">Submit</button>
+            </form>
+          </dialog>
         <script src="title.js"></script>
     </body>
 </html>
