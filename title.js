@@ -86,7 +86,7 @@ function init(){ //initialize element references and global objects/listeners
                 freshshelf.setName(this.tShelfNameValue.value);
                 this.tShelfNameValue.value = ""; //clear the input
                 this.shelflist[this.shelflist.length] = freshshelf; //add shelf to the list
-                UpdateShelves(freshshelf); //update and select
+                ShelfView(freshshelf); //update and select
             })
             this.dShelfName.showModal();
 
