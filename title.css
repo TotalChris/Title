@@ -1,0 +1,19 @@
+#list, #editor, #tClose, #tDelete{
+    display:none;
+}
+#toolbar {
+    display: flex;
+    gap: 5px;
+}
+#doc, #docname {
+    width: 100%;
+}
+#doc{
+    height: 50%;
+}
+h3{
+    margin: 0;
+}
+input{
+    margin-bottom: 5px;
+}
