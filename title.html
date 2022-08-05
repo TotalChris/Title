@@ -2,6 +2,7 @@
     <head>
         <title>Title</title>
         <link rel="stylesheet" href="title.css">
+        <link rel="manifest" href="/manifest.json">
     </head>
     <body onload="init()">
         <div id="toolbar">
@@ -39,6 +40,17 @@
                 <button value="yes">Delete</button>
             </form>
         </dialog>
+        <script>
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', ()=> {
+                navigator
+                .serviceWorker
+                .register('sw.js')
+                .then(()=>console.log("Ready"))
+                .catch(()=>console.log("Error"));
+              });
+            }
+          </script>
         <script src="title.js"></script>
     </body>
 </html>
