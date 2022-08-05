@@ -31,10 +31,6 @@ class Shelf { //definition of a shelf, an array collection of notes.
         this.NoteList[this.NoteList.length] = note;
         return this.NoteList[this.NoteList.length - 1]
     }
-    remove(note){
-        //remove the exact note from the array by splicing out a strict match to the note's reference
-        this.NoteList.splice(this.NoteList.indexOf(note),1);
-    }
     getName(){
         return this.name;
     }
@@ -51,10 +47,21 @@ class Shelf { //definition of a shelf, an array collection of notes.
 
 function init(){ //initialize element references and global objects/listeners
     //create a new shelf and shelflist (THIS WOULD IMPORT DATA IN MVP)
-    this.loneshelf = new Shelf();
-    this.loneshelf.setName("Reminders")
-    this.shelflist = [];
-    this.shelflist[0] = this.loneshelf;
+
+    
+
+    this.shelflist = []    
+    this.stored = JSON.parse(window.localStorage.getItem('TitleStoredShelves'));
+    if(this.stored == null || this.stored == []){
+        this.loneshelf = new Shelf();
+        this.loneshelf.setName("Reminders");
+        this.shelflist[0] = this.loneshelf;
+    } else {
+        this.stored.forEach((l) => {
+            this.shelflist[this.shelflist.length] = l;
+        })
+    }
+    
 
     //associate element references
     this.tShelfNameValue = document.getElementById("tShelfNameValue");
@@ -69,10 +76,14 @@ function init(){ //initialize element references and global objects/listeners
     this.hClose = () => {};
     this.hDelete = () => {};
     
+    window.addEventListener('beforeunload', () => {
+        window.localStorage.setItem("TitleStoredShelves", JSON.stringify(this.shelflist))
+    })
+
     //add the global listener to make a new note
     this.tNewNote.addEventListener('click', () => {
         let freshnote = new Note();
-        this.currentShelf.add(freshnote);
+        currentShelf.NoteList[currentShelf.NoteList.length] = freshnote;
         EditView(freshnote);
     });
 
@@ -105,14 +116,14 @@ function UpdateShelves(shelftoset){ //re-renders the shelf dialog and selects th
 
     this.shelflist.forEach((s) => {
         o = document.createElement('option');
-        o.value = s.getUUID();
-        o.id = s.getUUID();
-        o.innerHTML = s.getName();
+        o.value = s.uuid;
+        o.id = s.uuid;
+        o.innerHTML = s.name;
         this.tShelfList.appendChild(o);
     })
 
     this.tShelfList.appendChild(this.tNewShelf); //add the newshelf entry
-    document.getElementById(shelftoset.getUUID()).selected = true;
+    document.getElementById(shelftoset.uuid).selected = true;
     this.currentShelf = shelftoset; //update global currentshelf
 }
 
@@ -122,16 +133,16 @@ function ShelfView(shelf){ //transitions to list note view using the current she
     this.vList.innerHTML = "";
 
     //show a notice if there are no notes in the shelf
-    if(shelf.getContent().length == 0){
+    if(shelf.NoteList.length == 0){
         let emptynotice = document.createElement('p');
         emptynotice.innerHTML = "No Notes, click 'New Note' to add one!";
         this.vList.appendChild(emptynotice);
     }
 
     //add the notes from the shelf to the list
-    shelf.getContent().forEach((note) => {
+    shelf.NoteList.forEach((note) => {
         link = document.createElement("a");
-        link.innerHTML = (note.getName() == "" ? "Untitled Note" : note.getName());
+        link.innerHTML = (note.name == "" ? "Untitled Note" : note.name);
         link.href = "#";
         link.addEventListener('click', (e) => {
             this.EditView(note);
@@ -152,8 +163,8 @@ function ShelfView(shelf){ //transitions to list note view using the current she
 function EditView(note){ //transitions to editing view with a given note ref
 
     //avoid 'undefined' in new or empty notes
-    this.vEditor.children[0].value = (note.getName() == undefined ? "" : note.getName());
-    this.vEditor.children[1].value = (note.getContent() == undefined ? "" : note.getContent());
+    this.vEditor.children[0].value = (note.name == undefined ? "" : note.name);
+    this.vEditor.children[1].value = (note.content == undefined ? "" : note.content);
 
     //remove old event listeners from tool buttons to prevent cross-deletion
     this.tClose.removeEventListener('click', this.hClose);
@@ -162,10 +173,10 @@ function EditView(note){ //transitions to editing view with a given note ref
     //define closing a note
     this.hClose = () => {
         if(this.vEditor.children[1].value == "" && this.vEditor.children[0].value == ""){
-            this.currentShelf.remove(note);
+            currentShelf.NoteList.splice(currentShelf.NoteList.indexOf(note),1);
         } else {
-            note.setName(this.vEditor.children[0].value);
-            note.setContent(this.vEditor.children[1].value);
+            note.name = this.vEditor.children[0].value;
+            note.content = this.vEditor.children[1].value;
         }
         this.vEditor.children[0].value = "";
         this.vEditor.children[1].value = "";
@@ -174,7 +185,7 @@ function EditView(note){ //transitions to editing view with a given note ref
 
     //define deleting a note
     this.hDelete = () => {
-        this.currentShelf.remove(note);
+        currentShelf.NoteList.splice(currentShelf.NoteList.indexOf(note),1);
         this.vEditor.children[0].value = "";
         this.vEditor.children[1].value = "";
         ShelfView(this.currentShelf);
