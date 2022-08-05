@@ -47,7 +47,7 @@ function init() { //initialize element references and global objects/listeners
 
   //register autosave-on-close listener
   window.addEventListener("beforeunload", () => {
-    //window.localStorage.setItem("TitleStoredShelves", JSON.stringify(this.shelflist));
+    window.localStorage.setItem("TitleStoredShelves", JSON.stringify(this.shelflist));
   });
 
   //add the global listener to make a new note
