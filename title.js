@@ -19,7 +19,7 @@ function init() { //initialize element references and global objects/listeners
 
   this.shelflist = [];
   this.stored = JSON.parse(window.localStorage.getItem("TitleStoredShelves"));
-  if (this.stored.length == 0) {
+  if (this.stored == null || this.stored.length == 0) {
     this.loneshelf = new Shelf();
     this.loneshelf.name = "Default Shelf";
     this.shelflist[0] = this.loneshelf;
@@ -28,6 +28,7 @@ function init() { //initialize element references and global objects/listeners
       this.shelflist[this.shelflist.length] = l;
     });
   }
+  console.log(this.shelflist);
 
   //associate element references
   this.tShelfNameValue = document.getElementById("tShelfNameValue");
@@ -46,10 +47,7 @@ function init() { //initialize element references and global objects/listeners
 
   //register autosave-on-close listener
   window.addEventListener("beforeunload", () => {
-    window.localStorage.setItem(
-      "TitleStoredShelves",
-      JSON.stringify(this.shelflist)
-    );
+    //window.localStorage.setItem("TitleStoredShelves", JSON.stringify(this.shelflist));
   });
 
   //add the global listener to make a new note
