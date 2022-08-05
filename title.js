@@ -108,6 +108,7 @@ function init() { //initialize element references and global objects/listeners
 
 function UpdateShelves(shelftoset) {
   //re-renders the shelf dialog and selects the desired shelf object in the list
+  //also autosaves the shelflist because safari is acting up
 
   this.tShelfList.innerHTML = ""; //clear it
 
@@ -127,6 +128,8 @@ function UpdateShelves(shelftoset) {
   this.tShelfList.appendChild(this.tNewShelf); //add the newshelf entry
   document.getElementById(shelftoset.uuid).selected = true;
   this.currentShelf = shelftoset; //update global currentshelf
+  window.localStorage.setItem("TitleStoredShelves", JSON.stringify(this.shelflist));
+
 }
 
 function ShelfView(shelf) {
