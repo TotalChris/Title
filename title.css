@@ -55,4 +55,8 @@ dialog{
     dialog input, dialog button{
         font-size: 20px;
     }
+
+    #list a{
+        font-size: 22px;
+    }
 }
