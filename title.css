@@ -22,7 +22,16 @@ h3{
 input{
     margin-bottom: 5px;
 }
+dialog{
+    border: solid 1px black;
+}
 @media screen and (max-width: 600px){
+    #shelflist{
+        font-size: 20px;
+    }
+    h3{
+        font-size: 22px;
+    }
     #toolbar{
         flex-wrap: wrap;
     }
@@ -33,5 +42,17 @@ input{
     }
     #tools button{
         width: -webkit-fill-available;
+        font-size: 18px;
+    }
+    p{
+        font-size: 20px;
+
+    }
+    #doc, #docname {
+        font-size: 20px;
+    }
+
+    dialog input, dialog button{
+        font-size: 20px;
     }
 }

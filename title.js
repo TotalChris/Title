@@ -21,7 +21,7 @@ function init() { //initialize element references and global objects/listeners
   this.stored = JSON.parse(window.localStorage.getItem("TitleStoredShelves"));
   if (this.stored == null || this.stored.length == 0) {
     this.loneshelf = new Shelf();
-    this.loneshelf.name = "Default Shelf";
+    this.loneshelf.name = "Notes";
     this.shelflist[0] = this.loneshelf;
   } else {
     this.stored.forEach((l) => {
@@ -69,6 +69,7 @@ function init() { //initialize element references and global objects/listeners
         this.shelflist[this.shelflist.length] = freshshelf; //add shelf to the list
         ShelfView(freshshelf); //update and select
       }, { once : true });
+      this.tShelfNameValue.value = "";
       this.dShelfName.showModal();
     } else {
       ShelfView(
@@ -83,9 +84,13 @@ function init() { //initialize element references and global objects/listeners
   this.tRenameShelf.addEventListener('click', () => {
     this.dShelfName.addEventListener("close", () => {
       //add an event listener to the popup for closing
-      this.currentShelf.name = this.tShelfNameValue.value;
-      ShelfView(this.currentShelf); //update and select
+      if(this.dShelfName.returnValue == "yes"){
+        this.currentShelf.name = this.tShelfNameValue.value;
+        this.tShelfNameValue.value = "";
+        ShelfView(this.currentShelf);
+      } //update and select
     }, {once : true});
+    this.tShelfNameValue.value = this.currentShelf.name;
     this.dShelfName.showModal();
   })
 
