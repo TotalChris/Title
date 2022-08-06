@@ -61,13 +61,16 @@ function init() { //initialize element references and global objects/listeners
   this.tShelfList.addEventListener("change", (e) => {
     //strict match the click value with the new shelf tool value to determine if "New shelf" was clicked
     if (e.target.value == this.tNewShelf.value) {
+      ShelfView(this.currentShelf);
       this.dShelfName.addEventListener("close", () => {
         //add an event listener to the popup for closing
-        let freshshelf = new Shelf();
-        freshshelf.name = this.tShelfNameValue.value;
-        this.tShelfNameValue.value = ""; //clear the input
-        this.shelflist[this.shelflist.length] = freshshelf; //add shelf to the list
-        ShelfView(freshshelf); //update and select
+        if(this.dShelfName.returnValue == "yes" && this.tShelfNameValue != ""){ //as long as it's okay to do so
+          let freshshelf = new Shelf();
+          freshshelf.name = this.tShelfNameValue.value;
+          this.tShelfNameValue.value = ""; //clear the input
+          this.shelflist[this.shelflist.length] = freshshelf; //add shelf to the list
+          ShelfView(freshshelf); //update and select
+        }
       }, { once : true });
       this.tShelfNameValue.value = "";
       this.dShelfName.showModal();
@@ -84,7 +87,7 @@ function init() { //initialize element references and global objects/listeners
   this.tRenameShelf.addEventListener('click', () => {
     this.dShelfName.addEventListener("close", () => {
       //add an event listener to the popup for closing
-      if(this.dShelfName.returnValue == "yes"){
+      if(this.dShelfName.returnValue == "yes" && this.tShelfNameValue != ""){
         this.currentShelf.name = this.tShelfNameValue.value;
         this.tShelfNameValue.value = "";
         ShelfView(this.currentShelf);
