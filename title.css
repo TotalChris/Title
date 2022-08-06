@@ -1,9 +1,14 @@
 #list, #editor, #tClose, #tDelete{
     display: none;
 }
-#toolbar {
+#toolbar, #header, #tools{
     display: flex;
+
     gap: 5px;
+    width: 100%;
+}
+#shelflist{
+    width: -webkit-fill-available;
 }
 #doc, #docname {
     width: 100%;
@@ -16,4 +21,17 @@ h3{
 }
 input{
     margin-bottom: 5px;
+}
+@media screen and (max-width: 600px){
+    #toolbar{
+        flex-wrap: wrap;
+    }
+    #tools{
+        width: -webkit-fill-available;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    #tools button{
+        width: -webkit-fill-available;
+    }
 }
