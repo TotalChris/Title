@@ -17,33 +17,46 @@ class Shelf {
 
 function init() { //initialize element references and global objects/listeners
 
+  //jquery modal compatibility
+  jQuery.fn.extend({showModal: function() {
+        return this.each(function() {
+           if(this.tagName=== "DIALOG"){
+                this.showModal();
+            }
+        });
+  }});
+
   this.shelflist = [];
-  this.stored = JSON.parse(window.localStorage.getItem("TitleStoredShelves"));
-  if (this.stored == null || this.stored.length == 0) {
+  this.stored = JSON.parse(window.localStorage.getItem("TitleStoredShelves")); //grab the stored list
+  if (this.stored == null || this.stored.length == 0) { //init when no data is present
     this.loneshelf = new Shelf();
     this.loneshelf.name = "Notes";
     this.shelflist[0] = this.loneshelf;
   } else {
     this.stored.forEach((l) => {
-      this.shelflist[this.shelflist.length] = l;
+      this.shelflist[this.shelflist.length] = l; //extract each shelf and re-add it to our copy
     });
   }
-  console.log(this.shelflist);
 
   //associate element references
-  this.tShelfNameValue = document.getElementById("tShelfNameValue");
-  this.dShelfName = document.getElementById("dShelfName");
-  this.dDeleteShelfConfirm = document.getElementById("dDeleteShelfConfirm");
-  this.tShelfList = document.getElementById("shelflist");
-  this.tNewShelf = document.getElementById("tNewShelf");
-  this.vEditor = document.getElementById("editor");
-  this.vList = document.getElementById("list");
-  this.tClose = document.getElementById("tClose");
-  this.tNewNote = document.getElementById("tNewNote");
-  this.tRenameShelf = document.getElementById("tRenameShelf");
-  this.doc = document.getElementById("doc");
+  this.tShelfNameValue = $("#tShelfNameValue");
+  this.dShelfName = $("#dShelfName");
+  this.dDeleteShelf = $("#dDeleteShelf");
+  this.tShelfList = $("#shelflist");
+  this.tNewShelf = $("#tNewShelf");
+  this.vEditor = $("#editor");
+  this.vList = $("#list");
+  this.tClose = $("#tClose");
+  this.tDelete = $("#tDelete");
+  this.tNewNote = $("#tNewNote");
+  this.tRenameShelf = $("#tRenameShelf");
+  this.tDeleteShelf = $("#tDeleteShelf");
+  this.doc = $("#doc");
   this.hCloseNote = () => {};
   this.hDeleteNote = () => {};
+
+  $('#tCancelShelfName').on('click', () => {$('#fShelfName').submit()})
+  $('#tCancelDeleteShelf').on('click', () => {$('#fDeleteShelf').submit()})
 
   //register autosave-on-close listener
   window.addEventListener("beforeunload", () => {
@@ -51,28 +64,28 @@ function init() { //initialize element references and global objects/listeners
   });
 
   //add the global listener to make a new note
-  this.tNewNote.addEventListener("click", () => {
+  this.tNewNote.on("click", () => {
     let freshnote = new Note();
     currentShelf.NoteList[currentShelf.NoteList.length] = freshnote;
     EditView(freshnote);
   });
 
   //add a global event listener to the shelf switcher
-  this.tShelfList.addEventListener("change", (e) => {
+  this.tShelfList.on("change", (e) => {
     //strict match the click value with the new shelf tool value to determine if "New shelf" was clicked
-    if (e.target.value == this.tNewShelf.value) {
+    if (e.target.value == this.tNewShelf.val()) {
       ShelfView(this.currentShelf);
-      this.dShelfName.addEventListener("close", () => {
+      this.dShelfName.one("close", () => {
         //add an event listener to the popup for closing
-        if(this.dShelfName.returnValue == "yes" && this.tShelfNameValue != ""){ //as long as it's okay to do so
+        if(this.dShelfName[0].returnValue == "yes" && this.tShelfNameValue != ""){ //as long as it's okay to do so
           let freshshelf = new Shelf();
-          freshshelf.name = this.tShelfNameValue.value;
-          this.tShelfNameValue.value = ""; //clear the input
+          freshshelf.name = this.tShelfNameValue.val();
+          this.tShelfNameValue.val(""); //clear the input
           this.shelflist[this.shelflist.length] = freshshelf; //add shelf to the list
           ShelfView(freshshelf); //update and select
         }
-      }, { once : true });
-      this.tShelfNameValue.value = "";
+      });
+      this.tShelfNameValue.val("");
       this.dShelfName.showModal();
     } else {
       ShelfView(
@@ -84,30 +97,28 @@ function init() { //initialize element references and global objects/listeners
   });
 
   //add a global listener to rename a shelf
-  this.tRenameShelf.addEventListener('click', () => {
-    this.dShelfName.addEventListener("close", () => {
-      //add an event listener to the popup for closing
-      if(this.dShelfName.returnValue == "yes" && this.tShelfNameValue != ""){
-        this.currentShelf.name = this.tShelfNameValue.value;
-        this.tShelfNameValue.value = "";
-        ShelfView(this.currentShelf);
-      } //update and select
-    }, {once : true});
-    this.tShelfNameValue.value = this.currentShelf.name;
+  this.tRenameShelf.on('click', () => {
+    this.dShelfName.one("close", () => {  //add an event listener to the popup for closing
+      if(this.dShelfName[0].returnValue == "yes" && this.tShelfNameValue != ""){
+        this.currentShelf.name = this.tShelfNameValue.val();
+        this.tShelfNameValue.val("");
+        ShelfView(this.currentShelf);  //update and select
+      }
+    });
+    this.tShelfNameValue.val(this.currentShelf.name); //add the current name into the box to edit
     this.dShelfName.showModal();
   })
 
   //add a global event lister to delete a shelf
-  this.tDeleteShelf.addEventListener('click', () => {
-    this.dDeleteShelfConfirm.addEventListener("close", () => {
+  this.tDeleteShelf.on('click', () => {
+    this.dDeleteShelf.one("close", () => {
       //delete the shelf only if the dialog returned a confirmation
-      if(this.dDeleteShelfConfirm.returnValue == "yes"){
-        this.shelflist.splice(this.shelflist.indexOf(this.currentShelf), 1);
-        this.currentShelf = this.shelflist[this.shelflist.length - 1]
-        ShelfView(this.currentShelf);
+      if(this.dDeleteShelf[0].returnValue == "yes"){
+        this.shelflist.splice(this.shelflist.indexOf(this.currentShelf), 1); //remove the shelf from the list
+        ShelfView(this.shelflist[this.shelflist.length - 1]);
       }
-    }, {once : true})
-    this.dDeleteShelfConfirm.showModal();
+    })
+    this.dDeleteShelf.showModal();
   })
 
   //start the app in shelf view with the first shelf we added
@@ -118,113 +129,95 @@ function UpdateShelves(shelftoset) {
   //re-renders the shelf dialog and selects the desired shelf object in the list
   //also autosaves the shelflist because safari is acting up
 
-  this.tShelfList.innerHTML = ""; //clear it
+  this.tShelfList.html(""); //clear it
 
-  this.shelflist.forEach((s) => {
-    o = document.createElement("option");
-    o.value = s.uuid;
-    o.id = s.uuid;
-    o.innerHTML = s.name;
-    this.tShelfList.appendChild(o);
+  this.shelflist.forEach((s) => { //add the shelves currently in our collection
+    this.tShelfList.append($(`<option value="${s.uuid}" id="${s.uuid}">${s.name}</option>`));
   });
 
-  if(this.shelflist.length <= 1){
-    this.tDeleteShelf.disabled = true;
+  if(this.shelflist.length <= 1){ //disable the delete option 
+    this.tDeleteShelf.attr('disabled', '');
   } else {
-    this.tDeleteShelf.disabled = false;
+    this.tDeleteShelf.removeAttr('disabled');
   }
-  this.tShelfList.appendChild(this.tNewShelf); //add the newshelf entry
-  document.getElementById(shelftoset.uuid).selected = true;
+
+  this.tShelfList.append(this.tNewShelf); //add the newshelf entry
+  $(`#${shelftoset.uuid}`).prop('selected', 'true');
   this.currentShelf = shelftoset; //update global currentshelf
   window.localStorage.setItem("TitleStoredShelves", JSON.stringify(this.shelflist));
 
 }
 
-function ShelfView(shelf) {
-  //transitions to list note view using the current shelf
+function ShelfView(shelf) {  //transitions to list note view using the current shelf
+
   UpdateShelves(shelf);
+
   //Clear and re-render the note list
-  this.vList.innerHTML = "";
+  this.vList.html("");
 
   //show a notice if there are no notes in the shelf
   if (shelf.NoteList.length == 0) {
-    let emptynotice = document.createElement("p");
-    emptynotice.innerHTML = "No Notes, click 'New Note' to add one!";
-    this.vList.appendChild(emptynotice);
+    $(`<p>No Notes, click 'New Note' to add one!</p>`).appendTo(this.vList);
   }
 
   //add the notes from the shelf to the list
   shelf.NoteList.forEach((note) => {
-    link = document.createElement("a");
-    link.innerHTML = note.name == "" ? "Untitled Note" : note.name;
-    link.href = "#";
-    link.addEventListener("click", (e) => {
-      this.EditView(note);
-    });
-    this.vList.appendChild(link);
-    this.vList.appendChild(document.createElement("br"));
+    $(`<a href="#">${(note.name == "" ? "Untitled Note" : note.name)}</a>`).on("click", (e) => {this.EditView(note);}).appendTo(this.vList);
+    $('<br>').appendTo(this.vList);
   });
 
   //Alter the visibility of UI elements
-  this.tShelfList.disabled = false;
-  this.tNewNote.disabled = false;
-  this.tRenameShelf.style.display = "block"
-  this.tDeleteShelf.style.display = "block"
-  this.tDelete.style.display = "none";
-  this.vList.style.display = "block";
-  this.tClose.style.display = "none";
-  this.vEditor.style.display = "none";
+  this.tShelfList.removeAttr("disabled");
+  this.tNewNote.removeAttr("disabled");
+  this.tRenameShelf.css("display", "block");
+  this.tDeleteShelf.css("display", "block");
+  this.tDelete.css("display", "none");
+  this.vList.css("display", "block");
+  this.tClose.css("display", "none");
+  this.vEditor.css("display", "none");
 }
 
-function EditView(note) {
-  //transitions to editing view with a given note ref
+function EditView(note) {  //transitions to editing view with a given note ref
 
   //avoid 'undefined' in new or empty notes
-  this.vEditor.children[0].value = note.name == undefined ? "" : note.name;
-  this.vEditor.children[1].value =
-    note.content == undefined ? "" : note.content;
+  $("#docname").val((note.name == undefined ? "" : note.name));
+  $("#doc").val((note.content == undefined ? "" : note.content));
 
   //remove old event listeners from tool buttons to prevent cross-deletion
-  this.tClose.removeEventListener("click", this.hCloseNote);
-  this.tDelete.removeEventListener("click", this.hDeleteNote);
+  this.tClose.off("click");
+  this.tDelete.off("click");
 
-  //define closing a note
-  this.hCloseNote = () => {
+  //Add a one-time save function to the close button
+  this.tClose.one("click", () => {
     if (
-      this.vEditor.children[1].value == "" &&
-      this.vEditor.children[0].value == ""
+      $("#doc").val() == undefined &&
+      $("#docname").val() == undefined
     ) {
       currentShelf.NoteList.splice(currentShelf.NoteList.indexOf(note), 1);
     } else {
-      note.name = this.vEditor.children[0].value;
-      note.content = this.vEditor.children[1].value;
+      note.name = $("#docname").val();
+      note.content = $("#doc").val();
     }
-    this.vEditor.children[0].value = "";
-    this.vEditor.children[1].value = "";
+    $("#docname").val("");
+    $("#doc").val("");
     ShelfView(this.currentShelf);
-  };
-
-  //define deleting a note
-  this.hDeleteNote = () => {
-    currentShelf.NoteList.splice(currentShelf.NoteList.indexOf(note), 1);
-    this.vEditor.children[0].value = "";
-    this.vEditor.children[1].value = "";
-    ShelfView(this.currentShelf);
-  };
-
-  //Add a one-time save function to the close button
-  this.tClose.addEventListener("click", hCloseNote, { once: true });
+  });
 
   //Add the one-time delete function to the delete button
-  this.tDelete.addEventListener("click", hDeleteNote, { once: true });
+  this.tDelete.one("click", () => {
+    currentShelf.NoteList.splice(currentShelf.NoteList.indexOf(note), 1);
+    $("#docname").val("");
+    $("#doc").val("");
+    ShelfView(this.currentShelf);
+  });
 
   //Alter the visibility of UI elements
-  this.tShelfList.disabled = true;
-  this.tNewNote.disabled = true;
-  this.tRenameShelf.style.display = "none"
-  this.tDeleteShelf.style.display = "none"
-  this.tDelete.style.display = "block";
-  this.vList.style.display = "none";
-  this.tClose.style.display = "block";
-  this.vEditor.style.display = "block";
+  this.tShelfList.attr("disabled", "");
+  this.tNewNote.attr("disabled", "");
+  this.tRenameShelf.css("display", "none");
+  this.tDeleteShelf.css("display", "none");
+  this.tDelete.css("display", "block");
+  this.vList.css("display", "none");
+  this.tClose.css("display", "block");
+  this.vEditor.css("display", "block");
 }

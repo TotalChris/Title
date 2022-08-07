@@ -3,7 +3,6 @@
 }
 #toolbar, #header, #tools{
     display: flex;
-
     gap: 5px;
     width: 100%;
 }
@@ -14,10 +13,7 @@
     width: 100%;
 }
 #doc{
-    height: 50%;
-}
-h3{
-    margin: 0;
+    height: 80%;
 }
 input{
     margin-bottom: 5px;
@@ -26,12 +22,6 @@ dialog{
     border: solid 1px black;
 }
 @media screen and (max-width: 600px){
-    #shelflist{
-        font-size: 20px;
-    }
-    h3{
-        font-size: 22px;
-    }
     #toolbar{
         flex-wrap: wrap;
     }
@@ -44,18 +34,9 @@ dialog{
         width: -webkit-fill-available;
         font-size: 18px;
     }
-    p{
-        font-size: 20px;
-
-    }
-    #doc, #docname {
+    p, #doc, #docname, #shelflist, dialog input, dialog button {
         font-size: 20px;
     }
-
-    dialog input, dialog button{
-        font-size: 20px;
-    }
-
     #list a{
         font-size: 22px;
     }

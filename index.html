@@ -34,16 +34,17 @@
         </div>
         <dialog id="dShelfName">
             <p>Enter a new list name:</p>
-            <form method="dialog">
-              <input type="text" id="tShelfNameValue">
-              <button value="no">Cancel</button>
+            <form method="dialog" id="fShelfName">
+              <input type="text" id="tShelfNameValue" >
+              <br>
+              <button value="no" type="button" id="tCancelShelfName">Cancel</button>
               <button value="yes" type="submit">Submit</button>
             </form>
           </dialog>
-        <dialog id="dDeleteShelfConfirm">
+        <dialog id="dDeleteShelf">
             <p>Are you sure you want to delete this list?</p>
-            <form method="dialog">
-                <button value="no">Cancel</button>
+            <form method="dialog" id="fDeleteShelf">
+                <button value="no" type="button" id="tCancelDeleteShelf">Cancel</button>
                 <button value="yes" type="submit">Delete</button>
             </form>
         </dialog>
@@ -57,7 +58,8 @@
                 .catch(()=>console.log("Error"));
               });
             }
-          </script>
+        </script>
+        <script src="jquery-3.6.0.min.js"></script>
         <script src="title.js"></script>
     </body>
 </html>
