@@ -31,6 +31,15 @@ function init() { //initialize element references and global objects/listeners
   if (this.stored == null || this.stored.length == 0) { //init when no data is present
     this.loneshelf = new Shelf();
     this.loneshelf.name = "Notes";
+    this.loneshelf.NoteList[0] = new Note();
+    this.loneshelf.NoteList[0].name = "Welcome to Title!"
+    this.loneshelf.NoteList[0].content = `This is a simple note in Title! It's a tiny web application that anyone can download and install on their phone, tablet, computer, and more! It has simple controls to create plaintext notes and separate them into lists. 
+
+Title stores your notes in your web browser's local storage when you leave the app, meaning that everything you make here stays on the device you're using and is never shared with third parties or apps. This does also mean that each device and web browser you use will have separate notes and lists, but for a small app that's not a terrible thing!
+    
+Title's core functionality was made in a single day, and the few big changes since then have been bug fixes and code cleanup. Title adopts a minimalist webpage style, meaning that the UI loads instantly with no lag or overhead.
+    
+Thanks for using Title!`
     this.shelflist[0] = this.loneshelf;
   } else {
     this.stored.forEach((l) => {
@@ -149,6 +158,8 @@ function UpdateShelves(shelftoset) {
 }
 
 function ShelfView(shelf) {  //transitions to list note view using the current shelf
+  
+  document.title = (shelf.name == undefined ? "Untitled List" : shelf.name);
 
   UpdateShelves(shelf);
 
@@ -182,6 +193,7 @@ function EditView(note) {  //transitions to editing view with a given note ref
   //avoid 'undefined' in new or empty notes
   $("#docname").val((note.name == undefined ? "" : note.name));
   $("#doc").val((note.content == undefined ? "" : note.content));
+  document.title = (note.name == undefined ? "Untitled Note" : note.name);
 
   //remove old event listeners from tool buttons to prevent cross-deletion
   this.tClose.off("click");

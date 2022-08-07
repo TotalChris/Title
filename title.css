@@ -1,6 +1,9 @@
 #list, #editor, #tClose, #tDelete{
     display: none;
 }
+#header{
+    height: 30px;
+}
 #toolbar, #header, #tools{
     display: flex;
     gap: 5px;
@@ -21,6 +24,9 @@ input{
 dialog{
     border: solid 1px black;
 }
+#logo{
+    height: inherit;
+}
 @media screen and (max-width: 600px){
     #toolbar{
         flex-wrap: wrap;
@@ -32,7 +38,7 @@ dialog{
     }
     #tools button{
         width: -webkit-fill-available;
-        font-size: 18px;
+        font-size: 16px;
     }
     p, #doc, #docname, #shelflist, dialog input, dialog button {
         font-size: 20px;
