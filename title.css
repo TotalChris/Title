@@ -3,10 +3,14 @@
 }
 #header{
     height: 30px;
+    margin-bottom: 5px;
+}
+#tools{
+    height: 30px;
 }
 #toolbar, #header, #tools{
     display: flex;
-    gap: 5px;
+    column-gap: 5px;
     width: 100%;
 }
 #shelflist{
@@ -38,7 +42,7 @@ dialog{
     }
     #tools button{
         width: -webkit-fill-available;
-        font-size: 16px;
+        font-size: 20px;
     }
     p, #doc, #docname, #shelflist, dialog input, dialog button {
         font-size: 20px;
