@@ -1,16 +1,9 @@
 #list, #editor, #tClose, #tDelete{
     display: none;
 }
-#header{
-    height: 30px;
-    margin-bottom: 5px;
-}
-#tools{
-    height: 30px;
-}
 #toolbar, #header, #tools{
     display: flex;
-    column-gap: 5px;
+    gap: 5px;
     width: 100%;
 }
 #shelflist{
@@ -29,7 +22,7 @@ dialog{
     border: solid 1px black;
 }
 #logo{
-    height: inherit;
+    height: 22px;
 }
 @media screen and (max-width: 600px){
     #toolbar{
@@ -49,5 +42,8 @@ dialog{
     }
     #list a{
         font-size: 22px;
+    }
+    #logo{
+        height: 26px;
     }
 }
