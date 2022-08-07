@@ -1,19 +1,49 @@
 #list, #editor, #tClose, #tDelete{
     display: none;
 }
-#toolbar {
+#header{
+    height: 30px;
+}
+#toolbar, #header, #tools{
     display: flex;
     gap: 5px;
+    width: 100%;
+}
+#shelflist{
+    width: -webkit-fill-available;
 }
 #doc, #docname {
     width: 100%;
 }
 #doc{
-    height: 50%;
-}
-h3{
-    margin: 0;
+    height: 80%;
 }
 input{
     margin-bottom: 5px;
+}
+dialog{
+    border: solid 1px black;
+}
+#logo{
+    height: inherit;
+}
+@media screen and (max-width: 600px){
+    #toolbar{
+        flex-wrap: wrap;
+    }
+    #tools{
+        width: -webkit-fill-available;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    #tools button{
+        width: -webkit-fill-available;
+        font-size: 16px;
+    }
+    p, #doc, #docname, #shelflist, dialog input, dialog button {
+        font-size: 20px;
+    }
+    #list a{
+        font-size: 22px;
+    }
 }

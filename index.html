@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>Title</title>
+        <link rel="stylesheet" href="title.css">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </head>
+    <body onload="init()">
+        <div id="toolbar">
+            <div id="header">
+              <img src="img/ic512.png" id="logo">
+              <select id="shelflist">
+                  <option id="tNewShelf" value="tNewShelf">+ New List</option>
+              </select>
+            </div>
+            <div id="tools">            
+              <button id="tNewNote">New Note</button>
+              <button id="tClose">Close Note</button>
+              <button id="tDelete">Delete Note</button>
+
+              <button id="tRenameShelf">Rename List</button>
+              <button id="tDeleteShelf">Delete List</button>
+            </div>
+        </div>
+        <hr>
+        <div id="page">
+            <div id="list">
+
+            </div>
+            <div id="editor">
+                <input type="text" id="docname">
+                <textarea id="doc"></textarea>
+            </div>
+        </div>
+        <dialog id="dShelfName">
+            <p>Enter a new list name:</p>
+            <form method="dialog" id="fShelfName">
+              <input type="text" id="tShelfNameValue" >
+              <br>
+              <button value="no" type="button" id="tCancelShelfName">Cancel</button>
+              <button value="yes" type="submit">Submit</button>
+            </form>
+          </dialog>
+        <dialog id="dDeleteShelf">
+            <p>Are you sure you want to delete this list?</p>
+            <form method="dialog" id="fDeleteShelf">
+                <button value="no" type="button" id="tCancelDeleteShelf">Cancel</button>
+                <button value="yes" type="submit">Delete</button>
+            </form>
+        </dialog>
+        <script>
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', ()=> {
+                navigator
+                .serviceWorker
+                .register('sw.js')
+                .then(()=>console.log("Ready"))
+                .catch(()=>console.log("Error"));
+              });
+            }
+        </script>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script src="title.js"></script>
+    </body>
+</html>
