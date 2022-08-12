@@ -61,6 +61,8 @@ Thanks for using Title!`
   this.tRenameShelf = $("#tRenameShelf");
   this.tDeleteShelf = $("#tDeleteShelf");
   this.doc = $("#doc");
+  this.vDeleteShelfTitle = $("#vDeleteShelfTitle");
+  this.vShelfNameTitle = $("#vShelfNameTitle");
   this.hCloseNote = () => {};
   this.hDeleteNote = () => {};
 
@@ -89,12 +91,15 @@ Thanks for using Title!`
         if(this.dShelfName[0].returnValue == "yes" && this.tShelfNameValue != ""){ //as long as it's okay to do so
           let freshshelf = new Shelf();
           freshshelf.name = this.tShelfNameValue.val();
-          this.tShelfNameValue.val(""); //clear the input
+          
+      this.vShelfNameTitle.html("");
+this.tShelfNameValue.val(""); //clear the input
           this.shelflist[this.shelflist.length] = freshshelf; //add shelf to the list
           ShelfView(freshshelf); //update and select
         }
       });
       this.tShelfNameValue.val("");
+      this.vShelfNameTitle.html("New List");
       this.dShelfName.showModal();
     } else {
       ShelfView(
@@ -111,10 +116,12 @@ Thanks for using Title!`
       if(this.dShelfName[0].returnValue == "yes" && this.tShelfNameValue != ""){
         this.currentShelf.name = this.tShelfNameValue.val();
         this.tShelfNameValue.val("");
+        this.vShelfNameTitle.html("");
         ShelfView(this.currentShelf);  //update and select
       }
     });
     this.tShelfNameValue.val(this.currentShelf.name); //add the current name into the box to edit
+          this.vShelfNameTitle.html(this.currentShelf.name);
     this.dShelfName.showModal();
   })
 
@@ -125,8 +132,10 @@ Thanks for using Title!`
       if(this.dDeleteShelf[0].returnValue == "yes"){
         this.shelflist.splice(this.shelflist.indexOf(this.currentShelf), 1); //remove the shelf from the list
         ShelfView(this.shelflist[this.shelflist.length - 1]);
+        this.vDeleteShelfTitle.html("");
       }
     })
+    this.vDeleteShelfTitle.html(this.currentShelf.name);
     this.dDeleteShelf.showModal();
   })
 
