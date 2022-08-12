@@ -10,6 +10,9 @@
     width: -webkit-fill-available;
     color: #000000;
 }
+#shelflist:disabled{
+    color: #999999;
+}
 #doc, #docname {
     width: 100%;
 }
@@ -24,6 +27,9 @@ dialog{
 }
 button{
     color: #000000;
+}
+button:disabled{
+    color: #999999;
 }
 #logo{
     height: 22px;
