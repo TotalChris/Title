@@ -21,6 +21,9 @@ input{
 dialog{
     border: solid 1px black;
 }
+button{
+    color: #000000;
+}
 #logo{
     height: 22px;
 }
