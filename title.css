@@ -1,15 +1,21 @@
 #list, #editor, #tClose, #tDelete{
     display: none;
 }
+#tools{
+    align-content: flex-end;
+}
 #toolbar, #header, #tools{
     display: flex;
     gap: 5px;
     width: 100%;
     align-items: center;
+    justify-content: end;
 }
 #shelflist{
     width: -webkit-fill-available;
     color: #000000;
+    height: 30px;
+    width: 100%;
 }
 #shelflist:disabled{
     color: #999999;
@@ -55,10 +61,14 @@ button:disabled{
     p, #doc, #docname, #shelflist, dialog input, dialog button {
         font-size: 20px;
     }
+    #shelflist{
+        height: 30px;
+        width: 100%;
+    }
     #list a{
         font-size: 22px;
     }
     #logo{
-        height: 26px;
+        height: 30px;
     }
 }
