@@ -54,12 +54,15 @@ button:disabled{
         left: 0px;
         margin: 8px;
     }
-    #tools button{
-        width: -webkit-fill-available;
+    #tRenameShelf, #tDeleteShelf{
         font-size: 20px;
+        height: 30px;
     }
     p, #doc, #docname, #shelflist, dialog input, dialog button {
         font-size: 20px;
+    }
+    #tNewNote, #tClose, #tDelete{
+        width: -webkit-fill-available;
     }
     #shelflist{
         height: 30px;
