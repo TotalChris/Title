@@ -5,6 +5,7 @@
     display: flex;
     gap: 5px;
     width: 100%;
+    align-items: center;
 }
 #shelflist{
     width: -webkit-fill-available;
@@ -42,6 +43,10 @@ button:disabled{
         width: -webkit-fill-available;
         display: flex;
         justify-content: space-evenly;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        margin: 8px;
     }
     #tools button{
         width: -webkit-fill-available;

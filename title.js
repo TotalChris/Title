@@ -188,7 +188,7 @@ function ShelfView(shelf) {  //transitions to list note view using the current s
 
   //Alter the visibility of UI elements
   this.tShelfList.removeAttr("disabled");
-  this.tNewNote.removeAttr("disabled");
+  this.tNewNote.css("display", "block");
   this.tRenameShelf.css("display", "block");
   this.tDeleteShelf.css("display", "block");
   this.tDelete.css("display", "none");
@@ -234,7 +234,7 @@ function EditView(note) {  //transitions to editing view with a given note ref
 
   //Alter the visibility of UI elements
   this.tShelfList.attr("disabled", "");
-  this.tNewNote.attr("disabled", "");
+  this.tNewNote.css("display", "none");
   this.tRenameShelf.css("display", "none");
   this.tDeleteShelf.css("display", "none");
   this.tDelete.css("display", "block");
