@@ -24,7 +24,7 @@
     width: 100%;
 }
 #doc{
-    height: 80%;
+    height: 75%;
 }
 input{
     margin-bottom: 5px;
@@ -63,6 +63,7 @@ button:disabled{
     }
     #tNewNote, #tClose, #tDelete{
         width: -webkit-fill-available;
+        height: 30px;
     }
     #shelflist{
         height: 30px;
