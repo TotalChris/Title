@@ -48,7 +48,7 @@ hr{
     width: 100%;
 }
 #doc{
-    height: 75%;
+    height: 70%;
     margin-top: 8px;
 }
 input{
@@ -68,7 +68,7 @@ dialog{
         justify-content: space-evenly;
         position: absolute;
         margin: 8px;
-        bottom: 0px;
+        bottom: 20px;
         left: 0px;
     }
     #tRenameShelf, #tDeleteShelf{
@@ -86,5 +86,8 @@ dialog{
     }
     #list a{
         font-size: 22px;
+    }
+    .toolbutton{
+        font-size: 24px;
     }
 }
