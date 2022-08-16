@@ -5,22 +5,30 @@
         <link rel="manifest" href="/manifest.json">
         <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="dep/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </head>
     <body onload="init()">
         <div id="toolbar">
             <div id="header">
-              <img src="img/ic512.png" id="logo">
-              <select id="shelflist">
-                  <option id="tNewShelf" value="tNewShelf">+ New List</option>
-              </select>              
-              <button id="tRenameShelf"><span class="material-icons">drive_file_rename_outline</span></button>
-              <button id="tDeleteShelf"><span class="material-icons">delete</span></button>
-              <div id="tools">            
-                <button id="tNewNote"><span class="material-icons">post_add</span></button>
-                <button id="tClose"><span class="material-icons">arrow_back_ios</span></button>
-                <button id="tDelete"><span class="material-icons">delete</span></button>
+              <img src="img/ic512.png" id="logo">       
+              <div class="dropdown" id="tShelfList">
+                <button class="btn dropdown-toggle btn-outline-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="tShelfListOuter">
+                  Dropdown
+                </button>
+                <ul class="dropdown-menu w-100" id="shelfmenu">
+                  <li id="lNewShelf"><button class="dropdown-item" id="tNewShelf" value="tNewShelf">+ New List</button></li>
+                </ul>
               </div>
+              <button id="tRenameShelf" class="btn btn-outline-dark"><span class="material-icons">drive_file_rename_outline</span></button>
+              <button id="tDeleteShelf" class="btn btn-outline-danger"><span class="material-icons">delete</span></button>
+
+            </div>
+            <div id="tools">            
+              <button id="tNewNote" class="btn btn-outline-dark"><span class="material-icons">post_add</span></button>
+              <button id="tClose" class="btn btn-outline-dark"><span class="material-icons">arrow_back_ios</span></button>
+              <button id="tDelete" class="btn btn-outline-dark"><span class="material-icons">delete</span></button>
             </div>
         </div>
         <hr>
@@ -31,26 +39,26 @@
               </table>
             </div>
             <div id="editor">
-                <input type="text" id="docname" placeholder="Title">
-                <textarea id="doc" placeholder="Note"></textarea>
+                <input type="text" id="docname" placeholder="Title" class="form-control">
+                <textarea id="doc" placeholder="Note" class="form-control"></textarea>
             </div>
         </div>
         <dialog id="dShelfName">
         <h2 id="vShelfNameTitle"></h2>
             <p>Enter a new list name:</p>
             <form method="dialog" id="fShelfName">
-              <input type="text" id="tShelfNameValue" placeholder="Name">
+              <input type="text" id="tShelfNameValue" placeholder="Name" class="form-control">
               <br>
-              <button value="no" type="button" id="tCancelShelfName">Cancel</button>
-              <button value="yes" type="submit">Submit</button>
+              <button value="no" type="button" id="tCancelShelfName" class="btn btn-outline-danger">Cancel</button>
+              <button value="yes" type="submit" class="btn btn-outline-dark">Submit</button>
             </form>
           </dialog>
         <dialog id="dDeleteShelf">
         <h2 id="vDeleteShelfTitle"></h2>
             <p>Are you sure you want to delete this list?</p>
             <form method="dialog" id="fDeleteShelf">
-                <button value="no" type="button" id="tCancelDeleteShelf">Cancel</button>
-                <button value="yes" type="submit">Delete</button>
+                <button value="no" type="button" id="tCancelDeleteShelf" class="btn btn-outline-danger">Cancel</button>
+                <button value="yes" type="submit" class="btn btn-outline-dark">Delete</button>
             </form>
         </dialog>
         <script>
@@ -64,7 +72,8 @@
               });
             }
         </script>
-        <script src="jquery-3.6.0.min.js"></script>
+        <script src="dep/jquery/jquery-3.6.0.min.js"></script>
+        <script src="dep/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="title.js"></script>
     </body>
 </html>

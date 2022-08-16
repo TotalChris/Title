@@ -52,7 +52,10 @@ Thanks for using Title!`
   this.tShelfNameValue = $("#tShelfNameValue");
   this.dShelfName = $("#dShelfName");
   this.dDeleteShelf = $("#dDeleteShelf");
-  this.tShelfList = $("#shelflist");
+  this.tShelfList = $("#tShelfList");
+  this.tShelfListOuter = $('#tShelfListOuter')
+  this.tShelfMenu = $("#shelfmenu");
+  this.lNewShelf = $("#lNewShelf");
   this.tNewShelf = $("#tNewShelf");
   this.vEditor = $("#editor");
   this.vList = $("#list");
@@ -62,6 +65,7 @@ Thanks for using Title!`
   this.tRenameShelf = $("#tRenameShelf");
   this.tDeleteShelf = $("#tDeleteShelf");
   this.doc = $("#doc");
+  this.tLogo = $("#logo")
   this.vDeleteShelfTitle = $("#vDeleteShelfTitle");
   this.vShelfNameTitle = $("#vShelfNameTitle");
   this.vTableList = $("#tablelist")
@@ -76,40 +80,16 @@ Thanks for using Title!`
     window.localStorage.setItem("TitleStoredShelves", JSON.stringify(shelflist));
   });
 
+  //add global listener to go home on logo click
+  tLogo.on('click', () => {
+    ShelfView(currentShelf);
+  })
+
   //add the global listener to make a new note
   tNewNote.on("click", () => {
     let freshnote = new Note();
     currentShelf.NoteList[currentShelf.NoteList.length] = freshnote;
     EditView(freshnote);
-  });
-
-  //add a global event listener to the shelf switcher
-  tShelfList.on("change", (e) => {
-    //strict match the click value with the new shelf tool value to determine if "New shelf" was clicked
-    if (e.target.value == tNewShelf.val()) {
-      ShelfView(currentShelf);
-      dShelfName.one("close", () => {
-        //add an event listener to the popup for closing
-        if(dShelfName[0].returnValue == "yes" && tShelfNameValue != ""){ //as long as it's okay to do so
-          let freshshelf = new Shelf();
-          freshshelf.name = tShelfNameValue.val();
-          
-      vShelfNameTitle.html("");
-      tShelfNameValue.val(""); //clear the input
-          shelflist[shelflist.length] = freshshelf; //add shelf to the list
-          ShelfView(freshshelf); //update and select
-        }
-      });
-      tShelfNameValue.val("");
-      vShelfNameTitle.html("New List");
-      dShelfName.showModal();
-    } else {
-      ShelfView(
-        shelflist.find((s) => {
-          return s.uuid == e.target.value;
-        })
-      ); //find the shelf by uuid and select/render it
-    }
   });
 
   //add a global listener to rename a shelf
@@ -145,14 +125,33 @@ Thanks for using Title!`
   ShelfView(shelflist[0]);
 }
 
+function NewShelf(){
+  ShelfView(currentShelf);
+  dShelfName.one("close", () => {
+    //add an event listener to the popup for closing
+    if(dShelfName[0].returnValue == "yes" && tShelfNameValue != ""){ //as long as it's okay to do so
+      let freshshelf = new Shelf();
+      freshshelf.name = tShelfNameValue.val();
+      
+      vShelfNameTitle.html("");
+      tShelfNameValue.val(""); //clear the input
+      shelflist[shelflist.length] = freshshelf; //add shelf to the list
+      ShelfView(freshshelf); //update and select
+    }
+  });
+  tShelfNameValue.val("");
+  vShelfNameTitle.html("New List");
+  dShelfName.showModal();
+}
+
 function UpdateShelves(shelftoset) {
   //re-renders the shelf dialog and selects the desired shelf object in the list
   //also autosaves the shelflist because safari is acting up
 
-  tShelfList.html(""); //clear it
+  tShelfMenu.html(""); //clear it
 
   shelflist.forEach((s) => { //add the shelves currently in our collection
-    tShelfList.append($(`<option value="${s.uuid}" id="${s.uuid}">${s.name}</option>`));
+    tShelfMenu.append($(`<li><button class="dropdown-item" id="${s.uuid}" onclick="ShelfView(shelflist.find((s) => { return s.uuid == '${s.uuid}' }))">${s.name}</button></li>`));
   });
 
   if(shelflist.length <= 1){ //disable the delete option 
@@ -161,7 +160,11 @@ function UpdateShelves(shelftoset) {
     tDeleteShelf.removeAttr('disabled');
   }
 
-  tShelfList.append(tNewShelf); //add the newshelf entry
+  tShelfMenu.append(lNewShelf); //add the newshelf entry
+  tNewShelf.on('click', () => { //reattatch event
+    console.log("event fire")
+    NewShelf()
+  })
   $(`#${shelftoset.uuid}`).prop('selected', 'true');
   currentShelf = shelftoset; //update global currentshelf
   window.localStorage.setItem("TitleStoredShelves", JSON.stringify(shelflist));
@@ -170,6 +173,7 @@ function UpdateShelves(shelftoset) {
 
 function ShelfView(shelf) {  //transitions to list note view using the current shelf
   
+  tShelfListOuter.html((shelf.name == undefined ? "Untitled List" : shelf.name))
   document.title = (shelf.name == undefined ? "Untitled List" : shelf.name);
 
   UpdateShelves(shelf);
@@ -189,7 +193,7 @@ function ShelfView(shelf) {  //transitions to list note view using the current s
   });
 
   //Alter the visibility of UI elements
-  tShelfList.removeAttr("disabled");
+  tShelfList.css("display", "block");
   tNewNote.css("display", "block");
   tRenameShelf.css("display", "block");
   tDeleteShelf.css("display", "block");
@@ -235,7 +239,7 @@ function EditView(note) {  //transitions to editing view with a given note ref
   });
 
   //Alter the visibility of UI elements
-  tShelfList.attr("disabled", "");
+  tShelfList.css("display", "none");
   tNewNote.css("display", "none");
   tRenameShelf.css("display", "none");
   tDeleteShelf.css("display", "none");
