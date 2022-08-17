@@ -58,6 +58,9 @@ dialog{
     border: solid 1px black;
     border-radius: 6px;
 }
+.toolbutton{
+	font-size: 24px;
+}
 @media screen and (max-width: 600px){
     #toolbar{
         flex-wrap: wrap;
@@ -87,7 +90,4 @@ dialog{
     #list a{
         font-size: 22px;
     }
-    .toolbutton{
-        font-size: 24px;
-    }
-}
+}	
