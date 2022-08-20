@@ -4,6 +4,7 @@
 #page{
     margin: 8px;
     padding-top: 50px;
+    overflow-y: scroll;
 }
 hr{
     margin: 8px !important;
@@ -13,6 +14,7 @@ hr{
     align-content: flex-end;
     gap: 8px;
     padding: 8px;
+    background-color: white;
 }
 #toolbar{
     display: flex;
