@@ -55,7 +55,6 @@ Thanks for using Title!`
   this.tShelfList = $("#tShelfList");
   this.tShelfListOuter = $('#tShelfListOuter')
   this.tShelfMenu = $("#shelfmenu");
-  this.lNewShelf = $("#lNewShelf");
   this.tNewShelf = $("#tNewShelf");
   this.vEditor = $("#editor");
   this.vList = $("#list");
@@ -85,6 +84,26 @@ Thanks for using Title!`
     ShelfView(currentShelf);
   })
 
+   //add a global listener to add a new shelf
+  tNewShelf.on('click', () => {
+    ShelfView(currentShelf);
+    dShelfName.one("close", () => {
+      //add an event listener to the popup for closing
+      if(dShelfName[0].returnValue == "yes" && tShelfNameValue != ""){ //as long as it's okay to do so
+        let freshshelf = new Shelf();
+        freshshelf.name = tShelfNameValue.val();
+        
+        vShelfNameTitle.html("");
+        tShelfNameValue.val(""); //clear the input
+        shelflist[shelflist.length] = freshshelf; //add shelf to the list
+        ShelfView(freshshelf); //update and select
+      }
+    });
+    tShelfNameValue.val("");
+    vShelfNameTitle.html("New List");
+    dShelfName.showModal();
+  })
+
   //add the global listener to make a new note
   tNewNote.on("click", () => {
     let freshnote = new Note();
@@ -103,7 +122,7 @@ Thanks for using Title!`
       }
     });
     tShelfNameValue.val(currentShelf.name); //add the current name into the box to edit
-          vShelfNameTitle.html(currentShelf.name);
+    vShelfNameTitle.html(currentShelf.name);
     dShelfName.showModal();
   })
 
@@ -125,25 +144,6 @@ Thanks for using Title!`
   ShelfView(shelflist[0]);
 }
 
-function NewShelf(){
-  ShelfView(currentShelf);
-  dShelfName.one("close", () => {
-    //add an event listener to the popup for closing
-    if(dShelfName[0].returnValue == "yes" && tShelfNameValue != ""){ //as long as it's okay to do so
-      let freshshelf = new Shelf();
-      freshshelf.name = tShelfNameValue.val();
-      
-      vShelfNameTitle.html("");
-      tShelfNameValue.val(""); //clear the input
-      shelflist[shelflist.length] = freshshelf; //add shelf to the list
-      ShelfView(freshshelf); //update and select
-    }
-  });
-  tShelfNameValue.val("");
-  vShelfNameTitle.html("New List");
-  dShelfName.showModal();
-}
-
 function UpdateShelves(shelftoset) {
   //re-renders the shelf dialog and selects the desired shelf object in the list
   //also autosaves the shelflist because safari is acting up
@@ -160,35 +160,42 @@ function UpdateShelves(shelftoset) {
     tDeleteShelf.removeAttr('disabled');
   }
 
-  tShelfMenu.append(lNewShelf); //add the newshelf entry
-  tNewShelf.on('click', () => { //reattatch event
-    console.log("event fire")
-    NewShelf()
-  })
   $(`#${shelftoset.uuid}`).prop('selected', 'true');
   currentShelf = shelftoset; //update global currentshelf
   window.localStorage.setItem("TitleStoredShelves", JSON.stringify(shelflist));
 
 }
 
+function UpdateNotes(shelf){
+
+}
+
 function ShelfView(shelf) {  //transitions to list note view using the current shelf
   
-  tShelfListOuter.html((shelf.name == undefined ? "Untitled List" : shelf.name))
-  document.title = (shelf.name == undefined ? "Untitled List" : shelf.name);
+  tShelfListOuter.html((shelf.name == undefined ? "Untitled List" : shelf.name)); //set the shelf name in the dropdown
+  document.title = (shelf.name == undefined ? "Untitled List" : shelf.name); //set the shelf name in the page title
 
-  UpdateShelves(shelf);
+  UpdateShelves(shelf); //update the shelf dropdown with current info
 
   //Clear and re-render the note list
   vList.html("");
 
   //show a notice if there are no notes in the shelf
   if (shelf.NoteList.length == 0) {
-    $(`<p>No Notes, click <span class="material-icons">post_add</span> to add one!</p>`).appendTo(vList);
+    $(`<p>No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`).appendTo(vList);
   }
 
   //add the notes from the shelf to the list
   shelf.NoteList.forEach((note) => {
-    $(`<a href="#">${(note.name == "" ? "Untitled Note" : note.name)}</a>`).on("click", (e) => {this.EditView(note);}).appendTo(this.vList);
+    $(`
+    
+    <div class="card notecard" style="max-height: 250px">
+    <div class="card-body">
+      <h5 class="card-title">${(note.name == "" ? "Untitled Note" : note.name)}</h5>
+      <div class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${note.content}</div>
+      </div>
+    </div> 
+    `).on("click", (e) => {this.EditView(note);}).appendTo(this.vList);
     $('<br>').appendTo(this.vList);
   });
 
@@ -197,6 +204,7 @@ function ShelfView(shelf) {  //transitions to list note view using the current s
   tNewNote.css("display", "block");
   tRenameShelf.css("display", "block");
   tDeleteShelf.css("display", "block");
+  tNewShelf.css("display", "block");
   tDelete.css("display", "none");
   vList.css("display", "block");
   tClose.css("display", "none");
@@ -243,6 +251,7 @@ function EditView(note) {  //transitions to editing view with a given note ref
   tNewNote.css("display", "none");
   tRenameShelf.css("display", "none");
   tDeleteShelf.css("display", "none");
+  tNewShelf.css("display", "none");
   tDelete.css("display", "block");
   vList.css("display", "none");
   tClose.css("display", "block");
