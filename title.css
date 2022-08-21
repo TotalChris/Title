@@ -13,10 +13,12 @@
 }
 #doccolor::-webkit-color-swatch-wrapper {
     padding: 0; 
+    -webkit-appearance: none;
 }
 #doccolor::-webkit-color-swatch {
     border: none;
     border-radius: 50%;
+    -webkit-appearance: none;
 }
 #list, #editor, #tClose, #tDelete{
     display: none;
