@@ -4,11 +4,11 @@
 }
 #doccolor{
     border-radius: 50%;
-    height: 40px;
-    width: 40px;
     border: none;
     outline: none;
     padding: 0px;
+    height: 24px;
+    width: 24px;
     -webkit-appearance: none;
 }
 #doccolor::-webkit-color-swatch-wrapper {
@@ -22,6 +22,9 @@
 }
 #list, #editor, #tClose, #tDelete{
     display: none;
+}
+#tDelete, #tNoteColor{
+    align-self: flex-end;
 }
 #page{
     margin: 8px;
@@ -92,11 +95,8 @@ hr{
 #shelflist:disabled{
     color: #999999;
 }
-#colorpickerbutton{
-    height: 60px;
-    width: 60px !important;
-    padding: 8px !important;
-    border: 1px solid #ced4da;
+#tNoteColor{
+
 }
 #docheader{
     display: flex;
@@ -163,7 +163,7 @@ dialog{
     p, #doc, #shelflist, dialog input, dialog button {
         font-size: 20px;
     }
-    #tNewNote, #tClose, #tDelete{
+    #tNewNote, #tClose, #tDelete, #tNoteColor{
         width: -webkit-fill-available;
     }
     #tShelfListOuter, #tShelfList{
