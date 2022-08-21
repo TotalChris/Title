@@ -24,6 +24,9 @@
             <div id="tools">            
               <button id="tNewNote" class="btn btn-outline-dark toolbutton"><i class="bi bi-file-earmark-plus"></i></button>
               <button id="tClose" class="btn btn-outline-dark toolbutton"><i class="bi bi-caret-left-fill"></i></button>
+              <button class="btn toolbutton" id="tNoteColor" onclick="this.children[0].click()">
+                <input type="color" id="doccolor">
+              </button>
               <button id="tDelete" class="btn btn-outline-danger toolbutton"><i class="bi bi-trash-fill"></i></button>
             </div>
         </div>
@@ -33,9 +36,6 @@
             <div id="editor">
                 <div id="docheader">
                   <input type="text" id="docname" placeholder="Title" class="form-control">
-                  <button class="btn" id="colorpickerbutton" onclick="this.children[0].click()">
-                    <input type="color" id="doccolor">
-                  </button>
                 </div>
                 <textarea id="doc" placeholder="Note" class="form-control"></textarea>
             </div>

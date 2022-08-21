@@ -46,7 +46,7 @@ Title stores your notes in your web browser's local storage when you leave the a
 Title's core functionality was made in a single day, and the few big changes since then have been bug fixes and code cleanup. Title adopts a minimalist webpage style, meaning that the UI loads instantly with no lag or overhead.
     
 Thanks for using Title!`;
-    this.loneshelf.NoteList[0].color = "#000000";
+    this.loneshelf.NoteList[0].color = "#B92D5D";
     shelflist[0] = loneshelf;
   } else {
     stored.forEach((l) => {
@@ -55,6 +55,7 @@ Thanks for using Title!`;
   }
 
   //associate element references
+  this.tHeader = $("#header");
   this.tShelfNameValue = $("#tShelfNameValue");
   this.dShelfName = $("#dShelfName");
   this.dDeleteShelf = $("#dDeleteShelf");
@@ -94,6 +95,10 @@ Thanks for using Title!`;
   tLogo.on("click", () => {
     ShelfView(currentShelf);
   });
+
+  $("#doccolor").on("input", () => {
+    $("#tNoteColor").css("border-color", $("#doccolor").val())
+  })
 
   //add a global listener to add a new shelf
   tNewShelf.on("click", () => {
@@ -240,6 +245,9 @@ function ShelfView(shelf) {
   vList.css("display", "block");
   tClose.css("display", "none");
   vEditor.css("display", "none");
+  tHeader.css("width", "100%");
+  $("#tNoteColor").css("display", "none");
+
 }
 
 function EditView(note) {
@@ -248,7 +256,8 @@ function EditView(note) {
   //avoid 'undefined' in new or empty notes
   $("#docname").val(note.name == undefined ? "" : note.name);
   $("#doc").val(note.content == undefined ? "" : note.content);
-  $("#doccolor").val(note.color);
+  $("#doccolor").val(note.color == undefined ? "#000000" : note.color);
+  $("#tNoteColor").css("border-color", $("#doccolor").val())
   document.title = note.name == undefined ? "Untitled Note" : note.name;
 
   //remove old event listeners from tool buttons to prevent cross-deletion
@@ -287,4 +296,7 @@ function EditView(note) {
   vList.css("display", "none");
   tClose.css("display", "block");
   vEditor.css("display", "block");
+  tHeader.css("width", "auto");
+  $("#tNoteColor").css("display", "block");
+  
 }
