@@ -1,10 +1,13 @@
+:root{
+    overflow-y: hidden;
+}
 #list, #editor, #tClose, #tDelete{
     display: none;
 }
 #page{
     margin: 8px;
-    padding-top: 50px;
     overflow-y: scroll;
+    height: calc(100% - 70px);
 }
 hr{
     margin: 8px !important;
@@ -17,10 +20,8 @@ hr{
     background-color: white;
 }
 #toolbar{
+    position: relative;
     display: flex;
-    position: fixed;
-    top: 0px;
-    left: 0px;
     z-index: 1;
     width: -webkit-fill-available;
 }
@@ -55,7 +56,7 @@ hr{
     color: #999999;
 }
 #docname{
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 500;
 }
 #doc, #docname {
@@ -64,10 +65,6 @@ hr{
 #doc{
     height: 70%;
     margin-top: 8px;
-}
-#docname{
-    font-size: 24px;
-    font-weight: 500;
 }
 input{
     margin-bottom: 5px;
@@ -82,6 +79,9 @@ dialog{
 .notecard{
     width: auto;
     margin-inline: 15%;
+    cursor: pointer;
+    user-select: none;
+    --bs-card-border-color: black !important;
 }
 @media screen and (max-width: 600px){
     #toolbar{
@@ -102,14 +102,11 @@ dialog{
         background-color: white;
     }
     #header{
-        position: fixed;
-        top: 0px;
-        left: 0px;
     }
     #tRenameShelf, #tDeleteShelf{
         font-size: 20px;
     }
-    p, #doc, #docname, #shelflist, dialog input, dialog button {
+    p, #doc, #shelflist, dialog input, dialog button {
         font-size: 20px;
     }
     #tNewNote, #tClose, #tDelete{
@@ -121,6 +118,9 @@ dialog{
     }
     #list a{
         font-size: 22px;
+    }
+    #page{
+        height: calc(100% - 144px);
     }
     .notecard{
         width: 100%;
