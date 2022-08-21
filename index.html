@@ -31,7 +31,12 @@
             <div id="list">
             </div>
             <div id="editor">
-                <input type="text" id="docname" placeholder="Title" class="form-control">
+                <div id="docheader">
+                  <button class="btn" id="colorpickerbutton" onclick="this.children[0].click()">
+                    <input type="color" id="doccolor">
+                  </button>
+                  <input type="text" id="docname" placeholder="Title" class="form-control">
+                </div>
                 <textarea id="doc" placeholder="Note" class="form-control"></textarea>
             </div>
         </div>

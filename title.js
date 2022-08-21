@@ -1,8 +1,9 @@
 class Note {
   //definition of a note, a two-component document with a title and content
-  constructor(name, content) {
+  constructor(name, content, color) {
     this.name = name;
     this.content = content;
+    this.color = color;
     this.uuid = crypto.randomUUID();
   }
 }
@@ -45,6 +46,7 @@ Title stores your notes in your web browser's local storage when you leave the a
 Title's core functionality was made in a single day, and the few big changes since then have been bug fixes and code cleanup. Title adopts a minimalist webpage style, meaning that the UI loads instantly with no lag or overhead.
     
 Thanks for using Title!`;
+    this.loneshelf.NoteList[0].color = "#000000";
     shelflist[0] = loneshelf;
   } else {
     stored.forEach((l) => {
@@ -213,7 +215,7 @@ function ShelfView(shelf) {
   shelf.NoteList.forEach((note) => {
     $(`
     
-    <div class="card notecard" style="max-height: 250px">
+    <div class="card notecard" style="max-height: 250px; color: ${note.color}; border-color: ${note.color};">
     <div class="card-body">
       <h5 class="card-title">${
         note.name == "" ? "Untitled Note" : note.name
@@ -246,6 +248,7 @@ function EditView(note) {
   //avoid 'undefined' in new or empty notes
   $("#docname").val(note.name == undefined ? "" : note.name);
   $("#doc").val(note.content == undefined ? "" : note.content);
+  $("#doccolor").val(note.color);
   document.title = note.name == undefined ? "Untitled Note" : note.name;
 
   //remove old event listeners from tool buttons to prevent cross-deletion
@@ -259,7 +262,9 @@ function EditView(note) {
     } else {
       note.name = $("#docname").val();
       note.content = $("#doc").val();
+      note.color = $("#doccolor").val();
     }
+    $("#doccolor").val("#000000");
     $("#docname").val("");
     $("#doc").val("");
     ShelfView(currentShelf);
@@ -268,6 +273,7 @@ function EditView(note) {
   //Add the one-time delete function to the delete button
   tDelete.one("click", () => {
     currentShelf.NoteList.splice(currentShelf.NoteList.indexOf(note), 1);
+    $("#doccolor").val("#000000");
     $("#docname").val("");
     $("#doc").val("");
     ShelfView(currentShelf);
