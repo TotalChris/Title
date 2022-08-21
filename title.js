@@ -46,7 +46,7 @@ Title stores your notes in your web browser's local storage when you leave the a
 Title's core functionality was made in a single day, and the few big changes since then have been bug fixes and code cleanup. Title adopts a minimalist webpage style, meaning that the UI loads instantly with no lag or overhead.
     
 Thanks for using Title!`;
-    this.loneshelf.NoteList[0].color = "#000000";
+    this.loneshelf.NoteList[0].color = "#B92D5D";
     shelflist[0] = loneshelf;
   } else {
     stored.forEach((l) => {
