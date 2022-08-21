@@ -135,8 +135,8 @@ function RenameShelf(shelf){
       ShelfView(shelf); //update and select
     }
   });
-  tShelfNameValue.val(currentShelf.name); //add the current name into the box to edit
-  vShelfNameTitle.html(currentShelf.name);
+  tShelfNameValue.val(shelf.name); //add the current name into the box to edit
+  vShelfNameTitle.html(shelf.name);
   dShelfName.showModal();
 }
 
@@ -149,7 +149,7 @@ function DeleteShelf(shelf){
       vDeleteShelfTitle.html("");
     }
   });
-  vDeleteShelfTitle.html(currentShelf.name);
+  vDeleteShelfTitle.html(shelf.name);
   dDeleteShelf.showModal();
 }
 
