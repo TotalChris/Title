@@ -95,9 +95,6 @@ hr{
 #shelflist:disabled{
     color: #999999;
 }
-#tNoteColor{
-
-}
 #docheader{
     display: flex;
     gap: 8px;
