@@ -1,0 +1,14 @@
+[
+  {
+    "notes": [
+      {
+        "name": "Welcome to Title!",
+        "content": "This is a simple note in Title! It's a tiny web application that anyone can download and install on their phone, tablet, computer, and more! It has simple controls to create plaintext notes and separate them into lists. \n\nTitle stores your notes in your web browser's local storage when you leave the app, meaning that everything you make here stays on the device you're using and is never shared with third parties or apps. This does also mean that each device and web browser you use will have separate notes and lists, but for a small app that's not a terrible thing!\n    \nTitle's core functionality was made in a single day, and the few big changes since then have been bug fixes and code cleanup. Title adopts a minimalist webpage style, meaning that the UI loads instantly with no lag or overhead.\n    \nThanks for using Title!",
+        "uuid": "474c084b-2620-4dc3-8efd-95616ae29bf9",
+        "color": "#B92D5D"
+      }
+    ],
+    "name": "Notes",
+    "uuid": "0b5cfdf0-fd7b-4803-837f-eed7f65c4026"
+  }
+]

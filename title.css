@@ -20,9 +20,6 @@
     border-radius: 50%;
     -webkit-appearance: none;
 }
-#list, #editor, #tClose, #tDelete{
-    display: none;
-}
 #tDelete, #tNoteColor{
     align-self: flex-end;
 }
@@ -129,6 +126,7 @@ dialog{
     font-size: 24px;
 }
 .notecard{
+    max-height: 250px; 
     width: auto;
     margin-inline: 15%;
     margin-bottom: 8px;
@@ -136,6 +134,55 @@ dialog{
     user-select: none;
     --bs-card-border-color: black !important;
 }
+
+.card-text{
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+body[activeview="edit"] #list, 
+body[activeview="edit"] #tNewShelf, 
+body[activeview="edit"] #tNewNote, 
+body[activeview="edit"] #tShelfList{
+    display: none;
+}
+
+body[activeview="edit"] #tDelete, 
+body[activeview="edit"] #tClose, 
+body[activeview="edit"] #editor,
+body[activeview="edit"] #tNoteColor {
+    display: block;
+}
+
+body[activeview="edit"] #header{
+    width: auto;
+}
+
+body[activeview="list"] #list, 
+body[activeview="list"] #tNewShelf, 
+body[activeview="list"] #tNewNote, 
+body[activeview="list"] #tShelfList{
+    display: block;
+}
+
+body[activeview="list"] #tClose, 
+body[activeview="list"] #tDelete, 
+body[activeview="list"] #editor,
+body[activeview="list"] #tNoteColor {
+    display: none;
+}
+
+body[activeview="list"] #header{
+    width: 100%;
+}
+
+
+
+
+
+
+
 @media screen and (max-width: 600px){
     #toolbar{
         flex-wrap: wrap;
