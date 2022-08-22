@@ -176,6 +176,11 @@ class App {
           </button>
         </li>
         `));
+        if (this.lists.length <= 1) {
+          $('.shelfop-delete').css('display', 'none');
+        } else {
+          $('.shelfop-delete').css('display', 'inline-block');
+        }
       }
     });
 
