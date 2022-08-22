@@ -112,7 +112,9 @@ class App {
     });
 
     // register autosave-on-close listener
-    window.addEventListener('beforeunload', () => { this.close("TitleStoredShelves") });
+    document.addEventListener('visibilitychange', () => {
+      this.close("TitleStoredShelves");
+    });
 
     if(this.lists == undefined || this.activeList == undefined){
       this.open('TitleStoredShelves').then(() => {this.viewList(this.lists[0]);});
