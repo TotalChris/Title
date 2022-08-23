@@ -121,7 +121,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("dep/application/sw.js")
+            .register("sw.js")
             .then(() => console.log("Ready"))
             .catch(() => console.log("Error"));
         });
