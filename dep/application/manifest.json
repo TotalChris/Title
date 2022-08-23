@@ -1,0 +1,22 @@
+{
+  "short_name": "Title",
+  "name": "Title Notes",
+  "icons": [
+    {
+      "src": "../../img/ic192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "../../img/ic512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "../../index.html",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#ffffff",
+  "description": "Take notes in your browser with this tiny app"
+}
