@@ -9,9 +9,11 @@ class Note {
 
 class Shelf {
   // definition of a shelf, an array collection of notes.
-  constructor(name, notes) {
+  constructor(name, notes, color, icon) {
     this.notes = (notes == undefined ? [] : notes);
     this.name = (name == undefined ? "Untitled" : name);
+    this.color = (color == undefined ? "#000000" : color);
+    this.icon = (icon == undefined ? "bi-list-ul" : icon)
     this.uuid = crypto.randomUUID();
   }
 }
@@ -38,7 +40,8 @@ class App {
       newNote : $('#tNewNote'),
       deleteNote : $('#tDelete'),
       closeNote : $('#tClose'),
-      noteColor : $('#tNoteColor')
+      noteColor : $('#tNoteColor'),
+      listColor : $('#tListColor'),
     }
 
     this.dialog = { //dialogs
@@ -50,7 +53,8 @@ class App {
       listName : $('#iListName'),
       noteName : $('#docname'),
       noteColor : $('#doccolor'),
-      noteContent : $('#doc')
+      noteContent : $('#doc'),
+      listColor : $('#iListColor'),
     }
 
     this.component =  { //UI elements, headers, paragraphs, etc.
@@ -68,8 +72,12 @@ class App {
 
     //add a tiny listener to match the color button border to the colorpicker
     this.input.noteColor.on('input', () => {
-      $('#tNoteColor').css('border-color', this.input.noteColor.val());
+      this.tool.noteColor.css('border-color', this.input.noteColor.val());
     });
+
+    this.input.listColor.on('input', () => {
+      this.tool.listColor.css('border-color', this.input.listColor.val());
+    })
 
     // add a global listener to add a new shelf
     this.tool.newList.on('click', () => { 
@@ -130,13 +138,13 @@ class App {
     retrieved.forEach((l) => { this.lists.push(l) });
 
     this.component.listSelector.html('');
-    this.lists.forEach((s) => { 
+    this.lists.forEach((l) => { 
       this.component.listSelector.append($(`
-      <li class="notelist-item" uuid="${s.uuid}">
-        <button class="dropdown-item shelf-name" id="${s.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${s.uuid}' }))">
-          <div>${s.name}<div>
-          <button class="dropdown-item shelf-option"><i class="bi bi-input-cursor-text" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${s.uuid}' }))"></i></button>
-          <button class="dropdown-item shelf-option text-danger shelfop-delete"><i class="bi bi-trash-fill" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${s.uuid}' }))"></i></button>
+      <li class="notelist-item" uuid="${l.uuid}">
+        <button class="dropdown-item shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+          <div style="color: ${l.color};">${l.name}<div>
+          <button class="dropdown-item shelf-option"><i class="bi bi-three-dots" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
+          <button class="dropdown-item shelf-option text-danger shelfop-delete"><i class="bi bi-trash-fill" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
         </button>
       </li>
       `));
@@ -158,24 +166,24 @@ class App {
     this.dialog.rename.one('close', () => {
       if (this.dialog.rename[0].returnValue == 'yes') {
 
-        console.log(this.input.listName.val())
-        let len = this.lists.push(new Shelf(this.input.listName.val(), []));
+        let len = this.lists.push(new Shelf(this.input.listName.val(), [], this.input.listColor.val()));
         let l = this.lists[len - 1];
         this.viewList(l);
 
         this.component.renameHeader.html('');
         this.input.listName.val('');
-
+        this.input.listColor.val('#000000');
 
         this.component.listSelector.append($(`
         <li class="notelist-item" uuid="${l.uuid}">
           <button class="dropdown-item shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-            <div>${l.name}<div>
-            <button class="dropdown-item shelf-option"><i class="bi bi-input-cursor-text" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
+            <div style="color: ${l.color};">${l.name}<div>
+            <button class="dropdown-item shelf-option"><i class="bi bi-three-dots" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
             <button class="dropdown-item shelf-option text-danger shelfop-delete"><i class="bi bi-trash-fill" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
           </button>
         </li>
         `));
+
         if (this.lists.length <= 1) {
           $('.shelfop-delete').css('display', 'none');
         } else {
@@ -185,6 +193,8 @@ class App {
     });
 
     this.input.listName.val('');
+    this.input.listColor.val('#000000');
+    this.tool.listColor.css('border-color', '#000000');
     this.component.renameHeader.html('New List');
 
     this.dialog.rename.showModal();
@@ -195,18 +205,24 @@ class App {
       if (this.dialog.rename[0].returnValue == 'yes') {
 
         list.name = this.input.listName.val();
+        list.color = this.input.listColor.val();
         this.viewList(list);
 
         this.component.renameHeader.html('');
         this.input.listName.val('');
+        this.input.listColor.val('#000000');
+        this.tool.listColor.css('border-color', '#000000');
+
         $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(list.name);
-        this.component.listHeader.html(list.name);
+        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).css('color', list.color);
 
       }
     });
 
     this.input.listName.val(list.name);
-    this.component.renameHeader.html(list.name);
+    this.input.listColor.val(list.color);
+    this.tool.listColor.css('border-color', list.color);
+    this.component.renameHeader.html('Edit List');
 
     this.dialog.rename.showModal();
   }
@@ -236,7 +252,7 @@ class App {
 
   createNote(list){
     let l = (list == undefined ? this.activeList : list)
-    let len = l.notes.push(new Note());
+    let len = l.notes.push(new Note('', '', l.color));
     let n = l.notes[len - 1]
     this.viewNote(n);
     $(`
@@ -279,10 +295,12 @@ class App {
     $('body').attr('activeView', 'list');
     this.activeNote = undefined;
     document.title = (list.name == undefined ? 'Untitled List' : list.name);
+    this.component.listHeader.html(list.name == undefined ? 'Untitled List' : list.name);
+    this.component.listHeader.css('color', list.color);
+    this.component.listHeader.css('border-color', list.color);
 
     if(this.activeList == undefined || list != this.activeList){
       this.activeList = list;
-      this.component.listHeader.html(list.name == undefined ? 'Untitled List' : list.name);
       this.component.noteList.html('');
   
       if (list.notes.length == 0) {

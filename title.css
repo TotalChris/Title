@@ -2,7 +2,18 @@
     overflow-y: hidden;
     overscroll-behavior-y: none;
 }
-#doccolor{
+
+#iListName{
+    display: inline-block;
+    width: auto !important;
+    height: 44px;
+}
+#cListInfo{
+    display: flex;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+#doccolor, #iListColor{
     border-radius: 50%;
     border: none;
     outline: none;
@@ -11,11 +22,11 @@
     width: 24px;
     -webkit-appearance: none;
 }
-#doccolor::-webkit-color-swatch-wrapper {
+#doccolor::-webkit-color-swatch-wrapper, #iListColor::-webkit-color-swatch-wrapper {
     padding: 0; 
     -webkit-appearance: none;
 }
-#doccolor::-webkit-color-swatch {
+#doccolor::-webkit-color-swatch, #iListColor::-webkit-color-swatch {
     border: none;
     border-radius: 50%;
     -webkit-appearance: none;

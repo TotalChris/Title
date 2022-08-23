@@ -14,7 +14,7 @@
             <div id="header">
               <img src="img/ic512.png" id="logo">       
               <div class="dropdown" id="tShelfList">
-                <button class="btn dropdown-toggle btn-outline-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="tShelfListOuter">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="tShelfListOuter">
                   Dropdown
                 </button>
                 <ul class="dropdown-menu w-100" id="shelfmenu"></ul>
@@ -42,10 +42,13 @@
         </div>
         <dialog id="dShelfName">
         <h2 id="cRenameHeader"></h2>
-            <p>Enter a new list name:</p>
             <form method="dialog" id="fShelfName">
-              <input type="text" id="iListName" placeholder="Name" class="form-control">
-              <br>
+              <div id="cListInfo">              
+                <input type="text" id="iListName" placeholder="Name" class="form-control">
+                <button class="btn toolbutton" type="button" id="tListColor" onclick="this.children[0].click()">
+                  <input type="color" id="iListColor">
+                </button>
+              </div>
               <button value="no" type="button" id="tCancelShelfName" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i>&nbsp;Cancel</button>
               <button value="yes" type="submit" class="btn btn-outline-dark"><i class="bi bi-check-circle"></i>&nbsp;Submit</button>
             </form>
