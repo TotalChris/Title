@@ -99,7 +99,6 @@ class App {
 
     // add the global listener to delete the active note
     this.tool.deleteNote.on("click", () => {
-      console.log("deleting note")
       this.deleteNote(this.activeNote, this.activeList);
 
       this.input.noteName.val("");
@@ -207,7 +206,6 @@ class App {
   }
 
   renameList(list) {
-    console.log("rename event begins");
     this.view.rename.one("close", () => {
       if (this.view.rename[0].returnValue == "yes") {
         list.name = this.input.listName.val();
@@ -215,6 +213,7 @@ class App {
         list.notes.forEach((n) => {
           n.color = this.input.listColor.val();
           $(`.notecard[uuid=${n.uuid}]`).attr("style", `color: ${n.color}; border-color: ${n.color};`);
+          $(`.notecard[uuid=${n.uuid}] input.tNoteStatus`).attr("style", `color: ${n.color}; border-color: ${n.color};`);
         });
         this.viewList(list);
 
@@ -223,13 +222,8 @@ class App {
         this.input.listColor.val("#000000");
         this.tool.listColor.css("border-color", "#000000");
 
-        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(
-          list.name
-        );
-        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).css(
-          "color",
-          list.color
-        );
+        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(list.name);
+        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).css("color", list.color);
       }
     });
 
