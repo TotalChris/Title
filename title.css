@@ -1,19 +1,22 @@
-:root{
+:root {
     overflow-y: hidden;
     overscroll-behavior-y: none;
 }
 
-#iListName{
+#iListName {
     display: inline-block;
     width: auto !important;
     height: 44px;
 }
-#cListInfo{
+
+#cListInfo {
     display: flex;
     margin-bottom: 8px;
     gap: 8px;
 }
-#doccolor, #iListColor{
+
+#iNoteColor,
+#iListColor {
     border-radius: 50%;
     border: none;
     outline: none;
@@ -22,28 +25,36 @@
     width: 24px;
     -webkit-appearance: none;
 }
-#doccolor::-webkit-color-swatch-wrapper, #iListColor::-webkit-color-swatch-wrapper {
-    padding: 0; 
+
+#iNoteColor::-webkit-color-swatch-wrapper,
+#iListColor::-webkit-color-swatch-wrapper {
+    padding: 0;
     -webkit-appearance: none;
 }
-#doccolor::-webkit-color-swatch, #iListColor::-webkit-color-swatch {
+
+#iNoteColor::-webkit-color-swatch,
+#iListColor::-webkit-color-swatch {
     border: none;
     border-radius: 50%;
     -webkit-appearance: none;
 }
-#tDelete, #tNoteColor{
+
+#tDeleteNote {
     align-self: flex-end;
 }
-#page{
+
+#page {
     margin: 8px;
     margin-top: 0px;
     overflow-y: scroll;
     height: calc(100% - 70px);
 }
-hr{
+
+hr {
     margin: 8px !important;
 }
-#tools{
+
+#tools {
     display: flex;
     align-content: flex-end;
     gap: 8px;
@@ -51,27 +62,32 @@ hr{
     padding-left: 0px;
     background-color: white;
 }
-#toolbar{
+
+#toolbar {
     position: relative;
     display: flex;
     z-index: 1;
     width: -webkit-fill-available;
 }
-.notelist-item{
+
+.notelist-item {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     font-size: 20px;
     height: 36px;
 }
-.shelf-option{
+
+.shelf-option {
     align-self: center;
     height: inherit;
 }
-.shelf-name{
+
+.shelf-name {
     flex-grow: 1;
 }
-#header{
+
+#header {
     display: flex;
     gap: 8px;
     width: 100%;
@@ -80,7 +96,8 @@ hr{
     background-color: white;
     z-index: 1;
 }
-#shelflist{
+
+#shelflist {
     width: -webkit-fill-available;
     color: #000000;
     height: 30px;
@@ -88,56 +105,65 @@ hr{
     outline: none;
     display: none;
 }
-#tShelfList .dropdown-item{
+
+#tShelfList .dropdown-item {
     display: inline-block;
     width: auto;
 }
-#tShelfListOuter, #tShelfList{
+
+#tShelfListOuter,
+#tShelfList {
     width: -webkit-fill-available;
     font-size: 20px;
 }
-#logo{
+
+#logo {
     height: 44px;
     border-radius: 6px;
 }
-#shelflist:disabled{
+
+#shelflist:disabled {
     color: #999999;
 }
-#docheader{
-    display: flex;
-    gap: 8px;
-}
-#docname{
+
+#iNoteName {
     font-size: 30px;
     height: 60px;
     font-weight: 500;
     outline: none;
 }
-#doc{
+
+#iNoteContent {
     outline: none;
     width: 100%;
     height: 70%;
     margin-top: 8px;
 }
-#list p{
+
+#list p {
     font-size: 24px;
 }
-input{
+
+input {
     margin-bottom: 5px;
 }
-dialog{
+
+dialog {
     border: solid 1px black;
     border-radius: 6px;
 }
-.toolbutton{
-	font-size: 24px;
+
+.toolbutton {
+    font-size: 24px;
     height: 44px;
 }
-.toolbutton i{
+
+.toolbutton i {
     font-size: 24px;
 }
-.notecard{
-    max-height: 250px; 
+
+.notecard {
+    max-height: 250px;
     width: auto;
     margin-inline: 15%;
     margin-bottom: 8px;
@@ -146,62 +172,89 @@ dialog{
     --bs-card-border-color: black !important;
 }
 
-.card-text{
-    white-space: nowrap; 
-    overflow: hidden; 
+.card-text {
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
-body[activeview="edit"] #list, 
-body[activeview="edit"] #tNewShelf, 
-body[activeview="edit"] #tNewNote, 
-body[activeview="edit"] #tShelfList{
+body[activeview="edit"] #list,
+body[activeview="edit"] #tNewShelf,
+body[activeview="edit"] #tNewNote,
+body[activeview="edit"] #tShelfList {
     display: none;
 }
 
-body[activeview="edit"] #tDelete, 
-body[activeview="edit"] #tClose, 
-body[activeview="edit"] #editor,
-body[activeview="edit"] #tNoteColor {
+body[activeview="edit"] #tDeleteNote,
+body[activeview="edit"] #tCloseNote,
+body[activeview="edit"] #editor {
     display: block;
 }
 
-body[activeview="edit"] #header{
+body[activeview="edit"] #header {
     width: auto;
 }
 
-body[activeview="list"] #list, 
-body[activeview="list"] #tNewShelf, 
-body[activeview="list"] #tNewNote, 
-body[activeview="list"] #tShelfList{
+body[activeview="list"] #list,
+body[activeview="list"] #tNewShelf,
+body[activeview="list"] #tNewNote,
+body[activeview="list"] #tShelfList {
     display: block;
 }
 
-body[activeview="list"] #tClose, 
-body[activeview="list"] #tDelete, 
-body[activeview="list"] #editor,
-body[activeview="list"] #tNoteColor {
+body[activeview="list"] #tCloseNote,
+body[activeview="list"] #tDeleteNote,
+body[activeview="list"] #editor {
     display: none;
 }
 
-body[activeview="list"] #header{
+body[activeview="list"] #header {
     width: 100%;
+}
+
+.card-title {
+    margin-bottom: 0px !important;
+    font-size: 1.5rem !important;
+    width: calc(100% - 28px);
+    display: inline-flex;
+}
+
+.tNoteStatus {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 2px solid;
+    border-radius: 17px;
+    height: 25px;
+    width: 25px;
+}
+
+.tNoteStatus:checked:after {
+    content: '\F26E';
+    font-size: 20px;
+    font-family: bootstrap-icons;
+    position: relative;
+    top: -3px;
+    left: 0.5px;
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
 }
 
 
 
 
 
-
-
-@media screen and (max-width: 600px){
-    #toolbar{
+@media screen and (max-width: 600px) {
+    #toolbar {
         flex-wrap: wrap;
         position: relative;
-        top:auto;
-        left:auto;
+        top: auto;
+        left: auto;
     }
-    #tools{
+
+    #tools {
         width: -webkit-fill-available;
         display: flex;
         justify-content: space-evenly;
@@ -212,28 +265,43 @@ body[activeview="list"] #header{
         z-index: 1;
         background-color: white;
     }
-    #tRenameShelf, #tDeleteShelf{
+
+    #tRenameShelf,
+    #tDeleteShelf {
         font-size: 20px;
     }
-    p, #doc, #shelflist, dialog input, dialog button {
+
+    p,
+    #iNoteContent,
+    #shelflist,
+    dialog input,
+    dialog button {
         font-size: 20px;
     }
-    #tNewNote, #tClose, #tDelete, #tNoteColor{
+
+    #tNewNote,
+    #tCloseNote,
+    #tDeleteNote {
         width: -webkit-fill-available;
     }
-    #tShelfListOuter, #tShelfList{
+
+    #tShelfListOuter,
+    #tShelfList {
         width: -webkit-fill-available;
         max-width: 100% !important;
     }
-    #list a{
+
+    #list a {
         font-size: 22px;
     }
-    #page{
+
+    #page {
         height: calc(100% - 144px);
     }
-    .notecard{
+
+    .notecard {
         width: 100%;
         margin-inline: 0px;
     }
 
-}	
+}

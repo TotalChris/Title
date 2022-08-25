@@ -3,6 +3,7 @@ class Note {
     this.name = name;
     this.content = content;
     this.color = color;
+    this.completed = false;
     this.uuid = crypto.randomUUID();
   }
 }
@@ -40,24 +41,21 @@ class App {
       logo: $("#logo"),
       newList: $("#tNewShelf"),
       newNote: $("#tNewNote"),
-      deleteNote: $("#tDelete"),
-      closeNote: $("#tClose"),
-      noteColor: $("#tNoteColor"),
+      deleteNote: $("#tDeleteNote"),
+      closeNote: $("#tCloseNote"),
       listColor: $("#tListColor"),
     };
 
-    this.dialog = {
-      //dialogs
-      rename: $("#dShelfName"),
-      delete: $("#dDeleteShelf"),
+    this.view = {
+      rename: $("#vRenameShelf"),
+      delete: $("#vDeleteShelf"),
     };
 
     this.input = {
       //input fields
       listName: $("#iListName"),
-      noteName: $("#docname"),
-      noteColor: $("#doccolor"),
-      noteContent: $("#doc"),
+      noteName: $("#iNoteName"),
+      noteContent: $("#iNoteContent"),
       listColor: $("#iListColor"),
     };
 
@@ -73,11 +71,6 @@ class App {
     // add global listener to go home on logo click
     this.tool.logo.on("click", () => {
       this.viewList(this.activeList);
-    });
-
-    //add a tiny listener to match the color button border to the colorpicker
-    this.input.noteColor.on("input", () => {
-      this.tool.noteColor.css("border-color", this.input.noteColor.val());
     });
 
     this.input.listColor.on("input", () => {
@@ -99,7 +92,6 @@ class App {
       this.saveNote(this.activeNote);
 
       this.input.noteName.val("");
-      this.input.noteColor.val("#000000");
       this.input.noteContent.val("");
 
       this.viewList(this.activeList);
@@ -107,21 +99,13 @@ class App {
 
     // add the global listener to delete the active note
     this.tool.deleteNote.on("click", () => {
+      console.log("deleting note")
       this.deleteNote(this.activeNote, this.activeList);
 
       this.input.noteName.val("");
-      this.input.noteColor.val("#000000");
       this.input.noteContent.val("");
 
       this.viewList(this.activeList);
-    });
-
-    $("#tCancelShelfName").on("click", () => {
-      $("#fShelfName").submit();
-    });
-
-    $("#tCancelDeleteShelf").on("click", () => {
-      $("#fDeleteShelf").submit();
     });
 
     // register autosave-on-close listener
@@ -150,11 +134,15 @@ class App {
     this.lists.forEach((l) => {
       this.component.listSelector.append(
         $(`
-      <li class="notelist-item" uuid="${l.uuid}">
+        <li class="notelist-item" uuid="${l.uuid}">
         <button class="dropdown-item shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
           <div style="color: ${l.color};">${l.name}<div>
-          <button class="dropdown-item shelf-option"><i class="bi bi-three-dots" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
-          <button class="dropdown-item shelf-option text-danger shelfop-delete"><i class="bi bi-trash-fill" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
+          <button class="dropdown-item shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <button class="dropdown-item shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+            <i class="bi bi-trash-fill"></i>
+          </button>
         </button>
       </li>
       `)
@@ -174,8 +162,8 @@ class App {
   }
 
   createList() {
-    this.dialog.rename.one("close", () => {
-      if (this.dialog.rename[0].returnValue == "yes") {
+    this.view.rename.one("close", () => {
+      if (this.view.rename[0].returnValue == "yes") {
         let len = this.lists.push(
           new Shelf(this.input.listName.val(), [], this.input.listColor.val())
         );
@@ -191,8 +179,12 @@ class App {
         <li class="notelist-item" uuid="${l.uuid}">
           <button class="dropdown-item shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <div style="color: ${l.color};">${l.name}<div>
-            <button class="dropdown-item shelf-option"><i class="bi bi-three-dots" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
-            <button class="dropdown-item shelf-option text-danger shelfop-delete"><i class="bi bi-trash-fill" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))"></i></button>
+            <button class="dropdown-item shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+              <i class="bi bi-three-dots"></i>
+            </button>
+            <button class="dropdown-item shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+              <i class="bi bi-trash-fill"></i>
+            </button>
           </button>
         </li>
         `)
@@ -211,14 +203,19 @@ class App {
     this.tool.listColor.css("border-color", "#000000");
     this.component.renameHeader.html("New List");
 
-    this.dialog.rename.showModal();
+    this.view.rename.showModal();
   }
 
   renameList(list) {
-    this.dialog.rename.one("close", () => {
-      if (this.dialog.rename[0].returnValue == "yes") {
+    console.log("rename event begins");
+    this.view.rename.one("close", () => {
+      if (this.view.rename[0].returnValue == "yes") {
         list.name = this.input.listName.val();
         list.color = this.input.listColor.val();
+        list.notes.forEach((n) => {
+          n.color = this.input.listColor.val();
+          $(`.notecard[uuid=${n.uuid}]`).attr("style", `color: ${n.color}; border-color: ${n.color};`);
+        });
         this.viewList(list);
 
         this.component.renameHeader.html("");
@@ -241,12 +238,12 @@ class App {
     this.tool.listColor.css("border-color", list.color);
     this.component.renameHeader.html("Edit List");
 
-    this.dialog.rename.showModal();
+    this.view.rename.showModal();
   }
 
   deleteList(list) {
-    this.dialog.delete.one("close", () => {
-      if (this.dialog.delete[0].returnValue == "yes") {
+    this.view.delete.one("close", () => {
+      if (this.view.delete[0].returnValue == "yes") {
         this.lists.splice(this.lists.indexOf(list), 1);
         this.viewList(this.lists[this.lists.length - 1]);
 
@@ -263,7 +260,7 @@ class App {
 
     this.component.deleteHeader.html(list.name);
 
-    this.dialog.delete.showModal();
+    this.view.delete.showModal();
   }
 
   createNote(list) {
@@ -272,11 +269,13 @@ class App {
     let n = l.notes[len - 1];
     this.viewNote(n);
     $(`
-    <div class="card notecard" uuid="${n.uuid}" style="color: ${
-      n.color
-    }; border-color: ${n.color};">
+    <div class="card notecard" uuid="${n.uuid}" style="color: ${n.color
+      }; border-color: ${n.color};">
     <div class="card-body">
-      <h5 class="card-title">${n.name == "" ? "Untitled Note" : n.name}</h5>
+      <div class="card-heading">
+        <h5 class="card-title">${note.name == "" ? "Untitled Note" : note.name}</h5>
+        <input type="checkbox" class="tNoteStatus" style="border-color: ${note.color}; color: ${note.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
+      </div>
       <div class="card-text">${n.content}</div>
       </div>
     </div> 
@@ -290,9 +289,22 @@ class App {
     }
   }
 
+  getNote(list, uuid) {
+    return list.notes.find((n) => { return n.uuid == uuid });
+  }
+
+  getList(uuid) {
+    return this.lists.find((l) => { return l.uuid == uuid });
+  }
+
+  setNoteStatus(note, status) {
+    status = (status == undefined ? 'false' : status);
+    note.completed = status;
+    $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', (status == true ? 'line-through' : 'none'));
+  }
+
   saveNote(note) {
     note.name = Title.input.noteName.val();
-    note.color = Title.input.noteColor.val();
     note.content = Title.input.noteContent.val();
     //ToDo: alter physical component
     $(`.notecard[uuid=${note.uuid}]`).attr(
@@ -341,13 +353,12 @@ class App {
       } else {
         list.notes.forEach((note) => {
           $(`
-          <div class="card notecard" uuid="${note.uuid}" style="color: ${
-            note.color
-          }; border-color: ${note.color};">
+          <div class="card notecard" uuid="${note.uuid}" style="color: ${note.color}; border-color: ${note.color};">
           <div class="card-body">
-            <h5 class="card-title">${
-              note.name == "" ? "Untitled Note" : note.name
-            }</h5>
+            <div class="card-heading">
+              <h5 class="card-title">${note.name == "" ? "Untitled Note" : note.name}</h5>
+              <input type="checkbox" class="tNoteStatus" style="border-color: ${note.color}; color: ${note.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
+            </div>
             <div class="card-text">${note.content}</div>
             </div>
           </div> 
@@ -356,6 +367,10 @@ class App {
               this.viewNote(note);
             })
             .appendTo(this.component.noteList);
+          if (note.completed == true) {
+            $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', 'line-through');
+            $(`.notecard[uuid=${note.uuid}] .tNoteStatus`).prop('checked', true);
+          }
         });
       }
     }
@@ -367,9 +382,8 @@ class App {
 
     this.input.noteName.val(note.name == undefined ? "" : note.name);
     this.input.noteContent.val(note.content == undefined ? "" : note.content);
-    this.input.noteColor.val(note.color == undefined ? "#000000" : note.color);
-    this.tool.noteColor.css("border-color", this.input.noteColor.val());
     document.title = note.name == undefined ? "Untitled Note" : note.name;
+    this.input.noteName.focus();
   }
 
   close(key) {
