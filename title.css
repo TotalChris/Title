@@ -6,7 +6,7 @@
 #iListName {
     display: inline-block;
     width: auto !important;
-    height: 44px;
+    height: 48px;
 }
 
 #cListInfo {
@@ -149,13 +149,13 @@ input {
 }
 
 dialog {
-    border: solid 1px black;
-    border-radius: 6px;
+    border: solid 3px black;
+    border-radius: 12px;
 }
 
 .toolbutton {
     font-size: 24px;
-    height: 44px;
+    height: 48px;
 }
 
 .toolbutton i {
@@ -163,6 +163,8 @@ dialog {
 }
 
 .notecard {
+    border-width: 3px !important;
+    border-radius: 8px !important;
     max-height: 250px;
     width: auto;
     margin-inline: 15%;
@@ -222,10 +224,16 @@ body[activeview="list"] #header {
 .tNoteStatus {
     -webkit-appearance: none;
     background-color: transparent;
-    border: 2px solid;
+    border: 3px solid;
     border-radius: 17px;
     height: 25px;
     width: 25px;
+}
+
+.btn,
+#iListName {
+    border-width: 3px !important;
+    border-radius: 8px !important;
 }
 
 .tNoteStatus:checked:after {
@@ -233,8 +241,8 @@ body[activeview="list"] #header {
     font-size: 20px;
     font-family: bootstrap-icons;
     position: relative;
-    top: -3px;
-    left: 0.5px;
+    top: -4px;
+    left: -.5px;
 }
 
 .card-heading {
