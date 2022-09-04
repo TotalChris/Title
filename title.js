@@ -32,6 +32,9 @@ class App {
       },
     });
 
+    if ("virtualKeyboard" in navigator) {
+    	navigator.virtualKeyboard.overlaysContent = true;
+    }
     this.lists = lists;
     this.activeList = activeList;
     this.activeNote = activeNote; //only set in editing mode?
@@ -66,6 +69,7 @@ class App {
       listHeader: $("#tShelfListOuter"),
       noteList: $("#list"),
       listSelector: $("#shelfmenu"),
+      tools: $('#tools')
     };
 
     // add global listener to go home on logo click
