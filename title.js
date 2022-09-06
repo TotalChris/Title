@@ -267,7 +267,7 @@ class App {
       }; border-color: ${n.color};">
     <div class="card-body">
       <div class="card-heading">
-        <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph'){ this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent; this.innerHTML = this.textContent;">${n.name == "" ? "" : n.name}</h5>
+        <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
         <input type="checkbox" class="tNoteStatus" style="border-color: ${n.color}; color: ${n.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
       </div>
       <div class="card-text">${n.content}</div>
@@ -307,7 +307,7 @@ class App {
       `color: ${note.color}; border-color: ${note.color};`
     );
     $(`.notecard[uuid=${note.uuid}] h5.card-title`).html(
-      note.name == "" ? "Untitled Note" : note.name
+      note.name == "" ? "" : note.name
     );
     $(`.notecard[uuid=${note.uuid}] div.card-text`).html(note.content);
   }
@@ -351,7 +351,7 @@ class App {
           <div class="card notecard" uuid="${note.uuid}" style="color: ${note.color}; border-color: ${note.color};">
           <div class="card-body">
             <div class="card-heading">
-              <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph'){this.blur();event.preventDefault();this.blur();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent; this.innerHTML = this.textContent;">${note.name == "" ? "Untitled Note" : note.name}</h5>
+              <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
               <input type="checkbox" class="tNoteStatus" style="border-color: ${note.color}; color: ${note.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
             </div>
             <div class="card-text">${note.content}</div>
@@ -377,7 +377,7 @@ class App {
 
     this.input.noteName.val(note.name == undefined ? "" : note.name);
     this.input.noteContent.val(note.content == undefined ? "" : note.content);
-    document.title = note.name == undefined ? "Untitled Note" : note.name;
+    document.title = note.name == undefined ? "" : note.name;
     this.input.noteName.focus();
   }
 
