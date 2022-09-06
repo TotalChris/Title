@@ -267,7 +267,7 @@ class App {
       }; border-color: ${n.color};">
     <div class="card-body">
       <div class="card-heading">
-        <h5 class="card-title">${n.name == "" ? "Untitled Note" : n.name}</h5>
+        <h5 class="card-title" contenteditable="true" onclick="{event.stopPropagation();}" oninput="Title.getNote(Title.activeList, '${note.uuid}').name = this.innerHTML; console.log(this.innerHTML);">${n.name == "" ? "Untitled Note" : n.name}</h5>
         <input type="checkbox" class="tNoteStatus" style="border-color: ${n.color}; color: ${n.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
       </div>
       <div class="card-text">${n.content}</div>
@@ -350,7 +350,7 @@ class App {
           <div class="card notecard" uuid="${note.uuid}" style="color: ${note.color}; border-color: ${note.color};">
           <div class="card-body">
             <div class="card-heading">
-              <h5 class="card-title">${note.name == "" ? "Untitled Note" : note.name}</h5>
+              <h5 class="card-title" contenteditable="true" onclick="{event.stopPropagation();}" oninput="Title.getNote(Title.activeList, '${note.uuid}').name = this.innerHTML; console.log(this.innerHTML);">${note.name == "" ? "Untitled Note" : note.name}</h5>
               <input type="checkbox" class="tNoteStatus" style="border-color: ${note.color}; color: ${note.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
             </div>
             <div class="card-text">${note.content}</div>

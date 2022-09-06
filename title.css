@@ -118,7 +118,7 @@ hr {
 }
 
 #logo {
-    height: 44px;
+    height: 48px;
     border-radius: 6px;
 }
 
@@ -178,6 +178,8 @@ dialog {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: auto;
+    margin-right: 16px;
 }
 
 body[activeview="edit"] #list,
@@ -217,8 +219,10 @@ body[activeview="list"] #header {
 .card-title {
     margin-bottom: 0px !important;
     font-size: 1.5rem !important;
-    width: calc(100% - 28px);
+    width: auto;
+    margin-right: 16px;
     display: inline-flex;
+    outline: none;
 }
 
 .tNoteStatus {
@@ -228,6 +232,7 @@ body[activeview="list"] #header {
     border-radius: 17px;
     height: 25px;
     width: 25px;
+    margin-left: auto;
 }
 
 .btn,
