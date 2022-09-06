@@ -3,6 +3,11 @@
     overscroll-behavior-y: none;
 }
 
+[contenteditable="true"]:empty:not(:focus):before {
+    content: attr(placeholder);
+    color: grey;
+}
+
 #iListName {
     display: inline-block;
     width: auto !important;
