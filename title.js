@@ -343,6 +343,7 @@ class App {
     this.input.noteContent.css("background-color", `${list.color}20`);
     this.input.noteContent.css("border-color", `${list.color}`);
     this.input.noteContent.css("color", `${list.color}`);
+    $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
     $('.notecard').css("background-color", `${list.color}20`);
 
 
@@ -395,6 +396,16 @@ class App {
   close(key) {
     window.localStorage.setItem(key, JSON.stringify(this.lists));
     //any other closing ops
+  }
+
+  hexhelper(hex) {
+    let r = parseInt(hex.substring(1, 3), 16);
+    let g = parseInt(hex.substring(3, 5), 16);
+    let b = parseInt(hex.substring(5, 7), 16);
+    r = Math.ceil(255 - .125 * (255 - r))
+    g = Math.ceil(255 - .125 * (255 - g))
+    b = Math.ceil(255 - .125 * (255 - b))
+    return "#" + r.toString(16) + g.toString(16) + b.toString(16);
   }
 }
 
