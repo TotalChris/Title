@@ -263,11 +263,11 @@ class App {
     let n = l.notes[len - 1];
 
     $(`
-    <div class="card notecard" uuid="${n.uuid}" style="background-color: ${l.color}20; color: ${l.color}; border-color: ${l.color};">
+    <div class="card notecard" uuid="${n.uuid}">
     <div class="card-body">
       <div class="card-heading">
         <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
-        <input type="checkbox" class="tNoteStatus" style="border-color: ${l.color}; color: ${l.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
+        <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
       </div>
       <div class="card-text">${n.content}</div>
       </div>
@@ -334,20 +334,11 @@ class App {
     this.component.listHeader.html(
       list.name == undefined ? "Untitled List" : list.name
     );
-    this.component.listHeader.css("color", list.color);
-    this.component.listHeader.css("border-color", list.color);
-    this.component.listHeader.css("background-color", `${list.color}20`);
-    this.input.noteName.css("background-color", `${list.color}20`);
-    this.input.noteName.css("border-color", `${list.color}`);
-    this.input.noteName.css("color", `${list.color}`);
-    this.input.noteContent.css("background-color", `${list.color}20`);
-    this.input.noteContent.css("border-color", `${list.color}`);
-    this.input.noteContent.css("color", `${list.color}`);
+    document.documentElement.style.setProperty('--fgcolor', `${list.color}`);
+    document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
+    document.documentElement.style.setProperty('--fgcolorpass', `${list.color}20`);
+    document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
     $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
-    $('.notecard').css("background-color", `${list.color}20`);
-
-
-    $('body').css("background-color", `${list.color}20`)
 
     if (this.activeList == undefined || list != this.activeList) {
       this.activeList = list;
@@ -360,11 +351,11 @@ class App {
       } else {
         list.notes.forEach((note) => {
           $(`
-          <div class="card notecard" uuid="${note.uuid}" style="background-color: ${list.color}20; color: ${list.color}; border-color: ${list.color};">
+          <div class="card notecard" uuid="${note.uuid}">
           <div class="card-body">
             <div class="card-heading">
               <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
-              <input type="checkbox" class="tNoteStatus" style="border-color: ${list.color}; color: ${list.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
+              <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
             </div>
             <div class="card-text">${note.content}</div>
             </div>

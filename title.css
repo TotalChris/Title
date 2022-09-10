@@ -3,10 +3,15 @@
 :root {
     overflow-y: hidden;
     overscroll-behavior-y: none;
+    --fgcolor: #000000;
+    --fgcolorpass: #00000020;
+    --fgcolormid: #777777;
+    --bgcolor: #dddddd;
 }
 
 body {
     font-family: 'Inter', sans-serif !important;
+    background-color: var(--fgcolorpass) !important;
 }
 
 [contenteditable="true"]:empty:not(:focus):before {
@@ -127,11 +132,39 @@ hr {
     font-weight: 700;
 }
 
+#tShelfListOuter,
+#iNoteName,
+#iNoteContent,
+.notecard {
+    color: var(--fgcolor) !important;
+    border-color: var(--fgcolor) !important;
+    background-color: var(--fgcolorpass) !important;
+}
+
+#iNoteName::placeholder,
+#iNoteContent::placeholder {
+    color: var(--fgcolormid) !important;
+}
+
+#shelfmenu {
+    color: var(--fgcolor) !important;
+    border-color: var(--fgcolor) !important;
+    background-color: var(--bgcolor) !important;
+    border-width: 3px;
+    border-radius: 12px;
+}
+
+.tNoteStatus {
+    color: var(--fgcolor) !important;
+    border-color: var(--fgcolor) !important;
+}
+
+
 #logo {
     height: 48px;
     border-radius: 12px;
-    border: 3px solid black;
-    background-color: black;
+    border: 3px solid var(--fgcolor);
+    background-color: var(--fgcolorpass);
 }
 
 #shelflist:disabled {
@@ -144,6 +177,8 @@ hr {
     font-weight: 700;
     outline: none !important;
     box-shadow: none !important;
+    border: 3px solid var(--fgcolor);
+    border-radius: 12px;
 }
 
 #iNoteContent {
@@ -153,6 +188,8 @@ hr {
     margin-top: 8px;
     outline: none !important;
     box-shadow: none !important;
+    border: 3px solid var(--fgcolor);
+    border-radius: 12px;
 }
 
 #list p {
@@ -164,17 +201,24 @@ input {
 }
 
 dialog {
-    border: solid 1px black;
+    border: solid 3px black;
     border-radius: 12px;
 }
 
 .toolbutton {
     font-size: 24px;
     height: 48px;
+    border-color: var(--fgcolor) !important;
 }
 
 .toolbutton i {
     font-size: 24px;
+    color: var(--fgcolor);
+    border-color: var(--fgcolor) !important;
+}
+
+.toolbutton:hover {
+    background-color: var(--fgcolorpass) !important;
 }
 
 .notecard {
