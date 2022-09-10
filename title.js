@@ -263,12 +263,11 @@ class App {
     let n = l.notes[len - 1];
 
     $(`
-    <div class="card notecard" uuid="${n.uuid}" style="color: ${n.color
-      }; border-color: ${n.color};">
+    <div class="card notecard" uuid="${n.uuid}" style="background-color: ${l.color}20; color: ${l.color}; border-color: ${l.color};">
     <div class="card-body">
       <div class="card-heading">
-        <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
-        <input type="checkbox" class="tNoteStatus" style="border-color: ${n.color}; color: ${n.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
+        <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
+        <input type="checkbox" class="tNoteStatus" style="border-color: ${l.color}; color: ${l.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
       </div>
       <div class="card-text">${n.content}</div>
       </div>
@@ -296,6 +295,7 @@ class App {
     status = (status == undefined ? 'false' : status);
     note.completed = status;
     $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', (status == true ? 'line-through' : 'none'));
+    $(`.notecard[uuid=${note.uuid}]`).css('opacity', (status == true ? '50%' : '100%'))
   }
 
   saveNote(note) {
@@ -304,7 +304,7 @@ class App {
     //ToDo: alter physical component
     $(`.notecard[uuid=${note.uuid}]`).attr(
       "style",
-      `color: ${note.color}; border-color: ${note.color};`
+      `background-color: ${note.color}20; color: ${note.color}; border-color: ${note.color};`
     );
     $(`.notecard[uuid=${note.uuid}] h5.card-title`).html(
       note.name == "" ? "" : note.name
@@ -336,6 +336,17 @@ class App {
     );
     this.component.listHeader.css("color", list.color);
     this.component.listHeader.css("border-color", list.color);
+    this.component.listHeader.css("background-color", `${list.color}20`);
+    this.input.noteName.css("background-color", `${list.color}20`);
+    this.input.noteName.css("border-color", `${list.color}`);
+    this.input.noteName.css("color", `${list.color}`);
+    this.input.noteContent.css("background-color", `${list.color}20`);
+    this.input.noteContent.css("border-color", `${list.color}`);
+    this.input.noteContent.css("color", `${list.color}`);
+    $('.notecard').css("background-color", `${list.color}20`);
+
+
+    $('body').css("background-color", `${list.color}20`)
 
     if (this.activeList == undefined || list != this.activeList) {
       this.activeList = list;
@@ -348,11 +359,11 @@ class App {
       } else {
         list.notes.forEach((note) => {
           $(`
-          <div class="card notecard" uuid="${note.uuid}" style="color: ${note.color}; border-color: ${note.color};">
+          <div class="card notecard" uuid="${note.uuid}" style="background-color: ${list.color}20; color: ${list.color}; border-color: ${list.color};">
           <div class="card-body">
             <div class="card-heading">
-              <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
-              <input type="checkbox" class="tNoteStatus" style="border-color: ${note.color}; color: ${note.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
+              <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
+              <input type="checkbox" class="tNoteStatus" style="border-color: ${list.color}; color: ${list.color}" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
             </div>
             <div class="card-text">${note.content}</div>
             </div>

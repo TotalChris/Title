@@ -1,11 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap');
+
 :root {
     overflow-y: hidden;
     overscroll-behavior-y: none;
 }
 
+body {
+    font-family: 'Inter', sans-serif !important;
+}
+
 [contenteditable="true"]:empty:not(:focus):before {
     content: attr(placeholder);
-    color: grey;
+    opacity: 50%;
 }
 
 #iListName {
@@ -65,7 +71,6 @@ hr {
     gap: 8px;
     padding: 8px;
     padding-left: 0px;
-    background-color: white;
 }
 
 #toolbar {
@@ -98,7 +103,6 @@ hr {
     width: 100%;
     padding: 8px;
     align-items: center;
-    background-color: white;
     z-index: 1;
 }
 
@@ -120,11 +124,14 @@ hr {
 #tShelfList {
     width: -webkit-fill-available;
     font-size: 20px;
+    font-weight: 700;
 }
 
 #logo {
     height: 48px;
-    border-radius: 6px;
+    border-radius: 12px;
+    border: 3px solid black;
+    background-color: black;
 }
 
 #shelflist:disabled {
@@ -134,8 +141,9 @@ hr {
 #iNoteName {
     font-size: 30px;
     height: 60px;
-    font-weight: 500;
-    outline: none;
+    font-weight: 700;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 #iNoteContent {
@@ -143,6 +151,8 @@ hr {
     width: 100%;
     height: 70%;
     margin-top: 8px;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 #list p {
@@ -154,7 +164,7 @@ input {
 }
 
 dialog {
-    border: solid 3px black;
+    border: solid 1px black;
     border-radius: 12px;
 }
 
@@ -169,7 +179,7 @@ dialog {
 
 .notecard {
     border-width: 3px !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
     max-height: 250px;
     width: auto;
     margin-inline: 15%;
@@ -180,8 +190,10 @@ dialog {
 }
 
 .card-text {
-    white-space: nowrap;
-    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
     text-overflow: ellipsis;
     width: auto;
     margin-right: 16px;
@@ -224,10 +236,13 @@ body[activeview="list"] #header {
 .card-title {
     margin-bottom: 0px !important;
     font-size: 1.5rem !important;
+    font-weight: 700;
     width: auto;
+    min-width: 20%;
     margin-right: 16px;
     display: inline-flex;
     outline: none;
+    cursor: text;
 }
 
 .tNoteStatus {
@@ -243,7 +258,7 @@ body[activeview="list"] #header {
 .btn,
 #iListName {
     border-width: 3px !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
 }
 
 .tNoteStatus:checked:after {
@@ -281,7 +296,6 @@ body[activeview="list"] #header {
         bottom: 20px;
         left: 0px;
         z-index: 1;
-        background-color: white;
     }
 
     #tRenameShelf,
