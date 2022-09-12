@@ -367,6 +367,7 @@ class App {
             .appendTo(this.component.noteList);
           if (note.completed == true) {
             $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', 'line-through');
+            $(`.notecard[uuid=${note.uuid}]`).css('opacity', (status == true ? '50%' : '100%'))
             $(`.notecard[uuid=${note.uuid}] .tNoteStatus`).prop('checked', true);
           }
         });
