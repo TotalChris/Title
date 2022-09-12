@@ -115,6 +115,11 @@ class App {
     if (this.lists == undefined || this.activeList == undefined) {
       this.open("TitleStoredShelves").then(() => {
         this.viewList(this.lists[0]);
+        detectIncognito().then((result) => {
+          if (result.isPrivate) {
+            $('#vIncogWarn').showModal();
+          }
+        })
       });
     }
   }

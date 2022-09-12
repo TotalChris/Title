@@ -217,6 +217,11 @@ dialog p,
     color: var(--fgcolor);
 }
 
+#cEmptyListHeader {
+    text-align: center;
+    margin-top: 8px;
+}
+
 dialog input.form-control {
     outline: none !important;
     box-shadow: none !important;

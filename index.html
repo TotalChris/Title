@@ -77,6 +77,16 @@
         </button>
       </form>
     </dialog>
+    <dialog id="vIncogWarn">
+      <h2 id="cIncogHeader">Woah There!</h2>
+      <p>Title is a note-taking app. Using it in Incognito Mode means your stuff will be erased when you leave. Cool?
+      </p>
+      <form method="dialog">
+        <button value="yes" type="submit" class="btn toolbutton">
+          <i class="bi bi-check-circle"></i>&nbsp;I Understand
+        </button>
+      </form>
+    </dialog>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
@@ -87,6 +97,7 @@
         });
       }
     </script>
+    <script src="dep/application/detectIncognito.min.js"></script>
     <script src="dep/jquery/jquery-3.6.0.min.js"></script>
     <script src="dep/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="title.js"></script>
