@@ -11,7 +11,7 @@
 
 body {
     font-family: 'Inter', sans-serif !important;
-    background-color: var(--fgcolorpass) !important;
+    background-color: var(--bgcolor) !important;
 }
 
 [contenteditable="true"]:empty:not(:focus):before {
@@ -100,6 +100,7 @@ hr {
 
 .shelf-name {
     flex-grow: 1;
+    text-align: start;
 }
 
 #header {
@@ -167,6 +168,7 @@ hr {
 
 #logo.toolbutton {
     padding-inline: 8px;
+    margin-right: auto;
 }
 
 #shelflist:disabled {
@@ -174,9 +176,9 @@ hr {
 }
 
 #iNoteName {
-    font-size: 30px;
+    font-size: 40px;
     height: 60px;
-    font-weight: 700;
+    font-weight: 900;
     outline: none !important;
     box-shadow: none !important;
     border: 3px solid var(--fgcolor);
@@ -185,7 +187,7 @@ hr {
 
 #iNoteContent {
     width: 100%;
-    height: 70%;
+    height: 90%;
     margin-top: 8px;
     outline: none !important;
     box-shadow: none !important;
@@ -193,7 +195,7 @@ hr {
     border-radius: 12px;
 }
 
-#list p {
+#vNoteList p {
     font-size: 24px;
 }
 
@@ -218,7 +220,6 @@ dialog p,
 }
 
 #cEmptyListHeader {
-    text-align: center;
     margin-top: 8px;
 }
 
@@ -270,10 +271,25 @@ dialog input.form-control {
     margin-right: 16px;
 }
 
-body[activeview="edit"] #list,
+#tPageTitle {
+    width: -webkit-fill-available;
+    font-weight: 900;
+    font-size: 40px;
+    color: var(--fgcolor);
+}
+
+#tBack {
+    font-size: 18px;
+    margin-right: auto;
+}
+
+body[activeview="edit"] #vNoteList,
 body[activeview="edit"] #tNewShelf,
 body[activeview="edit"] #tNewNote,
-body[activeview="edit"] #tShelfList {
+body[activeview="edit"] #tShelfList,
+body[activeview="edit"] #logo,
+body[activeview="edit"] #tPageTitle,
+body[activeview="edit"] #vFolderList {
     display: none;
 }
 
@@ -283,25 +299,47 @@ body[activeview="edit"] #editor {
     display: block;
 }
 
-body[activeview="edit"] #header {
-    width: auto;
-}
-
-body[activeview="list"] #list,
-body[activeview="list"] #tNewShelf,
+body[activeview="list"] #vNoteList,
 body[activeview="list"] #tNewNote,
-body[activeview="list"] #tShelfList {
+body[activeview="list"] #tPageTitle {
     display: block;
 }
 
 body[activeview="list"] #tCloseNote,
 body[activeview="list"] #tDeleteNote,
-body[activeview="list"] #editor {
+body[activeview="list"] #editor,
+body[activeview="list"] #logo,
+body[activeview="list"] #tNewShelf,
+body[activeview="list"] #tShelfList,
+body[activeview="list"] #vFolderList {
     display: none;
 }
 
-body[activeview="list"] #header {
-    width: 100%;
+body[activeview="all"] #vFolderList {
+    display: block;
+}
+
+body[activeview="all"] #vNoteList,
+body[activeview="all"] #editor,
+body[activeview="all"] #tCloseNote,
+body[activeview="all"] #tDeleteNote,
+body[activeview="all"] #tBack,
+body[activeview="all"] #tShelfList,
+body[activeview="all"] #tNewNote {
+    display: none;
+}
+
+#vFolderList {
+    border: 3px solid var(--fgcolor);
+    background-color: var(--fgcolorpass);
+    border-radius: 12px;
+    padding: 8px !important;
+    margin-inline: 15%;
+}
+
+#vFolderList li button {
+    background-color: transparent;
+    border: none;
 }
 
 .card-title {
@@ -351,6 +389,10 @@ body[activeview="list"] #header {
 
 
 @media screen and (max-width: 600px) {
+    #vFolderList {
+        margin-inline: 0px;
+    }
+
     #toolbar {
         flex-wrap: wrap;
         position: relative;
@@ -369,6 +411,11 @@ body[activeview="list"] #header {
         z-index: 1;
     }
 
+    #tBack {
+        font-size: 18px;
+        margin-right: auto;
+    }
+
     #tRenameShelf,
     #tDeleteShelf {
         font-size: 20px;
@@ -382,24 +429,14 @@ body[activeview="list"] #header {
         font-size: 20px;
     }
 
-    #tNewNote,
-    #tCloseNote,
-    #tDeleteNote {
-        width: -webkit-fill-available;
-    }
-
     #tShelfListOuter,
     #tShelfList {
         width: -webkit-fill-available;
         max-width: 100% !important;
     }
 
-    #list a {
+    #vNoteList a {
         font-size: 22px;
-    }
-
-    #page {
-        height: calc(100% - 144px);
     }
 
     .notecard {

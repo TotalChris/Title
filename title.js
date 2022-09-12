@@ -44,6 +44,7 @@ class App {
       deleteNote: $("#tDeleteNote"),
       closeNote: $("#tCloseNote"),
       listColor: $("#tListColor"),
+      back: $("#tBack"),
     };
 
     this.view = {
@@ -63,15 +64,18 @@ class App {
       //UI elements, headers, paragraphs, etc.
       deleteHeader: $("#cDeleteHeader"),
       renameHeader: $("#cRenameHeader"),
-      listHeader: $("#tShelfListOuter"),
-      noteList: $("#list"),
-      listSelector: $("#shelfmenu"),
+      listHeader: $("#tPageTitle"),
+      noteList: $("#vNoteList"),
+      listSelector: $("#vFolderList"),
     };
 
-    // add global listener to go home on logo click
-    this.tool.logo.on("click", () => {
-      this.viewList(this.activeList);
-    });
+    this.tool.back.on("click", () => {
+      if ($('body').attr('activeview') == 'edit') {
+        this.viewList(this.activeList);
+      } else if ($('body').attr('activeview') == 'list') {
+        this.viewAllLists();
+      }
+    })
 
     this.input.listColor.on("input", () => {
       this.tool.listColor.css("border-color", this.input.listColor.val());
@@ -114,13 +118,13 @@ class App {
 
     if (this.lists == undefined || this.activeList == undefined) {
       this.open("TitleStoredShelves").then(() => {
-        if (this.prefs.lastAction == "list") {
+        if (this.prefs.lastAction == "all") {
+          this.viewAllLists();
+        } else if (this.prefs.lastAction == "list") {
           this.viewList(this.getList(this.prefs.lastList));
-        } else {
-          if (this.prefs.lastAction == "note") {
-            this.viewList(this.getList(this.prefs.lastList));
-            this.viewNote(this.getNote(this.getList(this.prefs.lastList), this.prefs.lastItem));
-          }
+        } else if (this.prefs.lastAction == "note") {
+          this.viewList(this.getList(this.prefs.lastList));
+          this.viewNote(this.getNote(this.getList(this.prefs.lastList), this.prefs.lastItem));
         }
         detectIncognito().then((result) => {
           if (result.isPrivate) {
@@ -152,12 +156,12 @@ class App {
       this.component.listSelector.append(
         $(`
         <li class="notelist-item" uuid="${l.uuid}">
-        <button class="dropdown-item shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+        <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
           <div style="color: ${l.color};">${l.name}<div>
-          <button class="dropdown-item shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+          <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <i class="bi bi-three-dots"></i>
           </button>
-          <button class="dropdown-item shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+          <button class="shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <i class="bi bi-trash-fill"></i>
           </button>
         </button>
@@ -194,12 +198,12 @@ class App {
         this.component.listSelector.append(
           $(`
         <li class="notelist-item" uuid="${l.uuid}">
-          <button class="dropdown-item shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+          <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <div style="color: ${l.color};">${l.name}<div>
-            <button class="dropdown-item shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+            <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
               <i class="bi bi-three-dots"></i>
             </button>
-            <button class="dropdown-item shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+            <button class="shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
               <i class="bi bi-trash-fill"></i>
             </button>
           </button>
@@ -257,7 +261,6 @@ class App {
     this.view.delete.one("close", () => {
       if (this.view.delete[0].returnValue == "yes") {
         this.lists.splice(this.lists.indexOf(list), 1);
-        this.viewList(this.lists[this.lists.length - 1]);
 
         this.component.deleteHeader.html("");
 
@@ -343,6 +346,21 @@ class App {
         `<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`
       ).appendTo(this.component.noteList);
     }
+  }
+
+  viewAllLists() {
+    this.prefs.lastAction = 'all';
+    window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
+    $("body").attr("activeView", "all");
+    this.activeNote = undefined;
+    this.activeList = undefined;
+    document.title = "Folders";
+    this.component.listHeader.html("Folders");
+    document.documentElement.style.setProperty('--fgcolor', `#000000`);
+    document.documentElement.style.setProperty('--bgcolor', `#ffffff`);
+    document.documentElement.style.setProperty('--fgcolorpass', `#00000020`);
+    document.documentElement.style.setProperty('--fgcolormid', `#00000077`);
+    $('meta[name="theme-color"]').attr('content', `#ffffff`);
   }
 
   viewList(list) {

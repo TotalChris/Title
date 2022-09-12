@@ -2,7 +2,6 @@
 
   <head>
     <title>Title</title>
-    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="title.css" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
@@ -10,6 +9,7 @@
     <link rel="stylesheet" href="dep/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <meta name="theme-color" content="#ffffff">
   </head>
 
   <body onload="init()">
@@ -17,6 +17,9 @@
       <div id="header">
         <button class="btn toolbutton" id="logo">
           <i class="bi bi-fonts"></i>
+        </button>
+        <button class="btn toolbutton" id="tBack">
+          <i class="bi bi-chevron-left"></i>&nbsp;Back
         </button>
         <div class="dropdown" id="tShelfList">
           <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -28,21 +31,22 @@
         <button id="tNewShelf" class="btn toolbutton">
           <i class="bi bi-folder-plus"></i>
         </button>
-      </div>
-      <div id="tools">
         <button id="tNewNote" class="btn toolbutton">
           <i class="bi bi-file-earmark-plus"></i>
-        </button>
-        <button id="tCloseNote" class="btn toolbutton">
-          <i class="bi bi-caret-left-fill"></i>
         </button>
         <button id="tDeleteNote" class="btn toolbutton">
           <i class="bi bi-trash-fill"></i>
         </button>
       </div>
+      <div id="tools">
+
+      </div>
     </div>
     <div id="page">
-      <div id="list"></div>
+      <h1 id="tPageTitle"></h1>
+      <ul id="vFolderList"></ul>
+      <div id="vNoteList">
+      </div>
       <div id="editor">
         <input type="text" id="iNoteName" placeholder="Title" class="form-control" />
         <textarea id="iNoteContent" placeholder="Note" class="form-control"></textarea>
