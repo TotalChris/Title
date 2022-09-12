@@ -114,7 +114,14 @@ class App {
 
     if (this.lists == undefined || this.activeList == undefined) {
       this.open("TitleStoredShelves").then(() => {
-        this.viewList(this.lists[0]);
+        if (this.prefs.lastAction == "list") {
+          this.viewList(this.getList(this.prefs.lastList));
+        } else {
+          if (this.prefs.lastAction == "note") {
+            this.viewList(this.getList(this.prefs.lastList));
+            this.viewNote(this.getNote(this.getList(this.prefs.lastList), this.prefs.lastItem));
+          }
+        }
         detectIncognito().then((result) => {
           if (result.isPrivate) {
             $('#vIncogWarn').showModal();
@@ -127,12 +134,18 @@ class App {
   async open(key) {
     this.lists = [];
     let retrieved = JSON.parse(window.localStorage.getItem(key));
+    let retrievedPrefs = JSON.parse(window.localStorage.getItem('TitlePrefs'))
     if (retrieved == null || retrieved.length == 0) {
       retrieved = await this.importData("./dep/application/demo.json");
+    }
+    if (retrievedPrefs == null || retrievedPrefs.length == 0) {
+      retrievedPrefs = await this.importData("./dep/application/prefs.json");
     }
     retrieved.forEach((l) => {
       this.lists.push(l);
     });
+    this.prefs = retrievedPrefs;
+
 
     this.component.listSelector.html("");
     this.lists.forEach((l) => {
@@ -306,7 +319,7 @@ class App {
   saveNote(note) {
     note.name = Title.input.noteName.val();
     note.content = Title.input.noteContent.val();
-    //ToDo: alter physical component
+
     $(`.notecard[uuid=${note.uuid}]`).attr(
       "style",
       `background-color: ${note.color}20; color: ${note.color}; border-color: ${note.color};`
@@ -333,6 +346,9 @@ class App {
   }
 
   viewList(list) {
+    this.prefs.lastAction = 'list';
+    this.prefs.lastList = list.uuid;
+    window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("body").attr("activeView", "list");
     this.activeNote = undefined;
     document.title = list.name == undefined ? "Untitled List" : list.name;
@@ -381,6 +397,9 @@ class App {
   }
 
   viewNote(note) {
+    this.prefs.lastAction = 'note';
+    this.prefs.lastItem = note.uuid;
+    window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("body").attr("activeView", "edit");
     Title.activeNote = note;
 
@@ -392,6 +411,7 @@ class App {
 
   close(key) {
     window.localStorage.setItem(key, JSON.stringify(this.lists));
+    window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     //any other closing ops
   }
 
