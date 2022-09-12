@@ -71,6 +71,9 @@ class App {
 
     this.tool.back.on("click", () => {
       if ($('body').attr('activeview') == 'edit') {
+        this.saveNote(this.activeNote);
+        this.input.noteName.val("");
+        this.input.noteContent.val("");
         this.viewList(this.activeList);
       } else if ($('body').attr('activeview') == 'list') {
         this.viewAllLists();
@@ -93,10 +96,7 @@ class App {
 
     //add the global listener to close and save the active note
     this.tool.closeNote.on("click", () => {
-      this.saveNote(this.activeNote);
 
-      this.input.noteName.val("");
-      this.input.noteContent.val("");
 
       this.viewList(this.activeList);
     });
