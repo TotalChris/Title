@@ -15,7 +15,9 @@
   <body onload="init()">
     <div id="toolbar">
       <div id="header">
-        <img src="img/ic512.png" id="logo" />
+        <button class="btn toolbutton" id="logo">
+          <i class="bi bi-fonts"></i>
+        </button>
         <div class="dropdown" id="tShelfList">
           <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
             id="tShelfListOuter">
@@ -23,18 +25,18 @@
           </button>
           <ul class="dropdown-menu w-100" id="shelfmenu"></ul>
         </div>
-        <button id="tNewShelf" class="btn btn-outline-dark toolbutton">
+        <button id="tNewShelf" class="btn toolbutton">
           <i class="bi bi-folder-plus"></i>
         </button>
       </div>
       <div id="tools">
-        <button id="tNewNote" class="btn btn-outline-dark toolbutton">
+        <button id="tNewNote" class="btn toolbutton">
           <i class="bi bi-file-earmark-plus"></i>
         </button>
-        <button id="tCloseNote" class="btn btn-outline-dark toolbutton">
+        <button id="tCloseNote" class="btn toolbutton">
           <i class="bi bi-caret-left-fill"></i>
         </button>
-        <button id="tDeleteNote" class="btn btn-outline-danger toolbutton">
+        <button id="tDeleteNote" class="btn toolbutton">
           <i class="bi bi-trash-fill"></i>
         </button>
       </div>
@@ -55,10 +57,10 @@
             <input type="color" id="iListColor" />
           </button>
         </div>
-        <button value="no" type="button" onclick="this.parentElement.submit()" class="btn btn-outline-danger">
+        <button value="no" type="button" onclick="this.parentElement.submit()" class="btn">
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
-        <button value="yes" type="submit" class="btn btn-outline-dark">
+        <button value="yes" type="submit" class="btn">
           <i class="bi bi-check-circle"></i>&nbsp;Submit
         </button>
       </form>
@@ -67,10 +69,10 @@
       <h2 id="cDeleteHeader"></h2>
       <p>Are you sure you want to delete this list?</p>
       <form method="dialog">
-        <button value="no" type="button" onclick="this.parentElement.submit()" class="btn btn-outline-danger">
+        <button value="no" type="button" onclick="this.parentElement.submit()" class="btn">
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
-        <button value="yes" type="submit" class="btn btn-outline-dark">
+        <button value="yes" type="submit" class="btn">
           <i class="bi bi-trash-fill"></i>&nbsp;Delete
         </button>
       </form>

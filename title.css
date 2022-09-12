@@ -160,11 +160,13 @@ hr {
 }
 
 
-#logo {
-    height: 48px;
-    border-radius: 12px;
-    border: 3px solid var(--fgcolor);
-    background-color: var(--fgcolorpass);
+#logo.toolbutton i {
+    font-size: 30px !important;
+    color: var(--fgcolor);
+}
+
+#logo.toolbutton {
+    padding-inline: 8px;
 }
 
 #shelflist:disabled {
