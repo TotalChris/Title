@@ -46,6 +46,18 @@
     <div id="page">
       <h1 id="tPageTitle"></h1>
       <ul id="vFolderList"></ul>
+      <ul id="vFolderTools">
+        <li class="notelist-item">
+          <button class="shelf-name" onclick="$('#tImport').click()">
+            <div><i class="bi bi-box-arrow-in-down"></i>&nbsp;Import Data</div>
+          </button>
+        </li>
+        <li class="notelist-item">
+          <button class="shelf-name" onclick="Title.export()">
+            <div><i class="bi bi-box-arrow-up"></i>&nbsp;Export Data</div>
+          </button>
+        </li>
+      </ul>
       <div id="vNoteList">
       </div>
       <div id="editor">

@@ -31,6 +31,10 @@ body {
     gap: 8px;
 }
 
+ul li button {
+    color: black;
+}
+
 #iNoteColor,
 #iListColor {
     border-radius: 50%;
@@ -294,7 +298,8 @@ body[activeview="edit"] #tNewNote,
 body[activeview="edit"] #tShelfList,
 body[activeview="edit"] #logo,
 body[activeview="edit"] #tPageTitle,
-body[activeview="edit"] #vFolderList {
+body[activeview="edit"] #vFolderList,
+body[activeview="edit"] #vFolderTools {
     display: none;
 }
 
@@ -316,11 +321,13 @@ body[activeview="list"] #editor,
 body[activeview="list"] #logo,
 body[activeview="list"] #tNewShelf,
 body[activeview="list"] #tShelfList,
-body[activeview="list"] #vFolderList {
+body[activeview="list"] #vFolderList,
+body[activeview="list"] #vFolderTools {
     display: none;
 }
 
-body[activeview="all"] #vFolderList {
+body[activeview="all"] #vFolderList,
+body[activeview="all"] #vFolderTools {
     display: block;
 }
 
@@ -334,7 +341,8 @@ body[activeview="all"] #tNewNote {
     display: none;
 }
 
-#vFolderList {
+#vFolderList,
+#vFolderTools {
     border: 3px solid var(--fgcolor);
     background-color: var(--fgcolorpass);
     border-radius: 12px;
@@ -342,7 +350,8 @@ body[activeview="all"] #tNewNote {
     margin-inline: 15%;
 }
 
-#vFolderList li button {
+#vFolderList li button,
+#vFolderTools li button {
     background-color: transparent;
     border: none;
 }
@@ -399,7 +408,8 @@ body[activeview="all"] #tNewNote {
     #cEmptyListHeader,
     #tPageTitle,
     #iNoteContent,
-    #iNoteName {
+    #iNoteName,
+    #vFolderTools {
         margin-inline: 0px;
     }
 

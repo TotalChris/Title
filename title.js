@@ -186,21 +186,6 @@ class App {
       );
     });
 
-    this.component.listSelector.append(
-      $(`
-      <li class="notelist-item">
-      <button class="shelf-name" onclick="$('#tImport').click()">
-        <div><i class="bi bi-box-arrow-in-down"></i>&nbsp;Import Data</div>
-      </button>
-      </li>
-      <li class="notelist-item">
-        <button class="shelf-name" onclick="Title.export()">
-          <div><i class="bi bi-box-arrow-up"></i>&nbsp;Export Data</div>
-        </button>
-      </li>
-      `)
-    )
-
     if (this.lists.length <= 1) {
       $(".shelfop-delete").css("display", "none");
     } else {
