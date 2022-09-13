@@ -178,21 +178,24 @@ hr {
 #iNoteName {
     font-size: 40px;
     height: 60px;
+    width: -webkit-fill-available;
     font-weight: 900;
     outline: none !important;
     box-shadow: none !important;
     border: 3px solid var(--fgcolor);
     border-radius: 12px;
+    margin-inline: 15%;
 }
 
 #iNoteContent {
-    width: 100%;
+    width: -webkit-fill-available;
     height: 90%;
     margin-top: 8px;
     outline: none !important;
     box-shadow: none !important;
     border: 3px solid var(--fgcolor);
     border-radius: 12px;
+    margin-inline: 15%;
 }
 
 #vNoteList p {
@@ -221,6 +224,7 @@ dialog p,
 
 #cEmptyListHeader {
     margin-top: 8px;
+    margin-inline: 15%;
 }
 
 dialog input.form-control {
@@ -276,6 +280,7 @@ dialog input.form-control {
     font-weight: 900;
     font-size: 40px;
     color: var(--fgcolor);
+    margin-inline: 15%;
 }
 
 #tBack {
@@ -389,7 +394,12 @@ body[activeview="all"] #tNewNote {
 
 
 @media screen and (max-width: 600px) {
-    #vFolderList {
+
+    #vFolderList,
+    #cEmptyListHeader,
+    #tPageTitle,
+    #iNoteContent,
+    #iNoteName {
         margin-inline: 0px;
     }
 

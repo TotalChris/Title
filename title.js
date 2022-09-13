@@ -45,6 +45,7 @@ class App {
       closeNote: $("#tCloseNote"),
       listColor: $("#tListColor"),
       back: $("#tBack"),
+      import: $("#tImport"),
     };
 
     this.view = {
@@ -88,6 +89,21 @@ class App {
     this.tool.newList.on("click", () => {
       this.createList();
     });
+
+    this.tool.import.on('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        console.log(e.target.files[0])
+        const reader = new FileReader();
+        reader.addEventListener('load', (e) => {
+          this.lists = JSON.parse(e.target.result);
+          this.close("TitleStoredShelves");
+          window.location.reload();
+        })
+        reader.readAsText(e.target.files[0]);
+      } else {
+        console.log('e')
+      }
+    })
 
     // add the global listener to make a new note
     this.tool.newNote.on("click", () => {
@@ -157,7 +173,7 @@ class App {
         $(`
         <li class="notelist-item" uuid="${l.uuid}">
         <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-          <div style="color: ${l.color};">${l.name}<div>
+        <div><i class="bi bi-folder" style="color: ${l.color};"></i>&nbsp;${l.name}</div>
           <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <i class="bi bi-three-dots"></i>
           </button>
@@ -170,6 +186,21 @@ class App {
       );
     });
 
+    this.component.listSelector.append(
+      $(`
+      <li class="notelist-item">
+      <button class="shelf-name" onclick="$('#tImport').click()">
+        <div><i class="bi bi-box-arrow-in-down"></i>&nbsp;Import Data</div>
+      </button>
+      </li>
+      <li class="notelist-item">
+        <button class="shelf-name" onclick="Title.export()">
+          <div><i class="bi bi-box-arrow-up"></i>&nbsp;Export Data</div>
+        </button>
+      </li>
+      `)
+    )
+
     if (this.lists.length <= 1) {
       $(".shelfop-delete").css("display", "none");
     } else {
@@ -180,6 +211,13 @@ class App {
   async importData(uri) {
     let raw = await fetch(uri);
     return await raw.json();
+  }
+
+  async export() {
+    let link = document.createElement('a');
+    link.href = window.URL.createObjectURL(new Blob([JSON.stringify(this.lists)], { type: 'application/json' }));
+    link.download = 'backup.json';
+    link.click();
   }
 
   createList() {
@@ -199,7 +237,7 @@ class App {
           $(`
         <li class="notelist-item" uuid="${l.uuid}">
           <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-            <div style="color: ${l.color};">${l.name}<div>
+            <div><i class="bi bi-folder" style="color: ${l.color};"></i>&nbsp;${l.name}</div>
             <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
               <i class="bi bi-three-dots"></i>
             </button>
@@ -222,7 +260,7 @@ class App {
     this.input.listName.val("");
     this.input.listColor.val("#000000");
     this.tool.listColor.css("border-color", "#000000");
-    this.component.renameHeader.html("New List");
+    this.component.renameHeader.html("New Folder");
 
     this.view.rename.showModal();
   }
@@ -237,22 +275,20 @@ class App {
           $(`.notecard[uuid=${n.uuid}]`).attr("style", `color: ${n.color}; border-color: ${n.color};`);
           $(`.notecard[uuid=${n.uuid}] input.tNoteStatus`).attr("style", `color: ${n.color}; border-color: ${n.color};`);
         });
-        this.viewList(list);
 
         this.component.renameHeader.html("");
         this.input.listName.val("");
         this.input.listColor.val("#000000");
         this.tool.listColor.css("border-color", "#000000");
 
-        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(list.name);
-        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).css("color", list.color);
+        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi bi-folder" style="color: ${list.color};"></i>&nbsp;${list.name}`);
       }
     });
 
     this.input.listName.val(list.name);
     this.input.listColor.val(list.color);
     this.tool.listColor.css("border-color", list.color);
-    this.component.renameHeader.html("Edit List");
+    this.component.renameHeader.html("Edit Folder");
 
     this.view.rename.showModal();
   }
@@ -331,6 +367,7 @@ class App {
       note.name == "" ? "" : note.name
     );
     $(`.notecard[uuid=${note.uuid}] div.card-text`).html(note.content);
+    $(`.notecard[uuid=${note.uuid}]`).css('opacity', (note.completed == true ? '50%' : '100%'))
   }
 
   deleteNote(note, list) {
@@ -368,10 +405,11 @@ class App {
     this.prefs.lastList = list.uuid;
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("body").attr("activeView", "list");
+    $("#tBack").html('<i class="bi bi-chevron-left"></i>&nbsp;Folders');
     this.activeNote = undefined;
-    document.title = list.name == undefined ? "Untitled List" : list.name;
+    document.title = list.name == undefined ? "Untitled Folder" : list.name;
     this.component.listHeader.html(
-      list.name == undefined ? "Untitled List" : list.name
+      list.name == undefined ? "Untitled Folder" : list.name
     );
     document.documentElement.style.setProperty('--fgcolor', `${list.color}`);
     document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
@@ -406,7 +444,7 @@ class App {
             .appendTo(this.component.noteList);
           if (note.completed == true) {
             $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', 'line-through');
-            $(`.notecard[uuid=${note.uuid}]`).css('opacity', (status == true ? '50%' : '100%'))
+            $(`.notecard[uuid=${note.uuid}]`).css('opacity', '50%');
             $(`.notecard[uuid=${note.uuid}] .tNoteStatus`).prop('checked', true);
           }
         });
@@ -419,6 +457,7 @@ class App {
     this.prefs.lastItem = note.uuid;
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("body").attr("activeView", "edit");
+    $("#tBack").html(`<i class="bi bi-chevron-left"></i>&nbsp;${this.activeList.name}`);
     Title.activeNote = note;
 
     this.input.noteName.val(note.name == undefined ? "" : note.name);
