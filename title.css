@@ -33,6 +33,7 @@ body {
 
 ul li button {
     color: black;
+    padding: 0px !important;
 }
 
 #iNoteColor,
