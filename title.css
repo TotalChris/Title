@@ -65,7 +65,7 @@ ul li button {
 }
 
 #page {
-    margin: 8px;
+    margin: 16px;
     margin-top: 0px;
     overflow-y: scroll;
     height: calc(100% - 70px);
@@ -106,13 +106,14 @@ hr {
 .shelf-name {
     flex-grow: 1;
     text-align: start;
+    font-size: 1.5rem;
 }
 
 #header {
     display: flex;
     gap: 8px;
     width: 100%;
-    padding: 8px;
+    padding: 16px;
     align-items: center;
     z-index: 1;
 }
@@ -184,7 +185,7 @@ hr {
     font-size: 40px;
     height: 60px;
     width: -webkit-fill-available;
-    font-weight: 900;
+    font-weight: 700;
     outline: none !important;
     box-shadow: none !important;
     border: 3px solid var(--fgcolor);
@@ -282,7 +283,7 @@ dialog input.form-control {
 
 #tPageTitle {
     width: -webkit-fill-available;
-    font-weight: 900;
+    font-weight: 700;
     font-size: 40px;
     color: var(--fgcolor);
     margin-inline: 15%;
@@ -360,7 +361,7 @@ body[activeview="all"] #tNewNote {
 .card-title {
     margin-bottom: 0px !important;
     font-size: 1.5rem !important;
-    font-weight: 700;
+    font-weight: 500;
     width: auto;
     min-width: 20%;
     margin-right: 16px;
@@ -375,8 +376,10 @@ body[activeview="all"] #tNewNote {
     border: 3px solid;
     border-radius: 17px;
     height: 25px;
-    width: 25px;
-    margin-left: auto;
+    min-width: 25px;
+    margin-right: 8px;
+    align-self: flex-start;
+
 }
 
 .btn,

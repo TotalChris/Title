@@ -308,8 +308,8 @@ class App {
     <div class="card notecard" uuid="${n.uuid}">
     <div class="card-body">
       <div class="card-heading">
-        <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
         <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
+        <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
       </div>
       <div class="card-text">${n.content}</div>
       </div>
@@ -380,7 +380,7 @@ class App {
     this.component.listHeader.html("Folders");
     document.documentElement.style.setProperty('--fgcolor', `#000000`);
     document.documentElement.style.setProperty('--bgcolor', `#ffffff`);
-    document.documentElement.style.setProperty('--fgcolorpass', `#00000020`);
+    document.documentElement.style.setProperty('--fgcolorpass', `#00000010`);
     document.documentElement.style.setProperty('--fgcolormid', `#00000077`);
     $('meta[name="theme-color"]').attr('content', `#ffffff`);
   }
@@ -416,8 +416,8 @@ class App {
           <div class="card notecard" uuid="${note.uuid}">
           <div class="card-body">
             <div class="card-heading">
-              <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
               <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
+              <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
             </div>
             <div class="card-text">${note.content}</div>
             </div>
