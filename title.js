@@ -73,8 +73,6 @@ class App {
     this.tool.back.on("click", () => {
       if ($('body').attr('activeview') == 'edit') {
         this.saveNote(this.activeNote);
-        this.input.noteName.val("");
-        this.input.noteContent.val("");
         this.viewList(this.activeList);
       } else if ($('body').attr('activeview') == 'list') {
         this.viewAllLists();
@@ -120,10 +118,6 @@ class App {
     // add the global listener to delete the active note
     this.tool.deleteNote.on("click", () => {
       this.deleteNote(this.activeNote, this.activeList);
-
-      this.input.noteName.val("");
-      this.input.noteContent.val("");
-
       this.viewList(this.activeList);
     });
 
@@ -377,7 +371,6 @@ class App {
     this.activeNote = undefined;
     this.activeList = undefined;
     document.title = "Folders";
-    this.component.listHeader.html("Folders");
     document.documentElement.style.setProperty('--fgcolor', `#000000`);
     document.documentElement.style.setProperty('--bgcolor', `#ffffff`);
     document.documentElement.style.setProperty('--fgcolorpass', `#00000010`);
@@ -448,7 +441,6 @@ class App {
     this.input.noteName.val(note.name == undefined ? "" : note.name);
     this.input.noteContent.val(note.content == undefined ? "" : note.content);
     document.title = note.name == undefined ? "" : note.name;
-    this.input.noteName.focus();
   }
 
   close(key) {

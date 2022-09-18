@@ -118,27 +118,6 @@ hr {
     z-index: 1;
 }
 
-#shelflist {
-    width: -webkit-fill-available;
-    color: #000000;
-    height: 30px;
-    max-width: 50%;
-    outline: none;
-    display: none;
-}
-
-#tShelfList .dropdown-item {
-    display: inline-block;
-    width: auto;
-}
-
-#tShelfListOuter,
-#tShelfList {
-    width: -webkit-fill-available;
-    font-size: 20px;
-    font-weight: 700;
-}
-
 #tShelfListOuter,
 #iNoteName,
 #iNoteContent,
@@ -281,7 +260,8 @@ dialog input.form-control {
     margin-right: 16px;
 }
 
-#tPageTitle {
+#tPageTitle,
+#tFoldersTitle {
     width: -webkit-fill-available;
     font-weight: 700;
     font-size: 40px;
@@ -294,51 +274,31 @@ dialog input.form-control {
     margin-right: auto;
 }
 
-body[activeview="edit"] #vNoteList,
 body[activeview="edit"] #tNewShelf,
 body[activeview="edit"] #tNewNote,
-body[activeview="edit"] #tShelfList,
-body[activeview="edit"] #logo,
-body[activeview="edit"] #tPageTitle,
-body[activeview="edit"] #vFolderList,
-body[activeview="edit"] #vFolderTools {
+body[activeview="edit"] #logo {
     display: none;
 }
 
 body[activeview="edit"] #tDeleteNote,
-body[activeview="edit"] #tCloseNote,
-body[activeview="edit"] #editor {
+body[activeview="edit"] #tCloseNote {
     display: block;
 }
 
-body[activeview="list"] #vNoteList,
-body[activeview="list"] #tNewNote,
-body[activeview="list"] #tPageTitle {
+body[activeview="list"] #tNewNote {
     display: block;
 }
 
 body[activeview="list"] #tCloseNote,
 body[activeview="list"] #tDeleteNote,
-body[activeview="list"] #editor,
 body[activeview="list"] #logo,
-body[activeview="list"] #tNewShelf,
-body[activeview="list"] #tShelfList,
-body[activeview="list"] #vFolderList,
-body[activeview="list"] #vFolderTools {
+body[activeview="list"] #tNewShelf {
     display: none;
 }
 
-body[activeview="all"] #vFolderList,
-body[activeview="all"] #vFolderTools {
-    display: block;
-}
-
-body[activeview="all"] #vNoteList,
-body[activeview="all"] #editor,
 body[activeview="all"] #tCloseNote,
 body[activeview="all"] #tDeleteNote,
 body[activeview="all"] #tBack,
-body[activeview="all"] #tShelfList,
 body[activeview="all"] #tNewNote {
     display: none;
 }
@@ -357,6 +317,61 @@ body[activeview="all"] #tNewNote {
     background-color: transparent;
     border: none;
 }
+
+#vFolders,
+#vNotes,
+#vEditor {
+    position: absolute;
+    width: 100%;
+    transition: left .5s cubic-bezier(0.1, 0.9, 0.2, 1), opacity cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+body[activeview="all"] #vFolders {
+    left: 0%;
+    opacity: 100%;
+}
+
+body[activeview="all"] #vNotes {
+    left: 100%;
+    opacity: 0%;
+}
+
+body[activeview="all"] #vEditor {
+    left: 200%;
+    opacity: 0%;
+}
+
+body[activeview="list"] #vFolders {
+    left: -100%;
+    opacity: 0%;
+}
+
+body[activeview="list"] #vNotes {
+    left: 0%;
+    opacity: 100%;
+}
+
+body[activeview="list"] #vEditor {
+    left: 100%;
+    opacity: 0%;
+}
+
+body[activeview="edit"] #vFolders {
+    left: -200%;
+    opacity: 0%;
+}
+
+body[activeview="edit"] #vNotes {
+    left: -100%;
+    opacity: 0%;
+}
+
+body[activeview="edit"] #vEditor {
+    left: 0%;
+    opacity: 100%;
+}
+
+
 
 .card-title {
     margin-bottom: 0px !important;
@@ -411,10 +426,12 @@ body[activeview="all"] #tNewNote {
     #vFolderList,
     #cEmptyListHeader,
     #tPageTitle,
+    #tFoldersTitle,
     #iNoteContent,
     #iNoteName,
-    #vFolderTools {
-        margin-inline: 0px;
+    #vFolderTools,
+    #vNoteList {
+        margin-inline: 16px;
     }
 
     #toolbar {

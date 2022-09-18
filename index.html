@@ -22,13 +22,6 @@
         <button class="btn toolbutton" id="tBack">
           <i class="bi bi-chevron-left"></i>&nbsp;Back
         </button>
-        <div class="dropdown" id="tShelfList">
-          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
-            id="tShelfListOuter">
-            Lists
-          </button>
-          <ul class="dropdown-menu w-100" id="shelfmenu"></ul>
-        </div>
         <button id="tNewShelf" class="btn toolbutton">
           <i class="bi bi-folder-plus"></i>
         </button>
@@ -41,23 +34,28 @@
       </div>
     </div>
     <div id="page">
-      <h1 id="tPageTitle"></h1>
-      <ul id="vFolderList"></ul>
-      <ul id="vFolderTools">
-        <li class="notelist-item">
-          <button class="shelf-name" onclick="$('#tImport').click()">
-            <div><i class="bi bi-box-arrow-in-down"></i>&nbsp;Import Data</div>
-          </button>
-        </li>
-        <li class="notelist-item">
-          <button class="shelf-name" onclick="Title.export()">
-            <div><i class="bi bi-box-arrow-up"></i>&nbsp;Export Data</div>
-          </button>
-        </li>
-      </ul>
-      <div id="vNoteList">
+      <div id="vFolders">
+        <h1 id="tFoldersTitle">Folders</h1>
+        <ul id="vFolderList"></ul>
+        <ul id="vFolderTools">
+          <li class="notelist-item">
+            <button class="shelf-name" onclick="$('#tImport').click()">
+              <div><i class="bi bi-box-arrow-in-down"></i>&nbsp;Import Data</div>
+            </button>
+          </li>
+          <li class="notelist-item">
+            <button class="shelf-name" onclick="Title.export()">
+              <div><i class="bi bi-box-arrow-up"></i>&nbsp;Export Data</div>
+            </button>
+          </li>
+        </ul>
       </div>
-      <div id="editor">
+      <div id="vNotes">
+        <h1 id="tPageTitle"></h1>
+        <div id="vNoteList">
+        </div>
+      </div>
+      <div id="vEditor">
         <input type="text" id="iNoteName" placeholder="Title" class="form-control" />
         <textarea id="iNoteContent" placeholder="Note" class="form-control"></textarea>
       </div>
