@@ -368,6 +368,7 @@ class App {
     this.prefs.lastAction = 'all';
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("body").attr("activeView", "all");
+    $("#tBack").html(`<i class="bi bi-fonts"></i>`)
     this.activeNote = undefined;
     this.activeList = undefined;
     document.title = "Folders";

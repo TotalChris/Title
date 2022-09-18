@@ -14,6 +14,7 @@
 body {
     font-family: 'Inter', sans-serif !important;
     background-color: var(--bgcolor) !important;
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 [contenteditable="true"]:empty:not(:focus):before {
@@ -127,6 +128,8 @@ hr {
     color: var(--fgcolor) !important;
     border-color: var(--fgcolor) !important;
     background-color: var(--fgcolorpass) !important;
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
+
 }
 
 #iNoteName::placeholder,
@@ -138,6 +141,7 @@ hr {
     color: var(--fgcolor) !important;
     border-color: var(--fgcolor) !important;
     background-color: var(--bgcolor) !important;
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
     border-width: 3px;
     border-radius: 12px;
 }
@@ -145,6 +149,7 @@ hr {
 .tNoteStatus {
     color: var(--fgcolor) !important;
     border-color: var(--fgcolor) !important;
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 
@@ -200,6 +205,7 @@ input {
 dialog {
     border: solid 3px var(--fgcolor);
     background-color: var(--bgcolor);
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
     border-radius: 12px;
 }
 
@@ -232,12 +238,14 @@ dialog input.form-control {
     height: 48px;
     border-color: var(--fgcolor) !important;
     color: var(--fgcolor) !important;
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 .toolbutton i {
     font-size: 24px;
     color: var(--fgcolor);
     border-color: var(--fgcolor) !important;
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 .toolbutton:hover {
@@ -280,9 +288,12 @@ dialog input.form-control {
     margin-right: auto;
 }
 
+#tBack i {
+    font-size: 18px;
+}
+
 body[activeview="edit"] #tNewShelf,
-body[activeview="edit"] #tNewNote,
-body[activeview="edit"] #logo {
+body[activeview="edit"] #tNewNote {
     display: none;
 }
 
@@ -297,14 +308,12 @@ body[activeview="list"] #tNewNote {
 
 body[activeview="list"] #tCloseNote,
 body[activeview="list"] #tDeleteNote,
-body[activeview="list"] #logo,
 body[activeview="list"] #tNewShelf {
     display: none;
 }
 
 body[activeview="all"] #tCloseNote,
 body[activeview="all"] #tDeleteNote,
-body[activeview="all"] #tBack,
 body[activeview="all"] #tNewNote {
     display: none;
 }
