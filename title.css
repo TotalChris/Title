@@ -2,7 +2,9 @@
 
 :root {
     overflow-y: hidden;
+    overflow-x: hidden;
     overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
     --fgcolor: #000000;
     --fgcolorpass: #00000020;
     --fgcolormid: #777777;
