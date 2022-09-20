@@ -69,8 +69,7 @@ ul li button {
 }
 
 #page {
-    margin: 16px;
-    margin-top: 80px;
+    margin-inline: 16px;
     height: -webkit-fill-available;
     overflow-y: auto;
 }
@@ -88,9 +87,9 @@ hr {
 }
 
 #toolbar {
-    position: relative;
+    position: sticky;
     display: flex;
-    z-index: 1;
+
     width: -webkit-fill-available;
 }
 
@@ -121,7 +120,6 @@ hr {
     align-items: center;
     justify-content: space-between;
     z-index: 1;
-    position: fixed;
 }
 
 #tShelfListOuter,
@@ -464,23 +462,6 @@ body[activeview="all"] #tBack i {
         margin-inline: 16px;
     }
 
-    #toolbar {
-        flex-wrap: wrap;
-        position: relative;
-        top: auto;
-        left: auto;
-    }
-
-    #tools {
-        width: -webkit-fill-available;
-        display: flex;
-        justify-content: space-evenly;
-        position: fixed;
-        padding: 8px;
-        bottom: 20px;
-        left: 0px;
-        z-index: 1;
-    }
 
     #tRenameShelf,
     #tDeleteShelf {
