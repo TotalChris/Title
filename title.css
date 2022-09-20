@@ -70,8 +70,8 @@ ul li button {
 #page {
     margin: 16px;
     margin-top: 0px;
-    overflow-y: scroll;
-    height: calc(100% - 70px);
+    height: -webkit-fill-available;
+    overflow-y: auto;
 }
 
 hr {
@@ -118,6 +118,7 @@ hr {
     width: 100%;
     padding: 16px;
     align-items: center;
+    justify-content: space-between;
     z-index: 1;
 }
 
@@ -169,7 +170,8 @@ hr {
 
 #iNoteName {
     font-size: 40px;
-    height: 60px;
+    max-height: 60px;
+    overflow: hidden;
     width: -webkit-fill-available;
     font-weight: 700;
     outline: none !important;
@@ -177,6 +179,7 @@ hr {
     border: 3px solid var(--fgcolor);
     border-radius: 12px;
     margin-inline: 15%;
+    resize: none;
 }
 
 #iNoteContent {
@@ -188,6 +191,7 @@ hr {
     border: 3px solid var(--fgcolor);
     border-radius: 12px;
     margin-inline: 15%;
+    resize: none;
 }
 
 #vNoteList p {
@@ -285,7 +289,6 @@ dialog input.form-control {
 
 #tBack {
     font-size: 18px;
-    margin-right: auto;
 }
 
 #tBack i {
@@ -336,7 +339,9 @@ body[activeview="all"] #tNewNote {
 #vFolders,
 #vNotes,
 #vEditor {
+    overflow-y: auto;
     position: fixed;
+    height: inherit;
     width: 100%;
     transition: left .5s cubic-bezier(0.1, 0.9, 0.2, 1), opacity cubic-bezier(0.1, 0.9, 0.2, 1);
 }
@@ -465,11 +470,6 @@ body[activeview="edit"] #vEditor {
         bottom: 20px;
         left: 0px;
         z-index: 1;
-    }
-
-    #tBack {
-        font-size: 18px;
-        margin-right: auto;
     }
 
     #tRenameShelf,
