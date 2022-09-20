@@ -437,6 +437,14 @@ body[activeview="edit"] #vEditor {
     align-items: center;
 }
 
+body[activeview="all"] #tBack {
+    padding-inline: 8px;
+}
+
+body[activeview="all"] #tBack i {
+    font-size: 26px;
+}
+
 
 
 
