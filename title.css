@@ -70,7 +70,7 @@ ul li button {
 
 #page {
     margin: 16px;
-    margin-top: 0px;
+    margin-top: 80px;
     height: -webkit-fill-available;
     overflow-y: auto;
 }
@@ -121,6 +121,7 @@ hr {
     align-items: center;
     justify-content: space-between;
     z-index: 1;
+    position: fixed;
 }
 
 #tShelfListOuter,
