@@ -38,7 +38,6 @@ ul li button {
     padding: 6px !important;
 }
 
-#iNoteColor,
 #iListColor {
     border-radius: 50%;
     border: none;
@@ -49,21 +48,15 @@ ul li button {
     -webkit-appearance: none;
 }
 
-#iNoteColor::-webkit-color-swatch-wrapper,
 #iListColor::-webkit-color-swatch-wrapper {
     padding: 0;
     -webkit-appearance: none;
 }
 
-#iNoteColor::-webkit-color-swatch,
 #iListColor::-webkit-color-swatch {
     border: none;
     border-radius: 50%;
     -webkit-appearance: none;
-}
-
-#tDeleteNote {
-    align-self: flex-end;
 }
 
 #page {
@@ -74,21 +67,6 @@ ul li button {
 
 hr {
     margin: 8px !important;
-}
-
-#tools {
-    display: flex;
-    align-content: flex-end;
-    gap: 8px;
-    padding: 8px;
-    padding-left: 0px;
-}
-
-#toolbar {
-    position: sticky;
-    display: flex;
-
-    width: -webkit-fill-available;
 }
 
 .notelist-item {
@@ -119,7 +97,6 @@ hr {
     justify-content: space-between;
 }
 
-#tShelfListOuter,
 #iNoteName,
 #iNoteContent,
 .notecard {
@@ -135,34 +112,10 @@ hr {
     color: var(--fgcolormid) !important;
 }
 
-#shelfmenu {
-    color: var(--fgcolor) !important;
-    border-color: var(--fgcolor) !important;
-    background-color: var(--bgcolor) !important;
-    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
-    border-width: 3px;
-    border-radius: 12px;
-}
-
 .tNoteStatus {
     color: var(--fgcolor) !important;
     border-color: var(--fgcolor) !important;
     transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
-}
-
-
-#logo.toolbutton i {
-    font-size: 30px !important;
-    color: var(--fgcolor);
-}
-
-#logo.toolbutton {
-    padding-inline: 8px;
-    margin-right: auto;
-}
-
-#shelflist:disabled {
-    color: #999999;
 }
 
 #iNoteName {
@@ -181,6 +134,7 @@ hr {
 
 #iNoteContent {
     width: -webkit-fill-available;
+    font-size: 20px;
     height: 90%;
     margin-top: 8px;
     outline: none !important;
@@ -197,10 +151,6 @@ hr {
 
 #vEditor {
     height: -webkit-fill-available;
-}
-
-input {
-    margin-bottom: 5px;
 }
 
 dialog {
@@ -222,7 +172,6 @@ dialog p,
 
 #cEmptyListHeader {
     margin-top: 8px;
-    margin-inline: 15%;
 }
 
 dialog input.form-control {
@@ -281,6 +230,10 @@ dialog input.form-control {
     font-weight: 700;
     font-size: 40px;
     color: var(--fgcolor);
+    margin-inline: 15%;
+}
+
+#cEmptyListHeader {
     margin-inline: 15%;
 }
 
@@ -449,7 +402,6 @@ body[activeview="all"] #tBack i {
 @media screen and (max-width: 600px) {
 
     #vFolderList,
-    #cEmptyListHeader,
     #tPageTitle,
     #tFoldersTitle,
     #iNoteContent,
@@ -459,28 +411,8 @@ body[activeview="all"] #tBack i {
         margin-inline: 16px;
     }
 
-
-    #tRenameShelf,
-    #tDeleteShelf {
-        font-size: 20px;
-    }
-
-    p,
-    #iNoteContent,
-    #shelflist,
-    dialog input,
-    dialog button {
-        font-size: 20px;
-    }
-
-    #tShelfListOuter,
-    #tShelfList {
-        width: -webkit-fill-available;
-        max-width: 100% !important;
-    }
-
-    #vNoteList a {
-        font-size: 22px;
+    #cEmptyListHeader {
+        margin-inline: 0px;
     }
 
     .notecard {
