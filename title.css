@@ -63,12 +63,6 @@ ul li button {
     -webkit-appearance: none;
 }
 
-#page {
-    margin-inline: 16px;
-    height: -webkit-fill-available;
-    overflow-y: auto;
-}
-
 hr {
     margin: 8px !important;
 }
@@ -99,6 +93,7 @@ hr {
     padding: 16px;
     align-items: center;
     justify-content: space-between;
+    overscroll-behavior-y: none;
 }
 
 #iNoteName,
@@ -295,7 +290,7 @@ body[activeview="all"] #tNewNote {
 #vEditor {
     overflow-y: scroll;
     position: fixed;
-    height: inherit;
+    height: -webkit-fill-available;
     width: 100%;
     transition: left .7s cubic-bezier(0.1, 0.9, 0.2, 1), opacity .6s cubic-bezier(0.1, 0.9, 0.2, 1);
 }

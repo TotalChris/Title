@@ -28,32 +28,30 @@
         <i class="bi bi-trash-fill"></i>
       </button>
     </div>
-    <div id="page">
-      <div id="vFolders">
-        <h1 id="tFoldersTitle">Folders</h1>
-        <ul id="vFolderList"></ul>
-        <ul id="vFolderTools">
-          <li class="notelist-item">
-            <button class="shelf-name" onclick="$('#tImport').click()">
-              <div><i class="bi bi-box-arrow-in-down"></i>&nbsp;Import Data</div>
-            </button>
-          </li>
-          <li class="notelist-item">
-            <button class="shelf-name" onclick="Title.export()">
-              <div><i class="bi bi-box-arrow-up"></i>&nbsp;Export Data</div>
-            </button>
-          </li>
-        </ul>
+    <div id="vFolders">
+      <h1 id="tFoldersTitle">Folders</h1>
+      <ul id="vFolderList"></ul>
+      <ul id="vFolderTools">
+        <li class="notelist-item">
+          <button class="shelf-name" onclick="$('#tImport').click()">
+            <div><i class="bi bi-box-arrow-in-down"></i>&nbsp;Import Data</div>
+          </button>
+        </li>
+        <li class="notelist-item">
+          <button class="shelf-name" onclick="Title.export()">
+            <div><i class="bi bi-box-arrow-up"></i>&nbsp;Export Data</div>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div id="vNotes">
+      <h1 id="tPageTitle"></h1>
+      <div id="vNoteList">
       </div>
-      <div id="vNotes">
-        <h1 id="tPageTitle"></h1>
-        <div id="vNoteList">
-        </div>
-      </div>
-      <div id="vEditor">
-        <textarea id="iNoteName" placeholder="Title" class="form-control"></textarea>
-        <textarea id="iNoteContent" placeholder="Note" class="form-control"></textarea>
-      </div>
+    </div>
+    <div id="vEditor">
+      <textarea id="iNoteName" placeholder="Title" class="form-control"></textarea>
+      <textarea id="iNoteContent" placeholder="Note" class="form-control"></textarea>
     </div>
     <dialog id="vRenameShelf">
       <h2 id="cRenameHeader"></h2>
