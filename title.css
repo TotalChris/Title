@@ -297,53 +297,52 @@ body[activeview="all"] #tNewNote {
     position: fixed;
     height: inherit;
     width: 100%;
-    transition: left .5s cubic-bezier(0.1, 0.9, 0.2, 1), opacity cubic-bezier(0.1, 0.9, 0.2, 1);
-    padding-bottom: 42px;
+    transition: left .7s cubic-bezier(0.1, 0.9, 0.2, 1), opacity .6s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 body[activeview="all"] #vFolders {
     left: 0%;
-    opacity: 100%;
+    opacity: 1;
 }
 
 body[activeview="all"] #vNotes {
     left: 100%;
-    opacity: 0%;
+    opacity: 0;
 }
 
 body[activeview="all"] #vEditor {
     left: 200%;
-    opacity: 0%;
+    opacity: 0;
 }
 
 body[activeview="list"] #vFolders {
     left: -100%;
-    opacity: 0%;
+    opacity: 0;
 }
 
 body[activeview="list"] #vNotes {
     left: 0%;
-    opacity: 100%;
+    opacity: 1;
 }
 
 body[activeview="list"] #vEditor {
     left: 100%;
-    opacity: 0%;
+    opacity: 0;
 }
 
 body[activeview="edit"] #vFolders {
     left: -200%;
-    opacity: 0%;
+    opacity: 0;
 }
 
 body[activeview="edit"] #vNotes {
     left: -100%;
-    opacity: 0%;
+    opacity: 0;
 }
 
 body[activeview="edit"] #vEditor {
     left: 0%;
-    opacity: 100%;
+    opacity: 1;
 }
 
 
