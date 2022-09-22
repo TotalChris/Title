@@ -50,8 +50,10 @@
       </div>
     </div>
     <div id="vEditor">
-      <textarea id="iNoteName" placeholder="Title" class="form-control"></textarea>
-      <textarea id="iNoteContent" placeholder="Note" class="form-control"></textarea>
+      <textarea id="iNoteName" placeholder="Title" class="form-control" oninput="Title.handlers.inputTitle(event)"
+        onkeypress="Title.handlers.keypressTitle(event)" rows="1"></textarea>
+      <textarea id="iNoteContent" placeholder="Note" class="form-control"
+        oninput="Title.handlers.inputTitle(event)"></textarea>
     </div>
     <dialog id="vRenameShelf">
       <h2 id="cRenameHeader"></h2>
@@ -73,6 +75,18 @@
     <dialog id="vDeleteShelf">
       <h2 id="cDeleteHeader"></h2>
       <p>Are you sure you want to delete this folder?</p>
+      <form method="dialog">
+        <button value="no" type="button" onclick="this.parentElement.submit()" class="btn toolbutton">
+          <i class="bi bi-x-circle"></i>&nbsp;Cancel
+        </button>
+        <button value="yes" type="submit" class="btn toolbutton">
+          <i class="bi bi-trash-fill"></i>&nbsp;Delete
+        </button>
+      </form>
+    </dialog>
+    <dialog id="vDeleteNote">
+      <h2 id="cDeleteNoteHeader"></h2>
+      <p>Are you sure you want to delete this note?</p>
       <form method="dialog">
         <button value="no" type="button" onclick="this.parentElement.submit()" class="btn toolbutton">
           <i class="bi bi-x-circle"></i>&nbsp;Cancel

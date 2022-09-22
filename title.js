@@ -35,7 +35,18 @@ class App {
     this.lists = lists;
     this.activeList = activeList;
     this.activeNote = activeNote; //only set in editing mode?
-
+    this.handlers = {
+      keypressTitle: (event) => {
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          $('#iNoteContent').focus();
+        }
+      },
+      inputTitle: (event) => {
+        event.target.style.height = '5px';
+        event.target.style.height = (event.target.scrollHeight) + 'px';
+      }
+    }
     this.tool = {
       //buttons
       logo: $("#logo"),
@@ -51,6 +62,7 @@ class App {
     this.view = {
       rename: $("#vRenameShelf"),
       delete: $("#vDeleteShelf"),
+      deleteNote: $("#vDeleteNote")
     };
 
     this.input = {
@@ -65,6 +77,7 @@ class App {
       //UI elements, headers, paragraphs, etc.
       deleteHeader: $("#cDeleteHeader"),
       renameHeader: $("#cRenameHeader"),
+      deleteNoteHeader: $("#cDeleteNoteHeader"),
       listHeader: $("#tPageTitle"),
       noteList: $("#vNoteList"),
       listSelector: $("#vFolderList"),
@@ -118,7 +131,6 @@ class App {
     // add the global listener to delete the active note
     this.tool.deleteNote.on("click", () => {
       this.deleteNote(this.activeNote, this.activeList);
-      this.viewList(this.activeList);
     });
 
     // register autosave-on-close listener
@@ -304,6 +316,12 @@ class App {
       <div class="card-heading">
         <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
         <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
+        <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${n.uuid}' ))">
+          <i class="bi bi-three-dots"></i>
+        </button>
+        <button class="note-option" onclick="event.stopPropagation();Title.deleteNote(Title.getNote(Title.activeList, '${n.uuid}' ), Title.activeList)">
+          <i class="bi bi-trash-fill"></i>
+        </button>
       </div>
       <div class="card-text">${n.content}</div>
       </div>
@@ -350,18 +368,22 @@ class App {
   }
 
   deleteNote(note, list) {
-    list = list == undefined ? Title.activeList : list; //use the active list if none defined
-    if (note != undefined) {
-      list.notes.splice(list.notes.indexOf(note), 1);
-      Title.activeNote =
-        Title.activeNote == note ? undefined : Title.activeNote; //unset active note if its the same note
-    }
-    $(`.notecard[uuid=${note.uuid}]`).remove();
-    if (list.notes.length <= 0) {
-      $(
-        `<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`
-      ).appendTo(this.component.noteList);
-    }
+    this.view.deleteNote.one("close", () => {
+      if (this.view.deleteNote[0].returnValue == "yes") {
+        list = list == undefined ? Title.activeList : list; //use the active list if none defined
+        if (note != undefined) {
+          list.notes.splice(list.notes.indexOf(note), 1);
+          Title.activeNote = (Title.activeNote == note ? undefined : Title.activeNote); //unset active note if its the same note
+        }
+        $(`.notecard[uuid=${note.uuid}]`).remove();
+        if (list.notes.length <= 0) {
+          $(`<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`).appendTo(this.component.noteList);
+        }
+      }
+    })
+    this.viewList(this.activeList);
+    this.component.deleteNoteHeader.html((note.name == "" ? "Untitled" : note.name));
+    this.view.deleteNote.showModal();
   }
 
   viewAllLists() {
@@ -412,6 +434,12 @@ class App {
             <div class="card-heading">
               <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
               <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
+              <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${note.uuid}' ))">
+                <i class="bi bi-three-dots"></i>
+              </button>
+              <button class="note-option" onclick="event.stopPropagation();Title.deleteNote(Title.getNote(Title.activeList, '${note.uuid}' ), Title.activeList)">
+                <i class="bi bi-trash-fill"></i>
+              </button>
             </div>
             <div class="card-text">${note.content}</div>
             </div>
@@ -441,6 +469,10 @@ class App {
 
     this.input.noteName.val(note.name == undefined ? "" : note.name);
     this.input.noteContent.val(note.content == undefined ? "" : note.content);
+    this.input.noteName.css('height', "5px");
+    this.input.noteContent.css('height', "5px");
+    this.input.noteName.css('height', this.input.noteName.prop('scrollHeight') + "px");
+    this.input.noteContent.css('height', this.input.noteContent.prop('scrollHeight') + "px");
     document.title = note.name == undefined ? "" : note.name;
   }
 

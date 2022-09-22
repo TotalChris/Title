@@ -75,6 +75,13 @@ hr {
     height: 36px;
 }
 
+.note-option {
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    color: var(--fgcolor);
+}
+
 .shelf-option {
     align-self: center;
     height: inherit;
@@ -96,8 +103,6 @@ hr {
     overscroll-behavior-y: none;
 }
 
-#iNoteName,
-#iNoteContent,
 .notecard {
     color: var(--fgcolor) !important;
     border-color: var(--fgcolor) !important;
@@ -118,30 +123,34 @@ hr {
 }
 
 #iNoteName {
-    font-size: 40px;
-    max-height: 60px;
-    overflow: hidden;
+    font-size: 35px;
     width: -webkit-fill-available;
     font-weight: 700;
     outline: none !important;
     box-shadow: none !important;
-    border: 3px solid var(--fgcolor);
+    border: none !important;
     border-radius: 12px;
     margin-inline: 15%;
+    padding-inline: 0px;
     resize: none;
+    background-color: transparent;
+    color: var(--fgcolor);
 }
 
 #iNoteContent {
     width: -webkit-fill-available;
     font-size: 20px;
     height: 90%;
-    margin-top: 8px;
     outline: none !important;
     box-shadow: none !important;
-    border: 3px solid var(--fgcolor);
+    border: none !important;
     border-radius: 12px;
     margin-inline: 15%;
+    padding-inline: 0px;
     resize: none;
+    background-color: transparent;
+    color: var(--fgcolor);
+
 }
 
 #vNoteList p {
@@ -348,7 +357,7 @@ body[activeview="edit"] #vEditor {
     font-weight: 500;
     width: auto;
     min-width: 20%;
-    margin-right: 16px;
+    margin-right: auto;
     display: inline-flex;
     outline: none;
     cursor: text;
@@ -362,8 +371,7 @@ body[activeview="edit"] #vEditor {
     height: 25px;
     min-width: 25px;
     margin-right: 8px;
-    align-self: flex-start;
-
+    align-self: center;
 }
 
 .btn,
