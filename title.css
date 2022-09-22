@@ -79,6 +79,7 @@ hr {
     border: none;
     background-color: transparent;
     font-size: 20px;
+    padding: 6px !important;
     color: var(--fgcolor);
 }
 
