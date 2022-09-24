@@ -338,6 +338,7 @@ class App {
   }
 
   getNote(list, uuid) {
+
     return list.notes.find((n) => { return n.uuid == uuid });
   }
 
@@ -368,22 +369,29 @@ class App {
   }
 
   deleteNote(note, list) {
+    let d = () => {
+      list = list == undefined ? Title.activeList : list; //use the active list if none defined
+      if (note != undefined) {
+        list.notes.splice(list.notes.indexOf(note), 1);
+        Title.activeNote = (Title.activeNote == note ? undefined : Title.activeNote); //unset active note if its the same note
+      }
+      $(`.notecard[uuid=${note.uuid}]`).remove();
+      if (list.notes.length <= 0) {
+        $(`<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`).appendTo(this.component.noteList);
+      }
+    }
     this.view.deleteNote.one("close", () => {
       if (this.view.deleteNote[0].returnValue == "yes") {
-        list = list == undefined ? Title.activeList : list; //use the active list if none defined
-        if (note != undefined) {
-          list.notes.splice(list.notes.indexOf(note), 1);
-          Title.activeNote = (Title.activeNote == note ? undefined : Title.activeNote); //unset active note if its the same note
-        }
-        $(`.notecard[uuid=${note.uuid}]`).remove();
-        if (list.notes.length <= 0) {
-          $(`<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`).appendTo(this.component.noteList);
-        }
+        d();
       }
     })
     this.viewList(this.activeList);
-    this.component.deleteNoteHeader.html((note.name == "" ? "Untitled" : note.name));
-    this.view.deleteNote.showModal();
+    if(note.content == ""){
+      d();
+    } else {
+      this.component.deleteNoteHeader.html((note.name == "" ? "Untitled" : note.name));
+      this.view.deleteNote.showModal();
+    }
   }
 
   viewAllLists() {
