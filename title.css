@@ -17,7 +17,7 @@ body {
     transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
     max-height: 100vh;
     overflow-y: hidden;
-    overflow-x: clip;
+    overflow-x: hidden;
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
     display: flex;
@@ -308,52 +308,51 @@ body[activeview="all"] #tNewNote {
     top: 60px;
     height: -webkit-fill-available;
     width: 100%;
-    transition: transform .7s cubic-bezier(0.1, 0.9, 0.2, 1), opacity .6s cubic-bezier(0.1, 0.9, 0.2, 1);
+    transition: left .7s cubic-bezier(0.1, 0.9, 0.2, 1), opacity .6s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
-
 body[activeview="all"] #vFolders {
-    transform: translateX(0%);
+    left: 0%;
     opacity: 1;
 }
 
 body[activeview="all"] #vNotes {
-    transform: translateX(100%);
+    left: 100%;
     opacity: 0;
 }
 
 body[activeview="all"] #vEditor {
-    transform: translateX(200%);
+    left: 200%;
     opacity: 0;
 }
 
 body[activeview="list"] #vFolders {
-    transform: translateX(-100%);
+    left: -100%;
     opacity: 0;
 }
 
 body[activeview="list"] #vNotes {
-    transform: translateX(0%);
+    left: 0%;
     opacity: 1;
 }
 
 body[activeview="list"] #vEditor {
-    transform: translateX(100%);
+    left: 100%;
     opacity: 0;
 }
 
 body[activeview="edit"] #vFolders {
-    transform: translateX(-200%);
+    left: -200%;
     opacity: 0;
 }
 
 body[activeview="edit"] #vNotes {
-    transform: translateX(-100%);
+    left: -100%;
     opacity: 0;
 }
 
 body[activeview="edit"] #vEditor {
-    transform: translateX(0%);
+    left: 0%;
     opacity: 1;
 }
 
