@@ -20,6 +20,9 @@ body {
     overflow-x: hidden;
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
 }
 
 [contenteditable="true"]:empty:not(:focus):before {
@@ -98,8 +101,8 @@ hr {
 
 #header {
     display: flex;
-    gap: 8px;
-    width: 100%;
+    height: 60px;
+    width: auto;
     padding: 16px;
     align-items: center;
     justify-content: space-between;
@@ -301,7 +304,8 @@ body[activeview="all"] #tNewNote {
 #vNotes,
 #vEditor {
     overflow-y: scroll;
-    position: fixed;
+    position: absolute;
+    top: 60px;
     height: -webkit-fill-available;
     width: 100%;
     transition: left .7s cubic-bezier(0.1, 0.9, 0.2, 1), opacity .6s cubic-bezier(0.1, 0.9, 0.2, 1);
