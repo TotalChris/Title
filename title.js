@@ -311,8 +311,8 @@ class App {
     let n = l.notes[len - 1];
 
     $(`
-    <div class="card notecard" uuid="${n.uuid}">
-    <div class="card-body">
+    <div class="notecard" uuid="${n.uuid}">
+    <div>
       <div class="card-heading">
         <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
         <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
@@ -437,8 +437,8 @@ class App {
       } else {
         list.notes.forEach((note) => {
           $(`
-          <div class="card notecard" uuid="${note.uuid}">
-          <div class="card-body">
+          <div class="notecard" uuid="${note.uuid}">
+          <div>
             <div class="card-heading">
               <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
               <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>

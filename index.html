@@ -1,30 +1,28 @@
+<!DOCTYPE html>
 <html>
-
   <head>
     <title>Title</title>
     <link rel="stylesheet" href="title.css" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel="stylesheet" href="dep/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="/img/ic192.png">
   </head>
 
   <body onload="init()">
     <input type="file" id="tImport" accept=".json, .ttl" style="display: none;">
     <div id="header">
-      <button class="btn toolbutton" id="tBack">
+      <button class="toolbutton" id="tBack">
         <i class="bi bi-chevron-left"></i>&nbsp;Back
       </button>
-      <button id="tNewShelf" class="btn toolbutton">
+      <button id="tNewShelf" class="toolbutton">
         <i class="bi bi-folder-plus"></i>
       </button>
-      <button id="tNewNote" class="btn toolbutton">
+      <button id="tNewNote" class="toolbutton">
         <i class="bi bi-file-earmark-plus"></i>
       </button>
-      <button id="tDeleteNote" class="btn toolbutton">
+      <button id="tDeleteNote" class="toolbutton">
         <i class="bi bi-trash-fill"></i>
       </button>
     </div>
@@ -50,24 +48,24 @@
       </div>
     </div>
     <div id="vEditor">
-      <textarea id="iNoteName" placeholder="Title" class="form-control" oninput="Title.handlers.inputTitle(event)"
+      <textarea id="iNoteName" placeholder="Title" oninput="Title.handlers.inputTitle(event)"
         onkeypress="Title.handlers.keypressTitle(event)" rows="1"></textarea>
-      <textarea id="iNoteContent" placeholder="Note" class="form-control"
+      <textarea id="iNoteContent" placeholder="Note"
         oninput="Title.handlers.inputTitle(event)"></textarea>
     </div>
     <dialog id="vRenameShelf">
       <h2 id="cRenameHeader"></h2>
       <form method="dialog">
         <div id="cListInfo">
-          <input type="text" id="iListName" placeholder="Name" class="form-control" />
-          <button class="btn toolbutton" type="button" id="tListColor" onclick="this.children[0].click()">
+          <input type="text" id="iListName" placeholder="Name" />
+          <button class="toolbutton" type="button" id="tListColor" onclick="this.children[0].click()">
             <input type="color" id="iListColor" />
           </button>
         </div>
-        <button value="no" type="button" onclick="this.parentElement.submit()" class="btn toolbutton">
+        <button value="no" type="button" onclick="this.parentElement.submit()" class="toolbutton">
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
-        <button value="yes" type="submit" class="btn toolbutton">
+        <button value="yes" type="submit" class="toolbutton">
           <i class="bi bi-check-circle"></i>&nbsp;Submit
         </button>
       </form>
@@ -76,10 +74,10 @@
       <h2 id="cDeleteHeader"></h2>
       <p>Are you sure you want to delete this folder?</p>
       <form method="dialog">
-        <button value="no" type="button" onclick="this.parentElement.submit()" class="btn toolbutton">
+        <button value="no" type="button" onclick="this.parentElement.submit()" class="toolbutton">
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
-        <button value="yes" type="submit" class="btn toolbutton">
+        <button value="yes" type="submit" class="toolbutton">
           <i class="bi bi-trash-fill"></i>&nbsp;Delete
         </button>
       </form>
@@ -88,10 +86,10 @@
       <h2 id="cDeleteNoteHeader"></h2>
       <p>Are you sure you want to delete this note?</p>
       <form method="dialog">
-        <button value="no" type="button" onclick="this.parentElement.submit()" class="btn toolbutton">
+        <button value="no" type="button" onclick="this.parentElement.submit()" class="toolbutton">
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
-        <button value="yes" type="submit" class="btn toolbutton">
+        <button value="yes" type="submit" class="toolbutton">
           <i class="bi bi-trash-fill"></i>&nbsp;Delete
         </button>
       </form>
@@ -101,7 +99,7 @@
       <p>Title is a note-taking app. Using it in Incognito Mode means your stuff will be erased when you leave. Cool?
       </p>
       <form method="dialog">
-        <button value="yes" type="submit" class="btn toolbutton">
+        <button value="yes" type="submit" class="toolbutton">
           <i class="bi bi-check-circle"></i>&nbsp;I Understand
         </button>
       </form>
@@ -118,7 +116,6 @@
     </script>
     <script src="dep/application/detectIncognito.min.js"></script>
     <script src="dep/jquery/jquery-3.6.0.min.js"></script>
-    <script src="dep/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="title.js"></script>
   </body>
 

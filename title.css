@@ -1,5 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap');
 
+@font-face {
+    font-display: block;
+    font-family: "bootstrap-icons";
+    src: url("./dep/bsi/bootstrap-icons.woff2") format("woff2"),
+    url("./dep/bsi/bootstrap-icons.woff") format("woff");
+}
+  
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+    display: inline-block;
+    font-family: bootstrap-icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: -.125em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.bi-chevron-left::before { content: "\f284"; }
+.bi-folder-plus::before { content: "\f3d3"; }
+.bi-file-earmark-plus::before { content: "\f37d"; }
+.bi-trash-fill::before { content: "\f5dd"; }
+.bi-box-arrow-in-down::before { content: "\f1bc"; }
+.bi-box-arrow-up::before { content: "\f1c6"; }
+.bi-check-circle::before { content: "\f26b"; }
+.bi-x-circle::before { content: "\f623"; }
+.bi-fonts::before { content: "\f3da"; }
+.bi-folder::before { content: "\f3d7"; }
+.bi-three-dots::before { content: "\f5d4"; }
+
+
+
 :root {
     overflow-y: hidden;
     overflow-x: hidden;
@@ -22,7 +58,7 @@ body {
     overscroll-behavior-x: none;
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
+    margin: 0px;
 }
 
 [contenteditable="true"]:empty:not(:focus):before {
@@ -45,6 +81,7 @@ body {
 ul li button {
     color: black;
     padding: 6px !important;
+    font-family: 'Inter', sans-serif !important;
 }
 
 #iListColor {
@@ -77,7 +114,12 @@ hr {
     align-items: center;
     justify-content: flex-start;
     font-size: 20px;
-    height: 36px;
+    height: 40px;
+    padding-block: 4px;
+}
+
+.notelist-item:not(:first-child){
+    border-top: 1px solid black;
 }
 
 .note-option {
@@ -86,11 +128,13 @@ hr {
     font-size: 20px;
     padding: 6px !important;
     color: var(--fgcolor);
+
 }
 
 .shelf-option {
     align-self: center;
     height: inherit;
+    font-size: 1.25rem;
 }
 
 .shelf-name {
@@ -101,7 +145,7 @@ hr {
 
 #header {
     display: flex;
-    height: 60px;
+    height: 28px;
     width: auto;
     padding: 16px;
     align-items: center;
@@ -111,9 +155,8 @@ hr {
 
 .notecard {
     color: var(--fgcolor) !important;
-    border-color: var(--fgcolor) !important;
     background-color: var(--fgcolorpass) !important;
-    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 
 }
 
@@ -125,11 +168,12 @@ hr {
 .tNoteStatus {
     color: var(--fgcolor) !important;
     border-color: var(--fgcolor) !important;
-    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 #iNoteName {
-    font-size: 35px;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 40px;
     width: -webkit-fill-available;
     font-weight: 700;
     outline: none !important;
@@ -137,13 +181,16 @@ hr {
     border: none !important;
     border-radius: 12px;
     margin-inline: 15%;
+    margin-block: 26px;
     padding-inline: 0px;
     resize: none;
     background-color: transparent;
     color: var(--fgcolor);
+    overflow: hidden;
 }
 
 #iNoteContent {
+    font-family: 'Inter', sans-serif !important;
     width: -webkit-fill-available;
     font-size: 20px;
     height: 90%;
@@ -154,6 +201,7 @@ hr {
     margin-inline: 15%;
     padding-inline: 0px;
     resize: none;
+    line-height: 2rem;
     background-color: transparent;
     color: var(--fgcolor);
 
@@ -168,9 +216,9 @@ hr {
 }
 
 dialog {
-    border: solid 3px var(--fgcolor);
+    border: none;
     background-color: var(--bgcolor);
-    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
     border-radius: 12px;
 }
 
@@ -188,28 +236,35 @@ dialog p,
     margin-top: 8px;
 }
 
-dialog input.form-control {
+dialog input {
     outline: none !important;
     box-shadow: none !important;
-    border: 3px solid var(--fgcolor) !important;
+    border: none;
     background-color: var(--fgcolorpass) !important;
     color: var(--fgcolor) !important;
     border-radius: 12px !important;
 }
 
+button, input[type="checkbox"]{
+    cursor: pointer !important;
+}
+
 .toolbutton {
-    font-size: 24px;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 18px;
     height: 48px;
-    border-color: var(--fgcolor) !important;
     color: var(--fgcolor) !important;
-    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
+    border-style: solid;
+    background-color: transparent;
+    padding-inline: 10px;
+    border-radius: 12px;
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 .toolbutton i {
-    font-size: 24px;
+    font-size: 1.3rem;
     color: var(--fgcolor);
-    border-color: var(--fgcolor) !important;
-    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1), border-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
+    transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 .toolbutton:hover {
@@ -217,7 +272,7 @@ dialog input.form-control {
 }
 
 .notecard {
-    border-width: 3px !important;
+    border-width: 0px !important;
     border-radius: 12px !important;
     max-height: 250px;
     width: auto;
@@ -225,7 +280,8 @@ dialog input.form-control {
     margin-bottom: 8px;
     cursor: pointer;
     user-select: none;
-    --bs-card-border-color: black !important;
+    padding: 1.5rem;
+    transition: opacity .5s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 .card-text {
@@ -235,7 +291,16 @@ dialog input.form-control {
     overflow: hidden !important;
     text-overflow: ellipsis;
     width: auto;
+    line-height: 1.5rem;
     margin-right: 16px;
+}
+
+.card-text:not(:empty){
+    margin-top: .5rem !important;
+}
+
+.shelf-name i{
+    margin-right: 5px;
 }
 
 #tPageTitle,
@@ -287,10 +352,11 @@ body[activeview="all"] #tNewNote {
 
 #vFolderList,
 #vFolderTools {
-    border: 3px solid var(--fgcolor);
+    border: none;
     background-color: var(--fgcolorpass);
     border-radius: 12px;
-    padding: 8px !important;
+    padding-inline: 1rem !important;
+    padding-block: .5rem;
     margin-inline: 15%;
 }
 
@@ -359,7 +425,7 @@ body[activeview="edit"] #vEditor {
 
 
 .card-title {
-    margin-bottom: 0px !important;
+    margin: 0px;
     font-size: 1.5rem !important;
     font-weight: 500;
     width: auto;
@@ -381,10 +447,11 @@ body[activeview="edit"] #vEditor {
     align-self: center;
 }
 
-.btn,
-#iListName {
-    border-width: 3px !important;
+#iListName, .toolbutton {
+    border-width: 0px !important;
+    background-color: var(--fgcolorpass);
     border-radius: 12px !important;
+    padding-inline: 12px;
 }
 
 .tNoteStatus:checked:after {
@@ -392,8 +459,6 @@ body[activeview="edit"] #vEditor {
     font-size: 20px;
     font-family: bootstrap-icons;
     position: relative;
-    top: -4px;
-    left: -.5px;
 }
 
 .card-heading {
@@ -407,6 +472,16 @@ body[activeview="all"] #tBack {
 
 body[activeview="all"] #tBack i {
     font-size: 26px;
+}
+#iListName{
+    font-family: 'Inter', sans-serif !important;
+    font-size: 20px;
+}
+#cRenameHeader, #cDeleteHeader{
+    margin-top: 0px;
+}
+form{
+    margin-bottom: 0px
 }
 
 
