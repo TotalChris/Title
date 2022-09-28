@@ -51,7 +51,6 @@ body {
     font-family: 'Inter', sans-serif !important;
     background-color: var(--bgcolor) !important;
     transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
-    max-height: 100vh;
     overflow-y: hidden;
     overflow-x: hidden;
     overscroll-behavior-y: none;
@@ -370,7 +369,8 @@ body[activeview="all"] #tNewNote {
 #vNotes,
 #vEditor {
     overflow-y: scroll;
-    position: absolute;
+    overflow-x: hidden;
+    position: fixed;
     top: 60px;
     height: -webkit-fill-available;
     width: 100%;
@@ -505,7 +505,6 @@ form{
     }
 
     .notecard {
-        width: 100%;
         margin-inline: 0px;
     }
 
