@@ -281,7 +281,7 @@ button, input[type="checkbox"]{
     margin-bottom: 8px;
     cursor: pointer;
     user-select: none;
-    padding: 1.5rem;
+    padding: 1rem;
     transition: opacity .5s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
@@ -297,7 +297,7 @@ button, input[type="checkbox"]{
 }
 
 .card-text:not(:empty){
-    margin-top: .5rem !important;
+    margin-block: .5rem !important;
 }
 
 .shelf-name i{
