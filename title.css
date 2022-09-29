@@ -41,25 +41,10 @@
     overflow-x: hidden;
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
-
-}
-
-@media (prefers-color-scheme: dark){
-    body{
-        --fgcolor: #ffffff;
-        --fgcolorpass: #ffffff20;
-        --fgcolormid: #888888;
-        --bgcolor: #000000;
-    }
-}
-
-@media (prefers-color-scheme: light){
-    body{
-        --fgcolor: #000000;
-        --fgcolorpass: #ffffff;
-        --fgcolormid: #777777;
-        --bgcolor: #f0f0f0;
-    }
+    --fgcolor: #000000;
+    --fgcolorpass: #00000020;
+    --fgcolormid: #777777;
+    --bgcolor: #dddddd;
 }
 
 body {

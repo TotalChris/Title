@@ -407,11 +407,11 @@ class App {
     this.activeNote = undefined;
     this.activeList = undefined;
     document.title = "Folders";
-    document.documentElement.style.setProperty('--fgcolor', `unset`);
-    document.documentElement.style.setProperty('--bgcolor', `unset`);
-    document.documentElement.style.setProperty('--fgcolorpass', `unset`);
-    document.documentElement.style.setProperty('--fgcolormid', `unset`);
-    $('meta[name="theme-color"]').attr('content', ``);
+    document.documentElement.style.setProperty('--fgcolor', `#000000`);
+    document.documentElement.style.setProperty('--bgcolor', `#ffffff`);
+    document.documentElement.style.setProperty('--fgcolorpass', `#00000010`);
+    document.documentElement.style.setProperty('--fgcolormid', `#00000077`);
+    $('meta[name="theme-color"]').attr('content', `#ffffff`);
   }
 
   viewList(list) {
