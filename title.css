@@ -41,13 +41,29 @@
     overflow-x: hidden;
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
-    --fgcolor: #000000;
-    --fgcolorpass: #00000020;
-    --fgcolormid: #777777;
-    --bgcolor: #dddddd;
+
+}
+
+@media (prefers-color-scheme: dark){
+    body{
+        --fgcolor: #ffffff;
+        --fgcolorpass: #ffffff20;
+        --fgcolormid: #888888;
+        --bgcolor: #000000;
+    }
+}
+
+@media (prefers-color-scheme: light){
+    body{
+        --fgcolor: #000000;
+        --fgcolorpass: #ffffff;
+        --fgcolormid: #777777;
+        --bgcolor: #f0f0f0;
+    }
 }
 
 body {
+    -webkit-tap-highlight-color: transparent;
     font-family: 'Inter', sans-serif !important;
     background-color: var(--bgcolor) !important;
     transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
@@ -58,6 +74,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0px;
+    position: fixed;
 }
 
 [contenteditable="true"]:empty:not(:focus):before {
@@ -78,7 +95,7 @@ body {
 }
 
 ul li button {
-    color: black;
+    color: var(--fgcolor);
     padding: 6px !important;
     font-family: 'Inter', sans-serif !important;
 }
@@ -118,7 +135,7 @@ hr {
 }
 
 .notelist-item:not(:first-child){
-    border-top: 1px solid black;
+    border-top: 1px solid #cccccc;
 }
 
 .note-option {
@@ -145,7 +162,7 @@ hr {
 #header {
     display: flex;
     height: 28px;
-    width: auto;
+    width: calc(100vw - 32px);
     padding: 16px;
     align-items: center;
     justify-content: space-between;
@@ -372,7 +389,7 @@ body[activeview="all"] #tNewNote {
     overflow-x: hidden;
     position: fixed;
     top: 60px;
-    height: -webkit-fill-available;
+    height: calc(100vh - 60px);
     width: 100%;
     transition: left .7s cubic-bezier(0.1, 0.9, 0.2, 1), opacity .6s cubic-bezier(0.1, 0.9, 0.2, 1);
 }

@@ -22,6 +22,7 @@ class Shelf {
 class App {
   constructor(lists, activeList, activeNote) {
     // replaces init()
+
     jQuery.fn.extend({
       showModal: function () {
         return this.each(function () {
@@ -137,6 +138,10 @@ class App {
     document.addEventListener("visibilitychange", () => {
       this.close("TitleStoredShelves");
     });
+
+    this.loaded = new URL(window.location.href);
+    console.log(this.loaded.searchParams.get('view'));
+    console.log(this.loaded.searchParams.get('doc'));
 
     if (this.lists == undefined || this.activeList == undefined) {
       this.open("TitleStoredShelves").then(() => {
@@ -402,11 +407,11 @@ class App {
     this.activeNote = undefined;
     this.activeList = undefined;
     document.title = "Folders";
-    document.documentElement.style.setProperty('--fgcolor', `#000000`);
-    document.documentElement.style.setProperty('--bgcolor', `#ffffff`);
-    document.documentElement.style.setProperty('--fgcolorpass', `#00000010`);
-    document.documentElement.style.setProperty('--fgcolormid', `#00000077`);
-    $('meta[name="theme-color"]').attr('content', `#ffffff`);
+    document.documentElement.style.setProperty('--fgcolor', `unset`);
+    document.documentElement.style.setProperty('--bgcolor', `unset`);
+    document.documentElement.style.setProperty('--fgcolorpass', `unset`);
+    document.documentElement.style.setProperty('--fgcolormid', `unset`);
+    $('meta[name="theme-color"]').attr('content', ``);
   }
 
   viewList(list) {
