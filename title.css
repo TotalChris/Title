@@ -396,13 +396,26 @@ body[activeview="all"] #vEditor {
 }
 
 body[activeview="list"] #vFolders {
-    left: -100%;
-    opacity: 0;
+    left: 0%;
+    width: 50%;
+    opacity: 1;
 }
 
 body[activeview="list"] #vNotes {
-    left: 0%;
+    left: 50%;
+    width: 50%;
     opacity: 1;
+}
+
+body[activeview="list"] #vFolderList,
+body[activeview="list"] #vFolderTools,
+body[activeview="list"] #tFoldersTitle{
+    margin-right: 8px;
+}
+
+body[activeview="list"] #tPageTitle,
+body[activeview="list"] .notecard{
+    margin-left: 8px;
 }
 
 body[activeview="list"] #vEditor {
@@ -566,5 +579,29 @@ form{
     
     body[activeview="edit"] #tPageTitle {
         margin-right: 16px;
+    }
+
+
+    body[activeview="list"] #vNotes{
+        left: 0%;
+        width: 100%;
+        opacity: 1;
+    }
+
+    body[activeview="list"] #vFolders{
+        left: -100%;
+        width: 100%;
+        opacity: 0;
+    }
+
+    body[activeview="list"] #vFolderList,
+    body[activeview="list"] #vFolderTools,
+    body[activeview="list"] #tFoldersTitle{
+        margin-right: 15%;
+    }
+
+    body[activeview="list"] #tPageTitle,
+    body[activeview="list"] .notecard{
+        margin-left: 15%;
     }
 }
