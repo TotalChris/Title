@@ -538,8 +538,9 @@ form{
     #iNoteContent,
     #iNoteName,
     #vFolderTools,
-    #vNoteList {
-        margin-inline: 16px;
+    #vNoteList,
+    .notecard {
+        margin-inline: 16px !important;
     }
 
     #cEmptyListHeader {
@@ -574,11 +575,11 @@ form{
     }
     
     body[activeview="edit"] .notecard {
-        margin-right: 16px;
+        margin-right: 15%;
     }
     
     body[activeview="edit"] #tPageTitle {
-        margin-right: 16px;
+        margin-right: 15%;
     }
 
 
