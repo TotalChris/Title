@@ -264,32 +264,39 @@ class App {
   renameList(list) {
     this.view.rename.one("close", () => {
       if (this.view.rename[0].returnValue == "yes") {
-        list.name = this.input.listName.val();
-        list.color = this.input.listColor.val();
-        list.notes.forEach((n) => {
-          n.color = this.input.listColor.val();
-          $(`.notecard[uuid=${n.uuid}]`).attr("style", `color: ${n.color}; border-color: ${n.color};`);
-          $(`.notecard[uuid=${n.uuid}] input.tNoteStatus`).attr("style", `color: ${n.color}; border-color: ${n.color};`);
-        });
-
+        let c = this.input.listColor.val();
+        let nm = this.input.listName.val();
+        if(this.activeList == list){
+          document.documentElement.style.setProperty('--fgcolor', `${c}`);
+          document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(c)}`);
+          document.documentElement.style.setProperty('--fgcolorpass', `${c}20`);
+          document.documentElement.style.setProperty('--fgcolormid', `${c}77`);
+          $('meta[name="theme-color"]').attr('content', `${this.hexhelper(c)}`);
+          document.title = nm == undefined ? "Untitled Folder" : nm;
+          this.component.listHeader.html(
+            nm == undefined ? "Untitled Folder" : nm
+          );
+        }
+        list.name = nm;
+        list.color = c;
         this.component.renameHeader.html("");
         this.input.listName.val("");
         this.input.listColor.val("#000000");
         this.tool.listColor.css("border-color", "#000000");
-
         $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi bi-folder" style="color: ${list.color};"></i>&nbsp;${list.name}`);
       }
     });
-
     this.input.listName.val(list.name);
     this.input.listColor.val(list.color);
     this.tool.listColor.css("border-color", list.color);
     this.component.renameHeader.html("Edit Folder");
-
     this.view.rename.showModal();
   }
 
   deleteList(list) {
+    if(this.activeList == list){
+      this.viewAllLists();
+    }
     this.view.delete.one("close", () => {
       if (this.view.delete[0].returnValue == "yes") {
         this.lists.splice(this.lists.indexOf(list), 1);
