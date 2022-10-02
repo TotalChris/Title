@@ -21,6 +21,17 @@ class App {
   constructor(lists, activeList, activeNote) {
     // replaces init()
 
+    window.addEventListener('DOMContentLoaded', () => {
+      const parsedUrl = new URL(window.location);
+      // searchParams.get() will properly handle decoding the values.
+      let title = parsedUrl.searchParams.get('title');
+      let text = parsedUrl.searchParams.get('text');
+      let url = parsedUrl.searchParams.get('url');
+
+      let n = new Note(title, text + "\u000D" + url);
+      this.createNote((this.activeList == undefined ? this.lists[0] : this.activeList), n);
+    })
+
     jQuery.fn.extend({
       showModal: function () {
         return this.each(function () {
@@ -323,9 +334,10 @@ class App {
     this.view.delete.showModal();
   }
 
-  createNote(list) {
-    let l = list == undefined ? this.activeList : list;
-    let len = l.notes.push(new Note("", ""));
+  createNote(list, note) {
+    let l = (list == undefined ? this.activeList : list);
+    let len = l.notes.push((note == undefined ? new Note("" ,"") : note));
+
     let n = l.notes[len - 1];
 
     $(`
