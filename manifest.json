@@ -32,14 +32,5 @@
   "display": "standalone",
   "scope": "https://totalchris.github.io/title/",
   "theme_color": "#ffffff",
-  "description": "Take notes in your browser with this tiny app",
-  "share_target": {
-    "action": "",
-    "method": "GET",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
+  "description": "Take notes in your browser with this tiny app"
 }
