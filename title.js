@@ -392,21 +392,33 @@ class App {
   }
 
   async exportNote(note) {
-    const fileHandle = await window.showSaveFilePicker({
-      "suggestedName" : note.name, 
-      "excludeAcceptAllOption": true, 
-      "types": [
-        {
-          description: 'Plain Text',
-          accept: {
-            'text/plain': ['.txt'],
+    let f = new File([note.content], note.name + ".txt", { type: "text/plain" })
+
+    if (navigator.canShare && navigator.canShare({ files: [f] }) && ( navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i) )) {
+      navigator.share({
+        files: [f],
+        title: note.name,
+        text: '',
+      })
+      .then(() => console.log('Export was successful.'))
+      .catch((error) => console.log('Export failed', error));
+    } else {
+      const fileHandle = await window.showSaveFilePicker({
+        "suggestedName" : note.name, 
+        "excludeAcceptAllOption": true, 
+        "types": [
+          {
+            description: 'Plain Text',
+            accept: {
+              'text/plain': ['.txt'],
+            },
           },
-        },
-      ]
-    });
-    const fileStream = await fileHandle.createWritable();
-    await fileStream.write(new Blob([note.content], {type: "text/plain"}));
-    await fileStream.close();
+        ]
+      });
+      const fileStream = await fileHandle.createWritable();
+      await fileStream.write(new Blob([note.content], {type: "text/plain"}));
+      await fileStream.close();
+    }
   }
 
   deleteNote(note, list) {
