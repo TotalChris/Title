@@ -386,7 +386,6 @@ class App {
     let shareData = {
       title: note.name,
       text: note.content,
-      url: 'https://totalchris.com/title',
     }
     navigator.share(shareData).finally(()=>{});
   }
