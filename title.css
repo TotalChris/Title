@@ -181,7 +181,7 @@ hr {
     box-shadow: none !important;
     border: none !important;
     border-radius: 12px;
-    margin-inline: 15%;
+    margin-inline: 5vw;
     margin-block: 26px;
     padding-inline: 0px;
     resize: none;
@@ -199,7 +199,7 @@ hr {
     box-shadow: none !important;
     border: none !important;
     border-radius: 12px;
-    margin-inline: 15%;
+    margin-inline: 5vw;
     padding-inline: 0px;
     resize: none;
     line-height: 2rem;
@@ -277,7 +277,7 @@ button, input[type="checkbox"]{
     border-radius: 12px !important;
     max-height: 250px;
     width: auto;
-    margin-inline: 15%;
+    margin-inline: 5vw;
     margin-bottom: 8px;
     cursor: pointer;
     user-select: none;
@@ -311,11 +311,11 @@ button, input[type="checkbox"]{
     font-weight: 700;
     font-size: 40px;
     color: var(--fgcolor);
-    margin-inline: 15%;
+    margin-inline: 5vw;
 }
 
 #cEmptyListHeader {
-    margin-inline: 15%;
+    margin-inline: 5vw;
 }
 
 #tBack {
@@ -359,7 +359,7 @@ body[activeview="all"] #tNewNote {
     border-radius: 12px;
     padding-inline: 1rem !important;
     padding-block: .5rem;
-    margin-inline: 15%;
+    margin-inline: 5vw;
 }
 
 #vFolderList li button,
@@ -397,13 +397,13 @@ body[activeview="all"] #vEditor {
 
 body[activeview="list"] #vFolders {
     left: 0%;
-    width: 50%;
+    width: 33%;
     opacity: 1;
 }
 
 body[activeview="list"] #vNotes {
-    left: 50%;
-    width: 50%;
+    left: 33%;
+    width: 66%;
     opacity: 1;
 }
 
@@ -430,13 +430,13 @@ body[activeview="edit"] #vFolders {
 
 body[activeview="edit"] #vNotes {
     left: 0%;
-    width: 50%;
+    width: 33%;
     opacity: 1;
 }
 
 body[activeview="edit"] #vEditor {
-    left: 50%;
-    width: 50%;
+    left: 33%;
+    width: 66%;
     opacity: 1;
 }
 
@@ -530,7 +530,7 @@ form{
 
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
 
     #vFolderList,
     #tPageTitle,
@@ -538,16 +538,11 @@ form{
     #iNoteContent,
     #iNoteName,
     #vFolderTools,
-    #vNoteList,
     .notecard {
         margin-inline: 16px !important;
     }
 
     #cEmptyListHeader {
-        margin-inline: 0px;
-    }
-
-    .notecard {
         margin-inline: 0px;
     }
 
@@ -567,19 +562,19 @@ form{
     }
 
     body[activeview="edit"] #iNoteName {
-        margin-left: 15%;
+        margin-left: 5vw;
     }
     
     body[activeview="edit"] #iNoteContent {
-        margin-left: 15%;
+        margin-left: 5vw;
     }
     
     body[activeview="edit"] .notecard {
-        margin-right: 15%;
+        margin-inline: 5vw;
     }
     
     body[activeview="edit"] #tPageTitle {
-        margin-right: 15%;
+        margin-inline: 5vw;
     }
 
 
@@ -598,11 +593,11 @@ form{
     body[activeview="list"] #vFolderList,
     body[activeview="list"] #vFolderTools,
     body[activeview="list"] #tFoldersTitle{
-        margin-right: 15%;
+        margin-right: 5vw;
     }
 
     body[activeview="list"] #tPageTitle,
     body[activeview="list"] .notecard{
-        margin-left: 15%;
+        margin-left: 5vw;
     }
 }
