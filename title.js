@@ -57,6 +57,7 @@ class App {
       back: $("#tBack"),
       import: $("#tImport"),
       shareNote: $("#tShareNote"),
+      downNote: $("#tDownNote"),
     };
 
     this.view = {
@@ -94,6 +95,10 @@ class App {
 
     this.tool.shareNote.on("click", () => {
       this.shareNote(this.activeNote);
+    })
+
+    this.tool.downNote.on("click", () => {
+      this.exportNote(this.activeNote);
     })
 
     // add a global listener to add a new shelf
@@ -384,6 +389,24 @@ class App {
       url: 'https://totalchris.com/title',
     }
     navigator.share(shareData).finally(()=>{});
+  }
+
+  async exportNote(note) {
+    const fileHandle = await window.showSaveFilePicker({
+      "suggestedName" : note.name, 
+      "excludeAcceptAllOption": true, 
+      "types": [
+        {
+          description: 'Plain Text',
+          accept: {
+            'text/plain': ['.txt'],
+          },
+        },
+      ]
+    });
+    const fileStream = await fileHandle.createWritable();
+    await fileStream.write(new Blob([note.content], {type: "text/plain"}));
+    await fileStream.close();
   }
 
   deleteNote(note, list) {
