@@ -1,15 +1,13 @@
 class Note {
-  constructor(name, content, color) {
+  constructor(name, content) {
     this.name = name;
     this.content = content;
-    this.color = color;
     this.completed = false;
     this.uuid = crypto.randomUUID();
   }
 }
 
 class Shelf {
-  // definition of a shelf, an array collection of notes.
   constructor(name, notes, color, icon) {
     this.notes = notes == undefined ? [] : notes;
     this.name = name == undefined ? "Untitled" : name;
@@ -58,6 +56,7 @@ class App {
       listColor: $("#tListColor"),
       back: $("#tBack"),
       import: $("#tImport"),
+      shareNote: $("#tShareNote"),
     };
 
     this.view = {
@@ -93,9 +92,9 @@ class App {
       }
     })
 
-    this.input.listColor.on("input", () => {
-      this.tool.listColor.css("border-color", this.input.listColor.val());
-    });
+    this.tool.shareNote.on("click", () => {
+      this.shareNote(this.activeNote);
+    })
 
     // add a global listener to add a new shelf
     this.tool.newList.on("click", () => {
@@ -180,6 +179,11 @@ class App {
 
     this.component.listSelector.html("");
     this.lists.forEach((l) => {
+      l.notes.forEach((n) => { //remove note color from old notes
+        if('color' in n){
+          delete n['color'];
+        }
+      })
       this.component.listSelector.append(
         $(`
         <li class="notelist-item" uuid="${l.uuid}">
@@ -255,7 +259,6 @@ class App {
 
     this.input.listName.val("");
     this.input.listColor.val("#000000");
-    this.tool.listColor.css("border-color", "#000000");
     this.component.renameHeader.html("New Folder");
 
     this.view.rename.showModal();
@@ -282,13 +285,11 @@ class App {
         this.component.renameHeader.html("");
         this.input.listName.val("");
         this.input.listColor.val("#000000");
-        this.tool.listColor.css("border-color", "#000000");
         $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi bi-folder" style="color: ${list.color};"></i>&nbsp;${list.name}`);
       }
     });
     this.input.listName.val(list.name);
     this.input.listColor.val(list.color);
-    this.tool.listColor.css("border-color", list.color);
     this.component.renameHeader.html("Edit Folder");
     this.view.rename.showModal();
   }
@@ -319,7 +320,7 @@ class App {
 
   createNote(list) {
     let l = list == undefined ? this.activeList : list;
-    let len = l.notes.push(new Note("", "", l.color));
+    let len = l.notes.push(new Note("", ""));
     let n = l.notes[len - 1];
 
     $(`
@@ -369,15 +370,20 @@ class App {
     note.name = Title.input.noteName.val();
     note.content = Title.input.noteContent.val();
 
-    $(`.notecard[uuid=${note.uuid}]`).attr(
-      "style",
-      `background-color: ${note.color}20; color: ${note.color}; border-color: ${note.color};`
-    );
     $(`.notecard[uuid=${note.uuid}] h5.card-title`).html(
       note.name == "" ? "" : note.name
     );
     $(`.notecard[uuid=${note.uuid}] div.card-text`).html(note.content);
     $(`.notecard[uuid=${note.uuid}]`).css('opacity', (note.completed == true ? '50%' : '100%'))
+  }
+
+  shareNote(note) {
+    let shareData = {
+      title: note.name,
+      text: note.content,
+      url: 'https://totalchris.com/title',
+    }
+    navigator.share(shareData).finally(()=>{});
   }
 
   deleteNote(note, list) {

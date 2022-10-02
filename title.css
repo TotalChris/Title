@@ -33,6 +33,7 @@
 .bi-fonts::before { content: "\f3da"; }
 .bi-folder::before { content: "\f3d7"; }
 .bi-three-dots::before { content: "\f5d4"; }
+.bi-share::before { content: "\f52e"; }
 
 
 
@@ -332,7 +333,8 @@ body[activeview="edit"] #tNewNote {
 }
 
 body[activeview="edit"] #tDeleteNote,
-body[activeview="edit"] #tCloseNote {
+body[activeview="edit"] #tCloseNote,
+body[activeview="edit"] #tShareNote {
     display: block;
 }
 
@@ -342,13 +344,15 @@ body[activeview="list"] #tNewNote {
 
 body[activeview="list"] #tCloseNote,
 body[activeview="list"] #tDeleteNote,
-body[activeview="list"] #tNewShelf {
+body[activeview="list"] #tNewShelf,
+body[activeview="list"] #tShareNote {
     display: none;
 }
 
 body[activeview="all"] #tCloseNote,
 body[activeview="all"] #tDeleteNote,
-body[activeview="all"] #tNewNote {
+body[activeview="all"] #tNewNote,
+body[activeview="all"] #tShareNote {
     display: none;
 }
 
@@ -524,6 +528,10 @@ form{
   
 ::-webkit-scrollbar-thumb{
     background-color: rgb(0, 0, 0, .25);
+}
+#tShareNote{
+    margin-left: auto;
+    margin-right: 8px;
 }  
 
 
