@@ -1,39 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap');
 
-@font-face {
-    font-display: block;
-    font-family: "bootstrap-icons";
-    src: url("./dep/bsi/bootstrap-icons.woff2") format("woff2"),
-    url("./dep/bsi/bootstrap-icons.woff") format("woff");
-}
-  
-.bi::before,
-[class^="bi-"]::before,
-[class*=" bi-"]::before {
-    display: inline-block;
-    font-family: bootstrap-icons !important;
-    font-style: normal;
-    font-weight: normal !important;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    vertical-align: -.125em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 
-.bi-chevron-left::before { content: "\f284"; }
-.bi-folder-plus::before { content: "\f3d3"; }
-.bi-file-earmark-plus::before { content: "\f37d"; }
-.bi-trash-fill::before { content: "\f5dd"; }
-.bi-box-arrow-in-down::before { content: "\f1bc"; }
-.bi-box-arrow-up::before { content: "\f1c6"; }
-.bi-check-circle::before { content: "\f26b"; }
-.bi-x-circle::before { content: "\f623"; }
-.bi-fonts::before { content: "\f3da"; }
-.bi-folder::before { content: "\f3d7"; }
-.bi-three-dots::before { content: "\f5d4"; }
-.bi-share::before { content: "\f52e"; }
 
 
 
@@ -68,14 +35,9 @@ body {
     opacity: 50%;
 }
 
-#iListName {
-    display: inline-block;
-    width: auto !important;
-    height: 48px;
-}
-
 #cListInfo {
     display: flex;
+    align-items: center;
     margin-bottom: 8px;
     gap: 8px;
 }
@@ -174,7 +136,7 @@ hr {
     transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1), color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
-#iNoteName {
+#iNoteName, #iListName {
     font-family: 'Inter', sans-serif !important;
     font-size: 40px;
     width: -webkit-fill-available;
@@ -183,13 +145,19 @@ hr {
     box-shadow: none !important;
     border: none !important;
     border-radius: 12px;
-    margin-inline: 5vw;
     margin-block: 26px;
     padding-inline: 0px;
     resize: none;
     background-color: transparent;
     color: var(--fgcolor);
     overflow: hidden;
+}
+#iNoteName, #cListInfo{
+    margin-inline: 5vw;
+}
+#tListColor{
+    height: 53px;
+    width: 53px;
 }
 
 #iNoteContent {
@@ -360,6 +328,14 @@ body[activeview="all"] #tDownNote {
     display: none;
 }
 
+body[activeview="editf"] #tCloseNote,
+body[activeview="editf"] #tDeleteNote,
+body[activeview="editf"] #tNewNote,
+body[activeview="editf"] #tShareNote,
+body[activeview="editf"] #tDownNote {
+    display: none;
+}
+
 #vFolderList,
 #vFolderTools {
     border: none;
@@ -378,7 +354,8 @@ body[activeview="all"] #tDownNote {
 
 #vFolders,
 #vNotes,
-#vEditor {
+#vEditor,
+#vFolderSettings {
     overflow-y: scroll;
     overflow-x: hidden;
     position: fixed;
@@ -403,6 +380,11 @@ body[activeview="all"] #vEditor {
     opacity: 0;
 }
 
+body[activeview="all"] #vFolderSettings{
+    left: 100%;
+    opacity: 0;
+}
+
 body[activeview="list"] #vFolders {
     left: 0%;
     width: 33%;
@@ -415,6 +397,11 @@ body[activeview="list"] #vNotes {
     opacity: 1;
 }
 
+body[activeview="list"] #vFolderSettings{
+    left: 100%;
+    opacity: 0;
+}
+
 body[activeview="list"] #vFolderList,
 body[activeview="list"] #vFolderTools,
 body[activeview="list"] #tFoldersTitle{
@@ -422,7 +409,8 @@ body[activeview="list"] #tFoldersTitle{
 }
 
 body[activeview="list"] #tPageTitle,
-body[activeview="list"] .notecard{
+body[activeview="list"] .notecard,
+body[activeview="list"] #cEmptyListHeader{
     margin-left: 8px;
 }
 
@@ -448,6 +436,11 @@ body[activeview="edit"] #vEditor {
     opacity: 1;
 }
 
+body[activeview="edit"] #vFolderSettings{
+    left: 100%;
+    opacity: 0;
+}
+
 body[activeview="edit"] #iNoteName {
     margin-left: 8px;
 }
@@ -462,6 +455,38 @@ body[activeview="edit"] .notecard {
 
 body[activeview="edit"] #tPageTitle {
     margin-right: 8px;
+}
+
+body[activeview="editf"] #vFolders {
+    left: 0%;
+    opacity: 1;
+    width: 33%;
+}
+
+body[activeview="editf"] #vFolderSettings{
+    left: 33%;
+    width: 66%;
+    opacity: 1;
+}
+
+body[activeview="editf"] #vNotes {
+    left: 100%;
+    opacity: 0;
+}
+
+body[activeview="editf"] #vEditor {
+    left: 100%;
+    opacity: 0;
+}
+
+body[activeview="editf"] #vFolderList,
+body[activeview="editf"] #vFolderTools,
+body[activeview="editf"] #tFoldersTitle{
+    margin-right: 8px;
+}
+
+body[activeview="editf"] #cListInfo {
+    margin-left: 8px;
 }
 
 
@@ -517,7 +542,6 @@ body[activeview="all"] #tBack i {
 }
 #iListName{
     font-family: 'Inter', sans-serif !important;
-    font-size: 20px;
 }
 #cRenameHeader, #cDeleteHeader{
     margin-top: 0px;
@@ -541,7 +565,7 @@ form{
 
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
 
     #vFolderList,
     #tPageTitle,
@@ -549,6 +573,7 @@ form{
     #iNoteContent,
     #iNoteName,
     #vFolderTools,
+    #cListInfo,
     .notecard {
         margin-inline: 16px !important;
     }
@@ -559,7 +584,36 @@ form{
 
 }
 
-@media screen and (max-width: 1000px){
+@media screen and (min-width: 800px) and (max-width: 1100px) {
+    body[activeview="edit"] #vNotes {
+        left: 0%;
+        width: 50%;
+        opacity: 1;
+    }
+    
+    body[activeview="edit"] #vEditor {
+        left: 50%;
+        width: 50%;
+        opacity: 1;
+    }
+
+    body[activeview="list"] #vNotes,
+    body[activeview="editf"] #vFolderSettings {
+        left: 50%;
+        width: 50%;
+        opacity: 1;
+    }
+
+    body[activeview="list"] #vFolders,
+    body[activeview="editf"] #vFolders
+    {
+        left: 0%;
+        width: 50%;
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 800px){
     body[activeview="edit"] #vNotes {
         left: -100%;
         width: 100%;
@@ -570,6 +624,10 @@ form{
         left: 0%;
         width: 100%;
         opacity: 1;
+    }
+
+    body[activeview="editf"] #cListInfo {
+        margin-left: 5vw;
     }
 
     body[activeview="edit"] #iNoteName {
@@ -589,13 +647,16 @@ form{
     }
 
 
-    body[activeview="list"] #vNotes{
+    body[activeview="list"] #vNotes,
+    body[activeview="editf"] #vFolderSettings {
         left: 0%;
         width: 100%;
         opacity: 1;
     }
 
-    body[activeview="list"] #vFolders{
+    body[activeview="list"] #vFolders,
+    body[activeview="editf"] #vFolders
+    {
         left: -100%;
         width: 100%;
         opacity: 0;
@@ -608,7 +669,8 @@ form{
     }
 
     body[activeview="list"] #tPageTitle,
-    body[activeview="list"] .notecard{
+    body[activeview="list"] .notecard,
+    body[activeview="list"] #cEmptyListHeader{
         margin-left: 5vw;
     }
 }

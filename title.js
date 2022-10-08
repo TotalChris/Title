@@ -61,7 +61,6 @@ class App {
     };
 
     this.view = {
-      rename: $("#vRenameShelf"),
       delete: $("#vDeleteShelf"),
       deleteNote: $("#vDeleteNote")
     };
@@ -88,7 +87,7 @@ class App {
       if ($('body').attr('activeview') == 'edit') {
         this.saveNote(this.activeNote);
         this.viewList(this.activeList);
-      } else if ($('body').attr('activeview') == 'list') {
+      } else if ($('body').attr('activeview') == 'list' || $('body').attr('activeview') == 'editf') {
         this.viewAllLists();
       }
     })
@@ -143,10 +142,6 @@ class App {
       this.close("TitleStoredShelves");
     });
 
-    this.loaded = new URL(window.location.href);
-    console.log(this.loaded.searchParams.get('view'));
-    console.log(this.loaded.searchParams.get('doc'));
-
     if (this.lists == undefined || this.activeList == undefined) {
       this.open("TitleStoredShelves").then(() => {
         if (this.prefs.lastAction == "all") {
@@ -156,6 +151,8 @@ class App {
         } else if (this.prefs.lastAction == "note") {
           this.viewList(this.getList(this.prefs.lastList));
           this.viewNote(this.getNote(this.getList(this.prefs.lastList), this.prefs.lastItem));
+        } else if (this.prefs.lastAction == "editf") {
+          this.renameList(this.getList(this.prefs.lastList));
         }
         detectIncognito().then((result) => {
           if (result.isPrivate) {
@@ -184,6 +181,9 @@ class App {
 
     this.component.listSelector.html("");
     this.lists.forEach((l) => {
+      if(!('icon' in l)){
+        l.icon = 'bi-folder';
+      }
       l.notes.forEach((n) => { //remove note color from old notes
         if('color' in n){
           delete n['color'];
@@ -193,7 +193,7 @@ class App {
         $(`
         <li class="notelist-item" uuid="${l.uuid}">
         <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-        <div><i class="bi bi-folder" style="color: ${l.color};"></i>&nbsp;${l.name}</div>
+        <div><i class="bi ${l.icon}" style="color: ${l.color};"></i>&nbsp;${l.name}</div>
           <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <i class="bi bi-three-dots"></i>
           </button>
@@ -226,77 +226,65 @@ class App {
   }
 
   createList() {
-    this.view.rename.one("close", () => {
-      if (this.view.rename[0].returnValue == "yes") {
-        let len = this.lists.push(
-          new Shelf(this.input.listName.val(), [], this.input.listColor.val())
-        );
-        let l = this.lists[len - 1];
-        this.viewList(l);
-
-        this.component.renameHeader.html("");
-        this.input.listName.val("");
-        this.input.listColor.val("#000000");
-
-        this.component.listSelector.append(
-          $(`
-        <li class="notelist-item" uuid="${l.uuid}">
-          <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-            <div><i class="bi bi-folder" style="color: ${l.color};"></i>&nbsp;${l.name}</div>
-            <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-              <i class="bi bi-three-dots"></i>
-            </button>
-            <button class="shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </button>
-        </li>
-        `)
-        );
-
-        if (this.lists.length <= 1) {
-          $(".shelfop-delete").css("display", "none");
-        } else {
-          $(".shelfop-delete").css("display", "inline-block");
-        }
-      }
-    });
-
-    this.input.listName.val("");
-    this.input.listColor.val("#000000");
-    this.component.renameHeader.html("New Folder");
-
-    this.view.rename.showModal();
+    let len = this.lists.push(
+      new Shelf("Untitled", [], '#B92D5D', 'bi-folder')
+    );
+    let l = this.lists[len - 1];
+    this.component.listSelector.append(
+      $(`
+    <li class="notelist-item" uuid="${l.uuid}">
+      <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+        <div><i class="bi ${l.icon}" style="color: ${l.color};"></i>&nbsp;${l.name}</div>
+        <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+          <i class="bi bi-three-dots"></i>
+        </button>
+        <button class="shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+          <i class="bi bi-trash-fill"></i>
+        </button>
+      </button>
+    </li>
+    `)
+    );
+    this.renameList(l);
+    if (this.lists.length <= 1) {
+      $(".shelfop-delete").css("display", "none");
+    } else {
+      $(".shelfop-delete").css("display", "inline-block");
+    }
   }
 
   renameList(list) {
-    this.view.rename.one("close", () => {
-      if (this.view.rename[0].returnValue == "yes") {
-        let c = this.input.listColor.val();
-        let nm = this.input.listName.val();
-        if(this.activeList == list){
-          document.documentElement.style.setProperty('--fgcolor', `${c}`);
-          document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(c)}`);
-          document.documentElement.style.setProperty('--fgcolorpass', `${c}20`);
-          document.documentElement.style.setProperty('--fgcolormid', `${c}77`);
-          $('meta[name="theme-color"]').attr('content', `${this.hexhelper(c)}`);
-          document.title = nm == undefined ? "Untitled Folder" : nm;
-          this.component.listHeader.html(
-            nm == undefined ? "Untitled Folder" : nm
-          );
-        }
-        list.name = nm;
-        list.color = c;
-        this.component.renameHeader.html("");
-        this.input.listName.val("");
-        this.input.listColor.val("#000000");
-        $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi bi-folder" style="color: ${list.color};"></i>&nbsp;${list.name}`);
-      }
-    });
+    this.input.listName.off('input');
+    this.input.listColor.off('input');
+    this.prefs.lastAction = 'editf';
+    this.prefs.lastList = list.uuid;
+    window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
+    $("#tBack").html('<i class="bi bi-chevron-left"></i>&nbsp;Folders');
+    this.activeNote = undefined;
+    document.title = list.name == undefined ? "Untitled Folder" : list.name;
+
+
+    $('body').attr('activeview', 'editf');
+    document.documentElement.style.setProperty('--fgcolor', `${list.color}`);
+    document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
+    document.documentElement.style.setProperty('--fgcolorpass', `${list.color}20`);
+    document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
     this.input.listName.val(list.name);
     this.input.listColor.val(list.color);
-    this.component.renameHeader.html("Edit Folder");
-    this.view.rename.showModal();
+    this.input.listName.on('input', (e) => {
+      list.name = e.target.value;
+      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi bi-folder" style="color: ${list.color};"></i>&nbsp;${list.name}`);
+    })
+    this.input.listColor.on('input', (e) => {
+      let c = e.target.value;
+      list.color = c;
+      document.documentElement.style.setProperty('--fgcolor', `${c}`);
+      document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(c)}`);
+      document.documentElement.style.setProperty('--fgcolorpass', `${c}20`);
+      document.documentElement.style.setProperty('--fgcolormid', `${c}77`);
+      $('meta[name="theme-color"]').attr('content', `${this.hexhelper(c)}`);
+      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi bi-folder" style="color: ${list.color};"></i>&nbsp;${list.name}`);
+    })
   }
 
   deleteList(list) {
@@ -471,7 +459,7 @@ class App {
     this.activeNote = undefined;
     document.title = list.name == undefined ? "Untitled Folder" : list.name;
     this.component.listHeader.html(
-      list.name == undefined ? "Untitled Folder" : list.name
+      `<i class="bi ${list.icon}"></i>&nbsp;` + (list.name == undefined ? "Untitled Folder" : list.name)
     );
     document.documentElement.style.setProperty('--fgcolor', `${list.color}`);
     document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
