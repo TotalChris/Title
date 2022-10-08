@@ -39,12 +39,12 @@
       <ul id="vFolderTools">
         <li class="notelist-item">
           <button class="shelf-name" onclick="$('#tImport').click()">
-            <div><i class="bi bi-box-arrow-in-down"></i>&nbsp;Import Data</div>
+            <div><i class="bi bi-box-arrow-in-down option-icon"></i>&nbsp;Import Data</div>
           </button>
         </li>
         <li class="notelist-item">
           <button class="shelf-name" onclick="Title.export()">
-            <div><i class="bi bi-box-arrow-up"></i>&nbsp;Export Data</div>
+            <div><i class="bi bi-box-arrow-up option-icon"></i>&nbsp;Export Data</div>
           </button>
         </li>
       </ul>
@@ -108,8 +108,8 @@
         window.addEventListener("load", () => {
           navigator.serviceWorker
             .register("sw.js")
-            .then(() => console.log("Ready"))
-            .catch(() => console.log("Error"));
+            .then(() => console.log("App Ready"))
+            .catch(() => console.log("Error Occured"));
         });
       }
     </script>

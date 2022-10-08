@@ -193,7 +193,7 @@ class App {
         $(`
         <li class="notelist-item" uuid="${l.uuid}">
         <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-        <div><i class="bi ${l.icon}" style="color: ${l.color};"></i>&nbsp;${l.name}</div>
+        <div><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
           <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <i class="bi bi-three-dots"></i>
           </button>
@@ -234,7 +234,7 @@ class App {
       $(`
     <li class="notelist-item" uuid="${l.uuid}">
       <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-        <div><i class="bi ${l.icon}" style="color: ${l.color};"></i>&nbsp;${l.name}</div>
+        <div><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
         <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
           <i class="bi bi-three-dots"></i>
         </button>

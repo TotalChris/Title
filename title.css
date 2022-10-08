@@ -79,7 +79,7 @@ hr {
     justify-content: flex-start;
     font-size: 20px;
     height: 40px;
-    padding-block: 4px;
+    padding-block: 8px;
 }
 
 .notelist-item:not(:first-child){
@@ -116,6 +116,23 @@ hr {
     gap: 8px;
     justify-content: space-between;
     overscroll-behavior-y: none;
+}
+
+.folder-icon{
+    color: white;
+    padding-inline: 8px;
+    border-radius: 50px;
+    padding-block: 6px;
+    font-size: 20px;
+}
+
+.option-icon{
+    background-color: black;
+    color: white;
+    padding-inline: 8px;
+    border-radius: 50px;
+    padding-block: 6px;
+    font-size: 20px;
 }
 
 .notecard {
