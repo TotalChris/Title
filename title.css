@@ -85,7 +85,7 @@ hr {
 }
 
 .notelist-item:not(:first-child){
-    border-top: 1px solid #cccccc;
+    border-top: 1px solid var(--fgcolorpass);
 }
 
 .note-option {
