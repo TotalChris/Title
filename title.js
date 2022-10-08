@@ -256,6 +256,7 @@ class App {
   renameList(list) {
     this.input.listName.off('input');
     this.input.listColor.off('input');
+    $('#tFolderIcons button').off('click');
     this.prefs.lastAction = 'editf';
     this.prefs.lastList = list.uuid;
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
@@ -271,9 +272,10 @@ class App {
     document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
     this.input.listName.val(list.name);
     this.input.listColor.val(list.color);
+    $('#tFolderIconSwitcher').html(`<i class="bi ${list.icon}"></i>`);
     this.input.listName.on('input', (e) => {
       list.name = e.target.value;
-      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi bi-folder" style="color: ${list.color};"></i>&nbsp;${list.name}`);
+      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
     })
     this.input.listColor.on('input', (e) => {
       let c = e.target.value;
@@ -283,7 +285,16 @@ class App {
       document.documentElement.style.setProperty('--fgcolorpass', `${c}20`);
       document.documentElement.style.setProperty('--fgcolormid', `${c}77`);
       $('meta[name="theme-color"]').attr('content', `${this.hexhelper(c)}`);
-      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi bi-folder" style="color: ${list.color};"></i>&nbsp;${list.name}`);
+      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
+    })
+    $('#tFolderIcons button').on('click', (e)=>{
+      if(!(e.target instanceof HTMLButtonElement)){
+        list.icon = "bi-" + $(e.target.parentNode).attr('icon');
+      } else { 
+        list.icon = "bi-" + $(e.target).attr('icon');
+      }
+      $('#tFolderIconSwitcher').html(`<i class="bi ${list.icon}"></i>`);
+      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
     })
   }
 

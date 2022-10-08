@@ -62,10 +62,184 @@
     </div>
     <div id="vFolderSettings">
       <div id="cListInfo">
+        <button class="toolbutton" id="tFolderIconSwitcher">
+          <i class="bi"></i>
+        </button>
         <textarea id="iListName" placeholder="Name" oninput="Title.handlers.inputTitle(event)"
         onkeypress="Title.handlers.keypressTitle(event)" rows="1"></textarea> 
         <button class="toolbutton" type="button" id="tListColor" onclick="this.children[0].click()">
           <input type="color" id="iListColor" />
+        </button>
+      </div>
+      <div id="tFolderIcons">
+        <hr>
+        <button class="toolbutton" icon="airplane-fill">
+          <i class="bi bi-airplane-fill"></i>
+        </button>
+        <button class="toolbutton" icon="archive-fill">
+          <i class="bi bi-archive-fill"></i>
+        </button>
+        <button class="toolbutton" icon="award-fill">
+          <i class="bi bi-award-fill"></i>
+        </button>
+        <button class="toolbutton" icon="bank2">
+          <i class="bi bi-bank2"></i>
+        </button>
+        <button class="toolbutton" icon="bar-chart-line-fill">
+          <i class="bi bi-bar-chart-line-fill"></i>
+        </button>
+        <button class="toolbutton" icon="basket-fill">
+          <i class="bi bi-basket-fill"></i>
+        </button>
+        <button class="toolbutton" icon="bell-fill">
+          <i class="bi bi-bell-fill"></i>
+        </button>
+        <button class="toolbutton" icon="book-fill">
+          <i class="bi bi-book-fill"></i>
+        </button>
+        <button class="toolbutton" icon="bookmarks-fill">
+          <i class="bi bi-bookmarks-fill"></i>
+        </button>
+        <button class="toolbutton" icon="box-seam-fill">
+          <i class="bi bi-box-seam-fill"></i>
+        </button>
+        <button class="toolbutton" icon="briefcase-fill">
+          <i class="bi bi-briefcase-fill"></i>
+        </button>
+        <button class="toolbutton" icon="calendar-fill">
+          <i class="bi bi-calendar-fill"></i>
+        </button>
+        <button class="toolbutton" icon="camera-fill">
+          <i class="bi bi-camera-fill"></i>
+        </button>
+        <button class="toolbutton" icon="camera-video-fill">
+          <i class="bi bi-camera-video-fill"></i>
+        </button>
+        <button class="toolbutton" icon="cart-fill">
+          <i class="bi bi-cart-fill"></i>
+        </button>
+        <button class="toolbutton" icon="chat-fill">
+          <i class="bi bi-chat-fill"></i>
+        </button>
+        <button class="toolbutton" icon="check-lg">
+          <i class="bi bi-check-lg"></i>
+        </button>
+        <button class="toolbutton" icon="circle-fill">
+          <i class="bi bi-circle-fill"></i>
+        </button>
+        <button class="toolbutton" icon="clock-fill">
+          <i class="bi bi-clock-fill"></i>
+        </button>
+        <button class="toolbutton" icon="cloud-fill">
+          <i class="bi bi-cloud-fill"></i>
+        </button>
+        <button class="toolbutton" icon="cone-striped">
+          <i class="bi bi-cone-striped"></i>
+        </button>
+        <button class="toolbutton" icon="cup-hot-fill">
+          <i class="bi bi-cup-hot-fill"></i>
+        </button>
+        <button class="toolbutton" icon="envelope-fill">
+          <i class="bi bi-envelope-fill"></i>
+        </button>
+        <button class="toolbutton" icon="exclamation-triangle-fill">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+        </button>
+        <button class="toolbutton" icon="file-earmark-text-fill">
+          <i class="bi bi-file-earmark-text-fill"></i>
+        </button>
+        <button class="toolbutton" icon="flag-fill">
+          <i class="bi bi-flag-fill"></i>
+        </button>
+        <button class="toolbutton" icon="folder-fill">
+          <i class="bi bi-folder-fill"></i>
+        </button>
+        <button class="toolbutton" icon="geo-fill">
+          <i class="bi bi-geo-fill"></i>
+        </button>
+        <button class="toolbutton" icon="hand-thumbs-up-fill">
+          <i class="bi bi-hand-thumbs-up-fill"></i>
+        </button>
+        <button class="toolbutton" icon="heart-fill">
+          <i class="bi bi-heart-fill"></i>
+        </button>
+        <button class="toolbutton" icon="heartbreak-fill">
+          <i class="bi bi-heartbreak-fill"></i>
+        </button>
+        <button class="toolbutton" icon="house-fill">
+          <i class="bi bi-house-fill"></i>
+        </button>
+        <button class="toolbutton" icon="inbox-fill">
+          <i class="bi bi-inbox-fill"></i>
+        </button>
+        <button class="toolbutton" icon="info-circle-fill">
+          <i class="bi bi-info-circle-fill"></i>
+        </button>
+        <button class="toolbutton" icon="kanban-fill">
+          <i class="bi bi-kanban-fill"></i>
+        </button>
+        <button class="toolbutton" icon="lightbulb-fill">
+          <i class="bi bi-lightbulb-fill"></i>
+        </button>
+        <button class="toolbutton" icon="lightning-fill">
+          <i class="bi bi-lightning-fill"></i>
+        </button>
+        <button class="toolbutton" icon="lock-fill">
+          <i class="bi bi-lock-fill"></i>
+        </button>
+        <button class="toolbutton" icon="moon-fill">
+          <i class="bi bi-moon-fill"></i>
+        </button>
+        <button class="toolbutton" icon="music-note">
+          <i class="bi bi-music-note"></i>
+        </button>
+        <button class="toolbutton" icon="person-circle">
+          <i class="bi bi-person-circle"></i>
+        </button>
+        <button class="toolbutton" icon="person-video2">
+          <i class="bi bi-person-video2"></i>
+        </button>
+        <button class="toolbutton" icon="piggy-bank-fill">
+          <i class="bi bi-piggy-bank-fill"></i>
+        </button>
+        <button class="toolbutton" icon="safe-fill">
+          <i class="bi bi-safe-fill"></i>
+        </button>
+        <button class="toolbutton" icon="send-fill">
+          <i class="bi bi-send-fill"></i>
+        </button>
+        <button class="toolbutton" icon="square-fill">
+          <i class="bi bi-square-fill"></i>
+        </button>
+        <button class="toolbutton" icon="stickies-fill">
+          <i class="bi bi-stickies-fill"></i>
+        </button>
+        <button class="toolbutton" icon="sun-fill">
+          <i class="bi bi-sun-fill"></i>
+        </button>
+        <button class="toolbutton" icon="tag-fill">
+          <i class="bi bi-tag-fill"></i>
+        </button>
+        <button class="toolbutton" icon="triangle-fill">
+          <i class="bi bi-triangle-fill"></i>
+        </button>
+        <button class="toolbutton" icon="trophy fill">
+          <i class="bi bi-trophy fill"></i>
+        </button>
+        <button class="toolbutton" icon="ui-checks">
+          <i class="bi bi-ui-checks"></i>
+        </button>
+        <button class="toolbutton" icon="umbrella-fill">
+          <i class="bi bi-umbrella-fill"></i>
+        </button>
+        <button class="toolbutton" icon="upc">
+          <i class="bi bi-upc"></i>
+        </button>
+        <button class="toolbutton" icon="wallet-fill">
+          <i class="bi bi-wallet-fill"></i>
+        </button>
+        <button class="toolbutton" icon="yin-yang">
+          <i class="bi bi-yin-yang"></i>
         </button>
       </div>
     </div>

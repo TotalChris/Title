@@ -38,7 +38,6 @@ body {
 #cListInfo {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
     gap: 8px;
 }
 
@@ -70,7 +69,10 @@ ul li button {
 }
 
 hr {
-    margin: 8px !important;
+    margin: 0px !important;
+    color: var(--fgcolor);
+    background-color: var(--fgcolor);
+    border-style: solid;
 }
 
 .notelist-item {
@@ -105,6 +107,26 @@ hr {
     flex-grow: 1;
     text-align: start;
     font-size: 1.5rem;
+}
+
+#tFolderIcons button{
+    height: 60px;
+    width: 60px;
+    background-color: transparent;
+    margin: 8px;
+}
+
+#tFolderIcons button i{
+    font-size: 40px;
+}
+
+#tFolderIconSwitcher{
+    background-color: transparent;
+    padding-inline: 0px;
+}
+
+#tFolderIconSwitcher i{
+    font-size: 40px;
 }
 
 #header {
@@ -169,7 +191,7 @@ hr {
     color: var(--fgcolor);
     overflow: hidden;
 }
-#iNoteName, #cListInfo{
+#iNoteName, #cListInfo, #tFolderIcons{
     margin-inline: 5vw;
 }
 #tListColor{
@@ -502,7 +524,8 @@ body[activeview="editf"] #tFoldersTitle{
     margin-right: 8px;
 }
 
-body[activeview="editf"] #cListInfo {
+body[activeview="editf"] #cListInfo,
+body[activeview="editf"] #tFolderIcons {
     margin-left: 8px;
 }
 
@@ -591,6 +614,7 @@ form{
     #iNoteName,
     #vFolderTools,
     #cListInfo,
+    #tFolderIcons,
     .notecard {
         margin-inline: 16px !important;
     }
@@ -643,7 +667,8 @@ form{
         opacity: 1;
     }
 
-    body[activeview="editf"] #cListInfo {
+    body[activeview="editf"] #cListInfo,
+    body[activeview="editf"] #tFolderIcons {
         margin-left: 5vw;
     }
 
