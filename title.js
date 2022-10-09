@@ -137,6 +137,31 @@ class App {
       this.deleteNote(this.activeNote, this.activeList);
     });
 
+    $('#tFolderIcons button').on("click", (e) => {
+      if(!(e.target instanceof HTMLButtonElement)){
+        this.activeList.icon = "bi-" + $(e.target.parentNode).attr('icon');
+      } else { 
+        this.activeList.icon = "bi-" + $(e.target).attr('icon');
+      }
+      $('#tFolderIconSwitcher').html(`<i class="bi ${this.activeList.icon}"></i>`);
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).html(`<i class="bi ${this.activeList.icon} folder-icon" style="background-color: ${this.activeList.color};"></i>&nbsp;${this.activeList.name}`);
+    })
+
+    $('#tFolderColors button').on('click', (e)=>{
+      console.log(e);
+      if(!(e.target instanceof HTMLButtonElement)){
+        this.activeList.color = $(e.target.parentNode).attr('color');
+      } else { 
+        this.activeList.color = $(e.target).attr('color');
+      }
+      document.documentElement.style.setProperty('--fgcolor', `${this.activeList.color}`);
+      document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(this.activeList.color)}`);
+      document.documentElement.style.setProperty('--fgcolorpass', `${this.activeList.color}20`);
+      document.documentElement.style.setProperty('--fgcolormid', `${this.activeList.color}77`);
+      $('meta[name="theme-color"]').attr('content', `${this.hexhelper(this.activeList.color)}`);
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).html(`<i class="bi ${this.activeList.icon} folder-icon" style="background-color: ${this.activeList.color};"></i>&nbsp;${this.activeList.name}`);
+    })
+
     // register autosave-on-close listener
     document.addEventListener("visibilitychange", () => {
       this.close("TitleStoredShelves");
@@ -256,8 +281,6 @@ class App {
   renameList(list) {
     this.input.listName.off('input');
     this.input.listColor.off('input');
-    $('#tFolderIcons button').off('click');
-    $('#tFolderColors button').off('click');
     this.prefs.lastAction = 'editf';
     this.prefs.lastList = list.uuid;
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
@@ -278,38 +301,6 @@ class App {
     $('#tFolderIconSwitcher').html(`<i class="bi ${list.icon}"></i>`);
     this.input.listName.on('input', (e) => {
       list.name = e.target.value;
-      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
-    })
-    this.input.listColor.on('input', (e) => {
-      let c = e.target.value;
-      list.color = c;
-      document.documentElement.style.setProperty('--fgcolor', `${c}`);
-      document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(c)}`);
-      document.documentElement.style.setProperty('--fgcolorpass', `${c}20`);
-      document.documentElement.style.setProperty('--fgcolormid', `${c}77`);
-      $('meta[name="theme-color"]').attr('content', `${this.hexhelper(c)}`);
-      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
-    })
-    $('#tFolderIcons button').on('click', (e)=>{
-      if(!(e.target instanceof HTMLButtonElement)){
-        list.icon = "bi-" + $(e.target.parentNode).attr('icon');
-      } else { 
-        list.icon = "bi-" + $(e.target).attr('icon');
-      }
-      $('#tFolderIconSwitcher').html(`<i class="bi ${list.icon}"></i>`);
-      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
-    })
-    $('#tFolderColors button').on('click', (e)=>{
-      if(!(e.target instanceof HTMLButtonElement)){
-        list.color = $(e.target.parentNode).attr('color');
-      } else { 
-        list.color = $(e.target).attr('color');
-      }
-      document.documentElement.style.setProperty('--fgcolor', `${list.color}`);
-      document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
-      document.documentElement.style.setProperty('--fgcolorpass', `${list.color}20`);
-      document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
-      $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
       $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
     })
   }
@@ -494,44 +485,42 @@ class App {
     document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
     $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
 
-    if (this.activeList == undefined || list != this.activeList) {
       this.activeList = list;
       this.component.noteList.html("");
 
-      if (list.notes.length == 0) {
-        $(
-          `<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`
-        ).appendTo(this.component.noteList);
-      } else {
-        list.notes.forEach((note) => {
-          $(`
-          <div class="notecard" uuid="${note.uuid}">
-          <div>
-            <div class="card-heading">
-              <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
-              <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
-              <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${note.uuid}' ))">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <button class="note-option" onclick="event.stopPropagation();Title.deleteNote(Title.getNote(Title.activeList, '${note.uuid}' ), Title.activeList)">
-                <i class="bi bi-trash-fill"></i>
-              </button>
-            </div>
-            <div class="card-text">${note.content}</div>
-            </div>
-          </div> 
-          `)
-            .on("click", (e) => {
-              this.viewNote(note);
-            })
-            .appendTo(this.component.noteList);
-          if (note.completed == true) {
-            $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', 'line-through');
-            $(`.notecard[uuid=${note.uuid}]`).css('opacity', '50%');
-            $(`.notecard[uuid=${note.uuid}] .tNoteStatus`).prop('checked', true);
-          }
-        });
-      }
+    if (list.notes.length == 0) {
+      $(
+        `<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`
+      ).appendTo(this.component.noteList);
+    } else {
+      list.notes.forEach((note) => {
+        $(`
+        <div class="notecard" uuid="${note.uuid}">
+        <div>
+          <div class="card-heading">
+            <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
+            <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
+            <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${note.uuid}' ))">
+              <i class="bi bi-three-dots"></i>
+            </button>
+            <button class="note-option" onclick="event.stopPropagation();Title.deleteNote(Title.getNote(Title.activeList, '${note.uuid}' ), Title.activeList)">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </div>
+          <div class="card-text">${note.content}</div>
+          </div>
+        </div> 
+        `)
+          .on("click", (e) => {
+            this.viewNote(note);
+          })
+          .appendTo(this.component.noteList);
+        if (note.completed == true) {
+          $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', 'line-through');
+          $(`.notecard[uuid=${note.uuid}]`).css('opacity', '50%');
+          $(`.notecard[uuid=${note.uuid}] .tNoteStatus`).prop('checked', true);
+        }
+      });
     }
   }
 
@@ -572,3 +561,5 @@ class App {
 function init() {
   this.Title = new App();
 }
+
+document.addEventListener('DOMContentLoaded', init, false);

@@ -621,6 +621,7 @@ form{
     #cListInfo,
     #tFolderIcons,
     #tFolderColors,
+    #cEmptyListHeader,
     .notecard {
         margin-inline: 16px !important;
     }
