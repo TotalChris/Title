@@ -109,18 +109,18 @@ hr {
     font-size: 1.5rem;
 }
 
-#tFolderIcons{
+#tFolderIcons, #tFolderColors{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
-#tFolderIcons button{
+#tFolderIcons button, #tFolderColors button{
     height: 60px;
     width: 60px;
     background-color: transparent;
     margin: 8px;
 }
-#tFolderIcons button i{
+#tFolderIcons button i, #tFolderColors button i{
     font-size: 40px;
 }
 
@@ -130,7 +130,7 @@ hr {
 }
 
 #tFolderIconSwitcher i{
-    font-size: 40px;
+    font-size: 32px;
 }
 
 #header {
@@ -181,7 +181,7 @@ hr {
 
 #iNoteName, #iListName {
     font-family: 'Inter', sans-serif !important;
-    font-size: 40px;
+    font-size: 34px;
     width: -webkit-fill-available;
     font-weight: 700;
     outline: none !important;
@@ -195,7 +195,7 @@ hr {
     color: var(--fgcolor);
     overflow: hidden;
 }
-#iNoteName, #cListInfo, #tFolderIcons{
+#iNoteName, #cListInfo, #tFolderIcons, #tFolderColors{
     margin-inline: 5vw;
 }
 #tListColor{
@@ -322,7 +322,7 @@ button, input[type="checkbox"]{
 #tFoldersTitle {
     width: -webkit-fill-available;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 34px;
     color: var(--fgcolor);
     margin-inline: 5vw;
 }
@@ -529,7 +529,8 @@ body[activeview="editf"] #tFoldersTitle{
 }
 
 body[activeview="editf"] #cListInfo,
-body[activeview="editf"] #tFolderIcons {
+body[activeview="editf"] #tFolderIcons,
+body[activeview="editf"] #tFolderColors{
     margin-left: 8px;
 }
 
@@ -619,6 +620,7 @@ form{
     #vFolderTools,
     #cListInfo,
     #tFolderIcons,
+    #tFolderColors,
     .notecard {
         margin-inline: 16px !important;
     }
@@ -672,7 +674,8 @@ form{
     }
 
     body[activeview="editf"] #cListInfo,
-    body[activeview="editf"] #tFolderIcons {
+    body[activeview="editf"] #tFolderIcons,
+    body[activeview="editf"] #tFolderColors{
         margin-left: 5vw;
     }
 

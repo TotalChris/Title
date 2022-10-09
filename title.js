@@ -257,11 +257,13 @@ class App {
     this.input.listName.off('input');
     this.input.listColor.off('input');
     $('#tFolderIcons button').off('click');
+    $('#tFolderColors button').off('click');
     this.prefs.lastAction = 'editf';
     this.prefs.lastList = list.uuid;
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("#tBack").html('<i class="bi bi-chevron-left"></i>&nbsp;Folders');
     this.activeNote = undefined;
+    this.activeList = list;
     document.title = list.name == undefined ? "Untitled Folder" : list.name;
 
 
@@ -270,6 +272,7 @@ class App {
     document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
     document.documentElement.style.setProperty('--fgcolorpass', `${list.color}20`);
     document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
+    $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
     this.input.listName.val(list.name);
     this.input.listColor.val(list.color);
     $('#tFolderIconSwitcher').html(`<i class="bi ${list.icon}"></i>`);
@@ -294,6 +297,19 @@ class App {
         list.icon = "bi-" + $(e.target).attr('icon');
       }
       $('#tFolderIconSwitcher').html(`<i class="bi ${list.icon}"></i>`);
+      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
+    })
+    $('#tFolderColors button').on('click', (e)=>{
+      if(!(e.target instanceof HTMLButtonElement)){
+        list.color = $(e.target.parentNode).attr('color');
+      } else { 
+        list.color = $(e.target).attr('color');
+      }
+      document.documentElement.style.setProperty('--fgcolor', `${list.color}`);
+      document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
+      document.documentElement.style.setProperty('--fgcolorpass', `${list.color}20`);
+      document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
+      $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
       $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
     })
   }
