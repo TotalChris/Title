@@ -217,12 +217,12 @@ class App {
       this.component.listSelector.append(
         $(`
         <li class="notelist-item" uuid="${l.uuid}">
-        <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+        <button class="shelf-name" id="${l.uuid}" aria-label="View ${l.name} Folder" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
         <div><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
-          <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+          <button class="shelf-option" aria-label="Edit ${l.name} Folder" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <i class="bi bi-three-dots"></i>
           </button>
-          <button class="shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+          <button class="shelf-option text-danger shelfop-delete" aria-label="Delete ${l.name} Folder" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
             <i class="bi bi-trash-fill"></i>
           </button>
         </button>
@@ -257,13 +257,13 @@ class App {
     let l = this.lists[len - 1];
     this.component.listSelector.append(
       $(`
-    <li class="notelist-item" uuid="${l.uuid}">
-      <button class="shelf-name" id="${l.uuid}" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-        <div><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
-        <button class="shelf-option" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+      <li class="notelist-item" uuid="${l.uuid}">
+      <button class="shelf-name" id="${l.uuid}" aria-label="View ${l.name} Folder" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+      <div><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
+        <button class="shelf-option" aria-label="Edit ${l.name} Folder" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
           <i class="bi bi-three-dots"></i>
         </button>
-        <button class="shelf-option text-danger shelfop-delete" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+        <button class="shelf-option text-danger shelfop-delete" aria-label="Delete ${l.name} Folder" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
           <i class="bi bi-trash-fill"></i>
         </button>
       </button>
@@ -339,12 +339,12 @@ class App {
     <div class="notecard" uuid="${n.uuid}">
     <div>
       <div class="card-heading">
-        <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
-        <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
-        <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${n.uuid}' ))">
+        <input type="checkbox" aria-label="Complete ${n.name}" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
+        <h2 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
+        <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${n.uuid}' ))" aria-label="Edit ${n.name}">
           <i class="bi bi-three-dots"></i>
         </button>
-        <button class="note-option" onclick="event.stopPropagation();Title.deleteNote(Title.getNote(Title.activeList, '${n.uuid}' ), Title.activeList)">
+        <button class="note-option" aria-label="Delete ${n.name}" onclick="event.stopPropagation();Title.deleteNote(Title.getNote(Title.activeList, '${n.uuid}' ), Title.activeList)">
           <i class="bi bi-trash-fill"></i>
         </button>
       </div>
@@ -457,7 +457,7 @@ class App {
     this.prefs.lastAction = 'all';
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("body").attr("activeView", "all");
-    $("#tBack").html(`<img src="img/logo.png" height="24px" style="padding-inline: 10px;"></img>`)
+    $("#tBack").html(`<img src="img/logo.png" height="24px" width="44px" alt="" style="padding-inline: 10px;"></img>`)
     this.activeNote = undefined;
     this.activeList = undefined;
     document.title = "Folders";
@@ -493,32 +493,32 @@ class App {
         `<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`
       ).appendTo(this.component.noteList);
     } else {
-      list.notes.forEach((note) => {
+      list.notes.forEach((n) => {
         $(`
-        <div class="notecard" uuid="${note.uuid}">
+        <div class="notecard" uuid="${n.uuid}">
         <div>
           <div class="card-heading">
-            <input type="checkbox" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${note.uuid}'), (event.currentTarget.checked ? true : false));}">
-            <h5 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{this.focus();event.stopPropagation();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${note.uuid}').name = this.textContent;">${note.name == "" ? "" : note.name}</h5>
-            <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${note.uuid}' ))">
+            <input type="checkbox" aria-label="Complete ${n.name}" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
+            <h2 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
+            <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${n.uuid}' ))" aria-label="Edit ${n.name}">
               <i class="bi bi-three-dots"></i>
             </button>
-            <button class="note-option" onclick="event.stopPropagation();Title.deleteNote(Title.getNote(Title.activeList, '${note.uuid}' ), Title.activeList)">
+            <button class="note-option" aria-label="Delete ${n.name}" onclick="event.stopPropagation();Title.deleteNote(Title.getNote(Title.activeList, '${n.uuid}' ), Title.activeList)">
               <i class="bi bi-trash-fill"></i>
             </button>
           </div>
-          <div class="card-text">${note.content}</div>
+          <div class="card-text">${n.content}</div>
           </div>
         </div> 
         `)
           .on("click", (e) => {
-            this.viewNote(note);
+            this.viewNote(n);
           })
           .appendTo(this.component.noteList);
-        if (note.completed == true) {
-          $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', 'line-through');
-          $(`.notecard[uuid=${note.uuid}]`).css('opacity', '50%');
-          $(`.notecard[uuid=${note.uuid}] .tNoteStatus`).prop('checked', true);
+        if (n.completed == true) {
+          $(`.notecard[uuid=${n.uuid}] .card-title`).css('text-decoration', 'line-through');
+          $(`.notecard[uuid=${n.uuid}]`).css('opacity', '50%');
+          $(`.notecard[uuid=${n.uuid}] .tNoteStatus`).prop('checked', true);
         }
       });
     }

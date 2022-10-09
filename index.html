@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Title</title>
+    <title>Title Notes</title>
     <link rel="stylesheet" href="title.css" />
     <link rel="stylesheet" href="dep/bsi/bsi.css" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <meta name="description" content="Take notes in your phone or browser with this tiny app." />
     <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" href="/img/ic192.png">
   </head>
@@ -14,22 +15,22 @@
   <body>
     <input type="file" id="tImport" accept=".json, .ttl" style="display: none;">
     <div id="header">
-      <button class="toolbutton" id="tBack">
+      <button class="toolbutton" id="tBack" aria-label="Back">
         <i class="bi bi-chevron-left"></i>&nbsp;Back
       </button>
-      <button id="tNewShelf" class="toolbutton">
+      <button id="tNewShelf" class="toolbutton" aria-label="Create Folder">
         <i class="bi bi-folder-plus"></i>
       </button>
-      <button id="tNewNote" class="toolbutton">
+      <button id="tNewNote" class="toolbutton" aria-label="Create Note">
         <i class="bi bi-file-earmark-plus-fill"></i>
       </button>
-      <button id="tDownNote" class="toolbutton">
+      <button id="tDownNote" class="toolbutton" aria-label="Download Note">
         <i class="bi bi-arrow-down-circle-fill"></i>
       </button>
-      <button id="tShareNote" class="toolbutton">
+      <button id="tShareNote" class="toolbutton" aria-label="Share Note">
         <i class="bi bi-share-fill"></i>
       </button>
-      <button id="tDeleteNote" class="toolbutton">
+      <button id="tDeleteNote" class="toolbutton" aria-label="Delete Note">
         <i class="bi bi-trash-fill"></i>
       </button>
     </div>
@@ -38,12 +39,12 @@
       <ul id="vFolderList"></ul>
       <ul id="vFolderTools">
         <li class="notelist-item">
-          <button class="shelf-name" onclick="$('#tImport').click()">
+          <button class="shelf-name" onclick="$('#tImport').click()" aria-label="Import Data">
             <div><i class="bi bi-box-arrow-in-down option-icon"></i>&nbsp;Import Data</div>
           </button>
         </li>
         <li class="notelist-item">
-          <button class="shelf-name" onclick="Title.export()">
+          <button class="shelf-name" onclick="Title.export()" aria-label="Export Data">
             <div><i class="bi bi-box-arrow-up option-icon"></i>&nbsp;Export Data</div>
           </button>
         </li>
@@ -62,7 +63,7 @@
     </div>
     <div id="vFolderSettings">
       <div id="cListInfo">
-        <button class="toolbutton" id="tFolderIconSwitcher">
+        <button class="toolbutton" id="tFolderIconSwitcher" role="presentation" aria-label="Current Set Icon">
           <i class="bi"></i>
         </button>
         <textarea id="iListName" placeholder="Name" oninput="Title.handlers.inputTitle(event)"
@@ -70,196 +71,196 @@
       </div>
       <div id="tFolderColors">
         <hr width="100%">
-        <button class="toolbutton" color="#b92d5d">
+        <button class="toolbutton" color="#b92d5d" aria-label="scarlet">
           <i class="bi bi-circle-fill" style="color: #b92d5d;"></i>
         </button>        
-        <button class="toolbutton" color="#eb4d3d">
+        <button class="toolbutton" color="#eb4d3d" aria-label="red">
           <i class="bi bi-circle-fill" style="color: #eb4d3d;"></i>
         </button>              
-        <button class="toolbutton" color="#d38301">
+        <button class="toolbutton" color="#d38301" aria-label="yellow">
           <i class="bi bi-circle-fill" style="color: #d38301;"></i>
         </button>              
-        <button class="toolbutton" color="#009000">
+        <button class="toolbutton" color="#009000" aria-label="green">
           <i class="bi bi-circle-fill" style="color: #009000;"></i>
         </button>              
-        <button class="toolbutton" color="#008cb4">
+        <button class="toolbutton" color="#008cb4" aria-label="teal">
           <i class="bi bi-circle-fill" style="color: #008cb4;"></i>
         </button>              
-        <button class="toolbutton" color="#285ff4">
+        <button class="toolbutton" color="#285ff4" aria-label="blue">
           <i class="bi bi-circle-fill" style="color: #285ff4;"></i>
         </button>      
       </div>
       <div id="tFolderIcons">
         <hr width="100%">
-        <button class="toolbutton" icon="airplane-fill">
+        <button class="toolbutton" icon="airplane-fill" aria-label="Airplane Icon">
           <i class="bi bi-airplane-fill"></i>
         </button>
-        <button class="toolbutton" icon="archive-fill">
+        <button class="toolbutton" icon="archive-fill" aria-label="Archive Icon">
           <i class="bi bi-archive-fill"></i>
         </button>
-        <button class="toolbutton" icon="award-fill">
+        <button class="toolbutton" icon="award-fill" aria-label="Award Icon">
           <i class="bi bi-award-fill"></i>
         </button>
-        <button class="toolbutton" icon="bank2">
+        <button class="toolbutton" icon="bank2" aria-label="Bank Icon">
           <i class="bi bi-bank2"></i>
         </button>
-        <button class="toolbutton" icon="bar-chart-line-fill">
+        <button class="toolbutton" icon="bar-chart-line-fill" aria-label="Bar Chart Icon">
           <i class="bi bi-bar-chart-line-fill"></i>
         </button>
-        <button class="toolbutton" icon="basket-fill">
+        <button class="toolbutton" icon="basket-fill" aria-label="Basket Icon">
           <i class="bi bi-basket-fill"></i>
         </button>
-        <button class="toolbutton" icon="bell-fill">
+        <button class="toolbutton" icon="bell-fill" aria-label="Bell Icon">
           <i class="bi bi-bell-fill"></i>
         </button>
-        <button class="toolbutton" icon="book-fill">
+        <button class="toolbutton" icon="book-fill" aria-label="Book Icon">
           <i class="bi bi-book-fill"></i>
         </button>
-        <button class="toolbutton" icon="bookmarks-fill">
+        <button class="toolbutton" icon="bookmarks-fill" aria-label="Bookmark Icon">
           <i class="bi bi-bookmarks-fill"></i>
         </button>
-        <button class="toolbutton" icon="box-seam-fill">
+        <button class="toolbutton" icon="box-seam-fill" aria-label="Box Icon">
           <i class="bi bi-box-seam-fill"></i>
         </button>
-        <button class="toolbutton" icon="briefcase-fill">
+        <button class="toolbutton" icon="briefcase-fill" aria-label="Briefcase Icon">
           <i class="bi bi-briefcase-fill"></i>
         </button>
-        <button class="toolbutton" icon="calendar-fill">
+        <button class="toolbutton" icon="calendar-fill" aria-label="Calendar Icon">
           <i class="bi bi-calendar-fill"></i>
         </button>
-        <button class="toolbutton" icon="camera-fill">
+        <button class="toolbutton" icon="camera-fill" aria-label="Camera Icon">
           <i class="bi bi-camera-fill"></i>
         </button>
-        <button class="toolbutton" icon="camera-video-fill">
+        <button class="toolbutton" icon="camera-video-fill" aria-label="Video Camera Icon">
           <i class="bi bi-camera-video-fill"></i>
         </button>
-        <button class="toolbutton" icon="cart-fill">
+        <button class="toolbutton" icon="cart-fill" aria-label="Cart Icon">
           <i class="bi bi-cart-fill"></i>
         </button>
-        <button class="toolbutton" icon="chat-fill">
+        <button class="toolbutton" icon="chat-fill" aria-label="Chat Bubble Icon">
           <i class="bi bi-chat-fill"></i>
         </button>
-        <button class="toolbutton" icon="check-lg">
+        <button class="toolbutton" icon="check-lg" aria-label="Checkmark Icon">
           <i class="bi bi-check-lg"></i>
         </button>
-        <button class="toolbutton" icon="circle-fill">
+        <button class="toolbutton" icon="circle-fill" aria-label="Circle Icon">
           <i class="bi bi-circle-fill"></i>
         </button>
-        <button class="toolbutton" icon="clock-fill">
+        <button class="toolbutton" icon="clock-fill" aria-label="Clock Icon">
           <i class="bi bi-clock-fill"></i>
         </button>
-        <button class="toolbutton" icon="cloud-fill">
+        <button class="toolbutton" icon="cloud-fill" aria-label="Cloud Icon">
           <i class="bi bi-cloud-fill"></i>
         </button>
-        <button class="toolbutton" icon="cone-striped">
+        <button class="toolbutton" icon="cone-striped" aria-label="Traffic Cone Icon">
           <i class="bi bi-cone-striped"></i>
         </button>
-        <button class="toolbutton" icon="cup-hot-fill">
+        <button class="toolbutton" icon="cup-hot-fill" aria-label="Coffee Cup Icon">
           <i class="bi bi-cup-hot-fill"></i>
         </button>
-        <button class="toolbutton" icon="envelope-fill">
+        <button class="toolbutton" icon="envelope-fill" aria-label="Envelope Icon">
           <i class="bi bi-envelope-fill"></i>
         </button>
-        <button class="toolbutton" icon="exclamation-triangle-fill">
+        <button class="toolbutton" icon="exclamation-triangle-fill" aria-label="Warning Icon">
           <i class="bi bi-exclamation-triangle-fill"></i>
         </button>
-        <button class="toolbutton" icon="file-earmark-text-fill">
+        <button class="toolbutton" icon="file-earmark-text-fill" aria-label="Page Icon">
           <i class="bi bi-file-earmark-text-fill"></i>
         </button>
-        <button class="toolbutton" icon="flag-fill">
+        <button class="toolbutton" icon="flag-fill" aria-label="Flag Icon">
           <i class="bi bi-flag-fill"></i>
         </button>
-        <button class="toolbutton" icon="folder-fill">
+        <button class="toolbutton" icon="folder-fill" aria-label="Folder Icon">
           <i class="bi bi-folder-fill"></i>
         </button>
-        <button class="toolbutton" icon="geo-fill">
+        <button class="toolbutton" icon="geo-fill" aria-label="Pin Icon">
           <i class="bi bi-geo-fill"></i>
         </button>
-        <button class="toolbutton" icon="hand-thumbs-up-fill">
+        <button class="toolbutton" icon="hand-thumbs-up-fill" aria-label="Thumbs Up Icon">
           <i class="bi bi-hand-thumbs-up-fill"></i>
         </button>
-        <button class="toolbutton" icon="heart-fill">
+        <button class="toolbutton" icon="heart-fill" aria-label="Heart Icon">
           <i class="bi bi-heart-fill"></i>
         </button>
-        <button class="toolbutton" icon="heartbreak-fill">
+        <button class="toolbutton" icon="heartbreak-fill" aria-label="Broken Heart Icon">
           <i class="bi bi-heartbreak-fill"></i>
         </button>
-        <button class="toolbutton" icon="house-fill">
+        <button class="toolbutton" icon="house-fill" aria-label="House Icon">
           <i class="bi bi-house-fill"></i>
         </button>
-        <button class="toolbutton" icon="inbox-fill">
+        <button class="toolbutton" icon="inbox-fill" aria-label="Inbox Icon">
           <i class="bi bi-inbox-fill"></i>
         </button>
-        <button class="toolbutton" icon="info-circle-fill">
+        <button class="toolbutton" icon="info-circle-fill" aria-label="Info Icon">
           <i class="bi bi-info-circle-fill"></i>
         </button>
-        <button class="toolbutton" icon="kanban-fill">
+        <button class="toolbutton" icon="kanban-fill" aria-label="Kanban Board Icon">
           <i class="bi bi-kanban-fill"></i>
         </button>
-        <button class="toolbutton" icon="lightbulb-fill">
+        <button class="toolbutton" icon="lightbulb-fill" aria-label="Lightbulb Icon">
           <i class="bi bi-lightbulb-fill"></i>
         </button>
-        <button class="toolbutton" icon="lightning-fill">
+        <button class="toolbutton" icon="lightning-fill" aria-label="Lightning Icon">
           <i class="bi bi-lightning-fill"></i>
         </button>
-        <button class="toolbutton" icon="lock-fill">
+        <button class="toolbutton" icon="lock-fill" aria-label="Lock Icon">
           <i class="bi bi-lock-fill"></i>
         </button>
-        <button class="toolbutton" icon="moon-fill">
+        <button class="toolbutton" icon="moon-fill" aria-label="Moon Icon">
           <i class="bi bi-moon-fill"></i>
         </button>
-        <button class="toolbutton" icon="music-note">
+        <button class="toolbutton" icon="music-note" aria-label="Music Note Icon">
           <i class="bi bi-music-note"></i>
         </button>
-        <button class="toolbutton" icon="person-circle">
+        <button class="toolbutton" icon="person-circle" aria-label="Contact Icon">
           <i class="bi bi-person-circle"></i>
         </button>
-        <button class="toolbutton" icon="person-video2">
+        <button class="toolbutton" icon="person-video2" aria-label="Videoconference Icon">
           <i class="bi bi-person-video2"></i>
         </button>
-        <button class="toolbutton" icon="piggy-bank-fill">
+        <button class="toolbutton" icon="piggy-bank-fill" aria-label="Piggybank Icon">
           <i class="bi bi-piggy-bank-fill"></i>
         </button>
-        <button class="toolbutton" icon="safe-fill">
+        <button class="toolbutton" icon="safe-fill" aria-label="Safe Icon">
           <i class="bi bi-safe-fill"></i>
         </button>
-        <button class="toolbutton" icon="send-fill">
+        <button class="toolbutton" icon="send-fill" aria-label="Paper Airplane Icon">
           <i class="bi bi-send-fill"></i>
         </button>
-        <button class="toolbutton" icon="square-fill">
+        <button class="toolbutton" icon="square-fill" aria-label="Square Icon">
           <i class="bi bi-square-fill"></i>
         </button>
-        <button class="toolbutton" icon="stickies-fill">
+        <button class="toolbutton" icon="stickies-fill" aria-label="Sticky Note Icon">
           <i class="bi bi-stickies-fill"></i>
         </button>
-        <button class="toolbutton" icon="sun-fill">
+        <button class="toolbutton" icon="sun-fill" aria-label="Sun Icon">
           <i class="bi bi-sun-fill"></i>
         </button>
-        <button class="toolbutton" icon="tag-fill">
+        <button class="toolbutton" icon="tag-fill" aria-label="Tag Icon">
           <i class="bi bi-tag-fill"></i>
         </button>
-        <button class="toolbutton" icon="tools">
+        <button class="toolbutton" icon="tools" aria-label="Tool Icon">
           <i class="bi bi-tools"></i>
         </button>
-        <button class="toolbutton" icon="triangle-fill">
+        <button class="toolbutton" icon="triangle-fill" aria-label="Triangle Icon">
           <i class="bi bi-triangle-fill"></i>
         </button>
-        <button class="toolbutton" icon="trophy fill">
+        <button class="toolbutton" icon="trophy fill" aria-label="Trophy Icon">
           <i class="bi bi-trophy-fill"></i>
         </button>
-        <button class="toolbutton" icon="ui-checks">
+        <button class="toolbutton" icon="ui-checks" aria-label="Checklist Icon">
           <i class="bi bi-ui-checks"></i>
         </button>
-        <button class="toolbutton" icon="umbrella-fill">
+        <button class="toolbutton" icon="umbrella-fill" aria-label="Umbrella Icon">
           <i class="bi bi-umbrella-fill"></i>
         </button>
-        <button class="toolbutton" icon="upc">
+        <button class="toolbutton" icon="upc" aria-label="Barcode Icon">
           <i class="bi bi-upc"></i>
         </button>
-        <button class="toolbutton" icon="wallet-fill">
+        <button class="toolbutton" icon="wallet-fill" aria-label="Wallet Icon">
           <i class="bi bi-wallet-fill"></i>
         </button>
-        <button class="toolbutton" icon="yin-yang">
+        <button class="toolbutton" icon="yin-yang" aria-label="Yin-Yang Icon">
           <i class="bi bi-yin-yang"></i>
         </button>
       </div>
@@ -268,10 +269,10 @@
       <h2 id="cDeleteHeader"></h2>
       <p>Are you sure you want to delete this folder?</p>
       <form method="dialog">
-        <button value="no" type="button" onclick="this.parentElement.submit()" class="toolbutton">
+        <button value="no" type="button" onclick="this.parentElement.submit()" class="toolbutton" aria-label="Cancel Deleting">
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
-        <button value="yes" type="submit" class="toolbutton">
+        <button value="yes" type="submit" class="toolbutton" aria-label="Confirm Deletion">
           <i class="bi bi-trash-fill"></i>&nbsp;Delete
         </button>
       </form>
@@ -280,10 +281,10 @@
       <h2 id="cDeleteNoteHeader"></h2>
       <p>Are you sure you want to delete this note?</p>
       <form method="dialog">
-        <button value="no" type="button" onclick="this.parentElement.submit()" class="toolbutton">
+        <button value="no" type="button" onclick="this.parentElement.submit()" class="toolbutton" aria-label="Cancel Deleting">
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
-        <button value="yes" type="submit" class="toolbutton">
+        <button value="yes" type="submit" class="toolbutton" aria-label="Confirm Deletion">
           <i class="bi bi-trash-fill"></i>&nbsp;Delete
         </button>
       </form>
@@ -293,7 +294,7 @@
       <p>Title is a note-taking app. Using it in Incognito Mode means your stuff will be erased when you leave. Cool?
       </p>
       <form method="dialog">
-        <button value="yes" type="submit" class="toolbutton">
+        <button value="yes" type="submit" class="toolbutton" aria-label="Confirm Understanding">
           <i class="bi bi-check-circle"></i>&nbsp;I Understand
         </button>
       </form>
