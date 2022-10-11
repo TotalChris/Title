@@ -636,6 +636,7 @@ form{
 
 #tDownNote, #tShareNote, #tDeleteNote{
     padding-inline: 14px;
+    margin-right: 0px !important;
 }
 
 #tDownNote{
@@ -648,11 +649,13 @@ form{
 }
 
 #tShareNote{
+    margin-left: 0px;
     border-right: 1px solid var(--fgcolorpass);
     border-radius: 0px !important;
 }
 
 #tDeleteNote{
+    margin-left: 0px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     border-top-left-radius: 0px !important;
