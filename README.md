@@ -39,7 +39,7 @@ Ideally, only UI components will break update-to-update and your data will be ac
 - [x] Implement standard UI framework for cleaner look (Bootstrap)
 - [x] Add color support to notes
 - [x] Add color support to folders
-- [ ] Add icon support to folders
+- [x] Add icon support to folders
 - [x] Export/Import data as file
 - [ ] Offline use support
 - [ ] Implement history api to use back + forward nav
