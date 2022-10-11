@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="/img/ic192.png">
   </head>
 
-  <body>
+  <body class="preload">
     <input type="file" id="tImport" accept=".json, .ttl" style="display: none;">
     <div id="header">
       <button class="toolbutton" id="tBack" aria-label="Back">
@@ -38,12 +38,12 @@
       <h1 id="tFoldersTitle"><i class="bi bi-folder-fill"></i>&nbsp;Folders</h1>
       <ul id="vFolderList"></ul>
       <ul id="vFolderTools">
-        <li class="notelist-item">
+        <li class="notelist-item" style="padding-inline: 1rem !important;">
           <button class="shelf-name" onclick="$('#tImport').click()" aria-label="Import Data">
             <div><i class="bi bi-box-arrow-in-down option-icon"></i>&nbsp;Import Data</div>
           </button>
         </li>
-        <li class="notelist-item">
+        <li class="notelist-item" style="padding-inline: 1rem !important;">
           <button class="shelf-name" onclick="Title.export()" aria-label="Export Data">
             <div><i class="bi bi-box-arrow-up option-icon"></i>&nbsp;Export Data</div>
           </button>
@@ -70,13 +70,15 @@
         onkeypress="Title.handlers.keypressTitle(event)" rows="1"></textarea>
       </div>
       <div id="tFolderColors">
-        <hr width="100%">
         <button class="toolbutton" color="#b92d5d" aria-label="scarlet">
           <i class="bi bi-circle-fill" style="color: #b92d5d;"></i>
         </button>        
         <button class="toolbutton" color="#eb4d3d" aria-label="red">
           <i class="bi bi-circle-fill" style="color: #eb4d3d;"></i>
-        </button>              
+        </button>
+        <button class="toolbutton" color="#da5100" aria-label="orange">
+          <i class="bi bi-circle-fill" style="color: #da5100;"></i>
+        </button>            
         <button class="toolbutton" color="#d38301" aria-label="yellow">
           <i class="bi bi-circle-fill" style="color: #d38301;"></i>
         </button>              
@@ -88,10 +90,18 @@
         </button>              
         <button class="toolbutton" color="#285ff4" aria-label="blue">
           <i class="bi bi-circle-fill" style="color: #285ff4;"></i>
-        </button>      
+        </button>
+        <button class="toolbutton" color="#702898" aria-label="violet">
+          <i class="bi bi-circle-fill" style="color: #702898;"></i>
+        </button>
+        <button class="toolbutton" color="#7b2900" aria-label="brown">
+          <i class="bi bi-circle-fill" style="color: #7b2900;"></i>
+        </button> 
+        <button class="toolbutton" color="#333333" aria-label="gray">
+          <i class="bi bi-circle-fill" style="color: #333333;"></i>
+        </button> 
       </div>
       <div id="tFolderIcons">
-        <hr width="100%">
         <button class="toolbutton" icon="airplane-fill" aria-label="Airplane Icon">
           <i class="bi bi-airplane-fill"></i>
         </button>
@@ -215,9 +225,6 @@
         <button class="toolbutton" icon="person-circle" aria-label="Contact Icon">
           <i class="bi bi-person-circle"></i>
         </button>
-        <button class="toolbutton" icon="person-video2" aria-label="Videoconference Icon">
-          <i class="bi bi-person-video2"></i>
-        </button>
         <button class="toolbutton" icon="piggy-bank-fill" aria-label="Piggybank Icon">
           <i class="bi bi-piggy-bank-fill"></i>
         </button>
@@ -248,14 +255,11 @@
         <button class="toolbutton" icon="trophy fill" aria-label="Trophy Icon">
           <i class="bi bi-trophy-fill"></i>
         </button>
-        <button class="toolbutton" icon="ui-checks" aria-label="Checklist Icon">
-          <i class="bi bi-ui-checks"></i>
+        <button class="toolbutton" icon="list-ul" aria-label="Checklist Icon">
+          <i class="bi bi-list-ul"></i>
         </button>
         <button class="toolbutton" icon="umbrella-fill" aria-label="Umbrella Icon">
           <i class="bi bi-umbrella-fill"></i>
-        </button>
-        <button class="toolbutton" icon="upc" aria-label="Barcode Icon">
-          <i class="bi bi-upc"></i>
         </button>
         <button class="toolbutton" icon="wallet-fill" aria-label="Wallet Icon">
           <i class="bi bi-wallet-fill"></i>
@@ -273,7 +277,7 @@
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
         <button value="yes" type="submit" class="toolbutton" aria-label="Confirm Deletion">
-          <i class="bi bi-trash-fill"></i>&nbsp;Delete
+          <i class="bi bi-trash-fill"></i>&nbsp;<b>Delete</b>
         </button>
       </form>
     </dialog>
@@ -285,17 +289,16 @@
           <i class="bi bi-x-circle"></i>&nbsp;Cancel
         </button>
         <button value="yes" type="submit" class="toolbutton" aria-label="Confirm Deletion">
-          <i class="bi bi-trash-fill"></i>&nbsp;Delete
+          <i class="bi bi-trash-fill"></i>&nbsp;<b>Delete</b>
         </button>
       </form>
     </dialog>
     <dialog id="vIncogWarn">
       <h2 id="cIncogHeader">Woah There!</h2>
-      <p>Title is a note-taking app. Using it in Incognito Mode means your stuff will be erased when you leave. Cool?
-      </p>
+      <p>Title is a note-taking app. Using it in Incognito Mode means your stuff will be erased when you leave. Cool?</p>
       <form method="dialog">
         <button value="yes" type="submit" class="toolbutton" aria-label="Confirm Understanding">
-          <i class="bi bi-check-circle"></i>&nbsp;I Understand
+          <i class="bi bi-check-circle"></i>&nbsp;<b>I Understand</b>
         </button>
       </form>
     </dialog>

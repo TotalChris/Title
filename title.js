@@ -85,7 +85,6 @@ class App {
 
     this.tool.back.on("click", () => {
       if ($('body').attr('activeview') == 'edit') {
-        this.saveNote(this.activeNote);
         this.viewList(this.activeList);
       } else if ($('body').attr('activeview') == 'list' || $('body').attr('activeview') == 'editf') {
         this.viewAllLists();
@@ -111,6 +110,8 @@ class App {
         const reader = new FileReader();
         reader.addEventListener('load', (e) => {
           this.lists = JSON.parse(e.target.result);
+          this.prefs.lastAction = 'list';
+          this.prefs.lastList = this.lists[0].uuid;
           this.close("TitleStoredShelves");
           window.location.reload();
         })
@@ -160,10 +161,32 @@ class App {
       document.documentElement.style.setProperty('--fgcolormid', `${this.activeList.color}77`);
       $('meta[name="theme-color"]').attr('content', `${this.hexhelper(this.activeList.color)}`);
       $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).html(`<i class="bi ${this.activeList.icon} folder-icon" style="background-color: ${this.activeList.color};"></i>&nbsp;${this.activeList.name}`);
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).css('color', `${this.activeList.color}`)
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-option i`).css('color', `${this.activeList.color}`)
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] `).css('background-color', `${this.activeList.color}20`)
+
     })
+
+    this.input.noteName.on('input', () => {
+      $(`.notecard[uuid=${this.activeNote.uuid}] h2.card-title`).html(
+        this.input.noteName.val() == "" ? "" : this.input.noteName.val()
+      );
+    })
+
+    this.input.noteContent.on('input', () => {
+      $(`.notecard[uuid=${this.activeNote.uuid}] div.card-text`).html(this.input.noteContent.val());
+    })
+
+    this.input.noteName.on('change', () => { this.activeNote.name = this.input.noteName.val(); })
+
+    this.input.noteContent.on('change', () => { this.activeNote.name = this.input.noteContent.val(); })
 
     // register autosave-on-close listener
     document.addEventListener("visibilitychange", () => {
+      if(this.prefs.lastAction == "note"){
+        this.activeNote.name = this.input.noteName.val();
+        this.activeNote.content = this.input.noteContent.val();
+      }
       this.close("TitleStoredShelves");
     });
 
@@ -207,7 +230,7 @@ class App {
     this.component.listSelector.html("");
     this.lists.forEach((l) => {
       if(!('icon' in l)){
-        l.icon = 'bi-folder';
+        l.icon = 'bi-folder-fill';
       }
       l.notes.forEach((n) => { //remove note color from old notes
         if('color' in n){
@@ -216,14 +239,14 @@ class App {
       })
       this.component.listSelector.append(
         $(`
-        <li class="notelist-item" uuid="${l.uuid}">
+        <li class="notelist-item" uuid="${l.uuid}" style="padding-inline: 1rem !important; background-color: ${l.color}20;">
         <button class="shelf-name" id="${l.uuid}" aria-label="View ${l.name} Folder" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-        <div><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
+        <div style="color: ${l.color};"><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
           <button class="shelf-option" aria-label="Edit ${l.name} Folder" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-            <i class="bi bi-three-dots"></i>
+            <i class="bi bi-three-dots" style="color: ${l.color};"></i>
           </button>
           <button class="shelf-option text-danger shelfop-delete" aria-label="Delete ${l.name} Folder" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-            <i class="bi bi-trash-fill"></i>
+            <i class="bi bi-trash-fill" style="color: ${l.color};"></i>
           </button>
         </button>
       </li>
@@ -252,19 +275,19 @@ class App {
 
   createList() {
     let len = this.lists.push(
-      new Shelf("Untitled", [], '#B92D5D', 'bi-folder')
+      new Shelf("New Folder", [], '#B92D5D', 'bi-folder-fill')
     );
     let l = this.lists[len - 1];
     this.component.listSelector.append(
       $(`
-      <li class="notelist-item" uuid="${l.uuid}">
+      <li class="notelist-item" uuid="${l.uuid}" style="padding-inline: 1rem !important; background-color: ${l.color}20;">
       <button class="shelf-name" id="${l.uuid}" aria-label="View ${l.name} Folder" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-      <div><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
+      <div style="color: ${l.color};"><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
         <button class="shelf-option" aria-label="Edit ${l.name} Folder" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-          <i class="bi bi-three-dots"></i>
+          <i class="bi bi-three-dots" style="color: ${l.color};"></i>
         </button>
         <button class="shelf-option text-danger shelfop-delete" aria-label="Delete ${l.name} Folder" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-          <i class="bi bi-trash-fill"></i>
+          <i class="bi bi-trash-fill" style="color: ${l.color};"></i>
         </button>
       </button>
     </li>
@@ -340,7 +363,7 @@ class App {
     <div>
       <div class="card-heading">
         <input type="checkbox" aria-label="Complete ${n.name}" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
-        <h2 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
+        <h2 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h2>
         <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${n.uuid}' ))" aria-label="Edit ${n.name}">
           <i class="bi bi-three-dots"></i>
         </button>
@@ -376,17 +399,6 @@ class App {
     note.completed = status;
     $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', (status == true ? 'line-through' : 'none'));
     $(`.notecard[uuid=${note.uuid}]`).css('opacity', (status == true ? '50%' : '100%'))
-  }
-
-  saveNote(note) {
-    note.name = this.input.noteName.val();
-    note.content = this.input.noteContent.val();
-
-    $(`.notecard[uuid=${note.uuid}] h5.card-title`).html(
-      note.name == "" ? "" : note.name
-    );
-    $(`.notecard[uuid=${note.uuid}] div.card-text`).html(note.content);
-    $(`.notecard[uuid=${note.uuid}]`).css('opacity', (note.completed == true ? '50%' : '100%'))
   }
 
   shareNote(note) {
@@ -499,7 +511,7 @@ class App {
         <div>
           <div class="card-heading">
             <input type="checkbox" aria-label="Complete ${n.name}" class="tNoteStatus" onclick="{event.stopPropagation();Title.setNoteStatus(Title.getNote(Title.activeList, '${n.uuid}'), (event.currentTarget.checked ? true : false));}">
-            <h2 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h5>
+            <h2 class="card-title" placeholder="Untitled" contenteditable="true" onclick="{event.stopPropagation();this.focus();}" oninput="if(event.inputType == 'insertParagraph' || (event.data == null && event.inputType == 'insertText')){this.innerHTML = this.textContent;this.blur();event.preventDefault();}; Title.getNote(Title.activeList, '${n.uuid}').name = this.textContent;">${n.name == "" ? "" : n.name}</h2>
             <button class="note-option" onclick="event.stopPropagation();Title.viewNote(Title.getNote(Title.activeList, '${n.uuid}' ))" aria-label="Edit ${n.name}">
               <i class="bi bi-three-dots"></i>
             </button>
@@ -539,6 +551,8 @@ class App {
     this.input.noteName.css('height', this.input.noteName.prop('scrollHeight') + "px");
     this.input.noteContent.css('height', this.input.noteContent.prop('scrollHeight') + "px");
     document.title = note.name == undefined ? "" : note.name;
+
+
   }
 
   close(key) {
@@ -563,3 +577,4 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init, false);
+window.addEventListener('load', () => {$("body").removeClass("preload");})
