@@ -179,7 +179,7 @@ class App {
 
     this.input.noteName.on('change', () => { this.activeNote.name = this.input.noteName.val(); })
 
-    this.input.noteContent.on('change', () => { this.activeNote.name = this.input.noteContent.val(); })
+    this.input.noteContent.on('change', () => { this.activeNote.content = this.input.noteContent.val(); })
 
     // register autosave-on-close listener
     document.addEventListener("visibilitychange", () => {
