@@ -379,8 +379,8 @@ class App {
   }
 
   saveNote(note) {
-    note.name = Title.input.noteName.val();
-    note.content = Title.input.noteContent.val();
+    note.name = this.input.noteName.val();
+    note.content = this.input.noteContent.val();
 
     $(`.notecard[uuid=${note.uuid}] h5.card-title`).html(
       note.name == "" ? "" : note.name
@@ -429,10 +429,10 @@ class App {
 
   deleteNote(note, list) {
     let d = () => {
-      list = list == undefined ? Title.activeList : list; //use the active list if none defined
+      list = list == undefined ? this.activeList : list; //use the active list if none defined
       if (note != undefined) {
         list.notes.splice(list.notes.indexOf(note), 1);
-        Title.activeNote = (Title.activeNote == note ? undefined : Title.activeNote); //unset active note if its the same note
+        this.activeNote = (this.activeNote == note ? undefined : this.activeNote); //unset active note if its the same note
       }
       $(`.notecard[uuid=${note.uuid}]`).remove();
       if (list.notes.length <= 0) {
@@ -530,7 +530,7 @@ class App {
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("body").attr("activeView", "edit");
     $("#tBack").html(`<i class="bi bi-chevron-left"></i>&nbsp;${this.activeList.name}`);
-    Title.activeNote = note;
+    this.activeNote = note;
 
     this.input.noteName.val(note.name == undefined ? "" : note.name);
     this.input.noteContent.val(note.content == undefined ? "" : note.content);
