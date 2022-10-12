@@ -28,11 +28,11 @@
     }
   ],
   "orientation": "any",
-  "start_url": "https://totalchris.github.io/title/index.html",
+  "start_url": "https://totalchris.com/title/index.html",
   "background_color": "#000000",
   "categories": ["productivity", "utilities"],
   "display": "standalone",
-  "scope": "https://totalchris.github.io/title/",
+  "scope": "https://totalchris.com/title/",
   "theme_color": "#ffffff",
   "description": "Take notes in your browser or phone with this tiny app"
 }
