@@ -238,6 +238,8 @@ hr {
 
 #vNoteList p {
     font-size: 24px;
+    margin-inline: calc(5vw);
+    color: var(--fgcolor);
 }
 
 #vEditor {
@@ -263,6 +265,7 @@ dialog p,
 
 #cEmptyListHeader {
     margin-top: 8px;
+    font-size: 24px;
 }
 
 dialog input {
@@ -484,7 +487,8 @@ body[activeview="list"] #tFoldersTitle{
 
 body[activeview="list"] #tPageTitle,
 body[activeview="list"] .notecard,
-body[activeview="list"] #cEmptyListHeader{
+body[activeview="list"] #cEmptyListHeader,
+body[activeview="list"] #vNoteList p{
     margin-left: 8px;
 }
 
@@ -687,12 +691,9 @@ dialog h2{
     #tFolderIcons,
     #tFolderColors,
     #cEmptyListHeader,
+    #vNoteList p,
     .notecard {
         margin-inline: 16px !important;
-    }
-
-    #cEmptyListHeader {
-        margin-inline: 0px;
     }
 
 }
@@ -814,7 +815,8 @@ dialog h2{
 
     body[activeview="list"] #tPageTitle,
     body[activeview="list"] .notecard,
-    body[activeview="list"] #cEmptyListHeader{
+    body[activeview="list"] #cEmptyListHeader,
+    body[activeview="list"] #vNoteList p{
         margin-left: 5vw;
     }
 

@@ -79,7 +79,10 @@ class App {
       renameHeader: $("#cRenameHeader"),
       deleteNoteHeader: $("#cDeleteNoteHeader"),
       listHeader: $("#tPageTitle"),
-      noteList: $("#vNoteList"),
+      noteList: {
+        incomplete: $("#vIncomplete"),
+        complete: $("#vComplete")
+      },
       listSelector: $("#vFolderList"),
     };
 
@@ -355,9 +358,11 @@ class App {
   createNote(list, note) {
     let l = (list == undefined ? this.activeList : list);
     let len = l.notes.push((note == undefined ? new Note("" ,"") : note));
-
     let n = l.notes[len - 1];
-
+    if (l.notes.length >= 1) {
+      $(`#cEmptyListHeader`).css('display', 'none');
+      $(`#vNoteList`).css('display', 'block');
+    }
     $(`
     <div class="notecard" uuid="${n.uuid}">
     <div>
@@ -378,11 +383,8 @@ class App {
       .on("click", (e) => {
         this.viewNote(n);
       })
-      .appendTo(this.component.noteList);
+      .appendTo(this.component.noteList.incomplete);
     $(`div.notecard[uuid=${n.uuid}] .card-title`).focus();
-    if (l.notes.length >= 1) {
-      $("#cEmptyListHeader").remove();
-    }
   }
 
   getNote(list, uuid) {
@@ -397,8 +399,13 @@ class App {
   setNoteStatus(note, status) {
     status = (status == undefined ? 'false' : status);
     note.completed = status;
+    if(status){
+      $(`.notecard[uuid=${note.uuid}]`).detach().appendTo(this.component.noteList.complete);
+    } else {
+      $(`.notecard[uuid=${note.uuid}]`).detach().appendTo(this.component.noteList.incomplete);
+    }
     $(`.notecard[uuid=${note.uuid}] .card-title`).css('text-decoration', (status == true ? 'line-through' : 'none'));
-    $(`.notecard[uuid=${note.uuid}]`).css('opacity', (status == true ? '50%' : '100%'))
+    $(`.notecard[uuid=${note.uuid}]`).css('opacity', (status == true ? '75%' : '100%'))
   }
 
   shareNote(note) {
@@ -448,7 +455,8 @@ class App {
       }
       $(`.notecard[uuid=${note.uuid}]`).remove();
       if (list.notes.length <= 0) {
-        $(`<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`).appendTo(this.component.noteList);
+        $(`#cEmptyListHeader`).css('display', 'block')
+        $(`#vNoteList`).css('display', 'none');
       }
     }
     this.view.deleteNote.one("close", () => {
@@ -498,13 +506,15 @@ class App {
     $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
 
       this.activeList = list;
-      this.component.noteList.html("");
+      this.component.noteList.incomplete.html("");
+      this.component.noteList.complete.html("");
 
     if (list.notes.length == 0) {
-      $(
-        `<p id="cEmptyListHeader">No Notes, click <i class="bi bi-file-earmark-plus"></i> to add one!</p>`
-      ).appendTo(this.component.noteList);
+      $(`#cEmptyListHeader`).css('display', 'block');
+      $(`#vNoteList`).css('display', 'none');
     } else {
+      $(`#cEmptyListHeader`).css('display', 'none');
+      $(`#vNoteList`).css('display', 'block');
       list.notes.forEach((n) => {
         $(`
         <div class="notecard" uuid="${n.uuid}">
@@ -526,11 +536,11 @@ class App {
           .on("click", (e) => {
             this.viewNote(n);
           })
-          .appendTo(this.component.noteList);
+          .appendTo(n.completed ? this.component.noteList.complete : this.component.noteList.incomplete);
         if (n.completed == true) {
           $(`.notecard[uuid=${n.uuid}] .card-title`).css('text-decoration', 'line-through');
-          $(`.notecard[uuid=${n.uuid}]`).css('opacity', '50%');
           $(`.notecard[uuid=${n.uuid}] .tNoteStatus`).prop('checked', true);
+          $(`.notecard[uuid=${n.uuid}]`).css('opacity', '75%');
         }
       });
     }
