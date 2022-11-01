@@ -86,6 +86,8 @@ class App {
       listSelector: $("#vFolderList"),
     };
 
+    this.component.listHeader.on('click', ()=>{this.renameList(this.activeList)})
+
     this.tool.back.on("click", () => {
       if ($('body').attr('activeview') == 'edit') {
         this.viewList(this.activeList);
@@ -325,6 +327,8 @@ class App {
     this.input.listName.val(list.name);
     this.input.listColor.val(list.color);
     $('#tFolderIconSwitcher').html(`<i class="bi ${list.icon}"></i>`);
+    this.input.listName[0].style.height = '5px';
+    this.input.listName[0].style.height = (this.input.listName[0].scrollHeight) + 'px';
     this.input.listName.on('input', (e) => {
       list.name = e.target.value;
       $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
