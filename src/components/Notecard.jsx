@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from './shared/Checkbox';
+import MenuList from './MenuList';
+import MenuItem from './shared/MenuItem';
 
 function Notecard({ note }) {
 
@@ -12,7 +14,7 @@ function Notecard({ note }) {
   const hTitle = (e) => {setName(e.target.innerHTML)}
 
   const styles = {
-    global: {display: 'flex', paddingBlock: '.3rem', backgroundColor: '#d5d5d5'},
+    global: {display: 'flex', paddingBcoglock: '.3rem', backgroundColor: '#d5d5d5'},
       heading: {marginInline: '1rem', display: 'flex', alignItems: 'center'},
       content: {},
         title: {marginBlock: '0px', fontSize: '20px', textDecoration: (completed ? 'line-through' : 'none'), opacity: (completed ? '0.6' : '1')},
@@ -21,15 +23,11 @@ function Notecard({ note }) {
 
   return (
     <>
-    <li style={styles.global}>
-      <div style={styles.heading}>
+    <MenuItem style={styles.global}>
         <Checkbox checked={completed} onChange={hStatus}></Checkbox>
-      </div>
-      <div style={styles.content}>
         <h2 style={styles.title} placeholder="Untitled" onBlur={hTitle}>{name}</h2>
         <div style={styles.body}>{content}</div>
-      </div>
-    </li>
+    </MenuItem>
     </>
   )
 }

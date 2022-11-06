@@ -3,6 +3,7 @@ import './App.css';
 import Notecard from './components/Notecard';
 import MenuList from './components/MenuList';
 import Notes from './data/NoteData';
+import MenuItem from './components/shared/MenuItem';
 
 function App() {
   return (
