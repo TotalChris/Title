@@ -1,47 +1,70 @@
-# _'Title'_
+# Getting Started with Create React App
 
-#### A simple note-taking web application. Accessible from `master` at its [GitHub Page](https://totalchris.github.io/title).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Vision
+## Available Scripts
 
-> #### _tl;dr: I'm just trying to make a good app that does what the big boys do._
+In the project directory, you can run:
 
-- Create a simple note-taking app and push as many boundaries of that app as humanly possible using cutting edge web tech. 
-- Test frequently across modern rendering engines to ensure compatibility on every device. 
-- Create a minimum-viable-product that would compete with Google Keep, Bundled Notes, and Apple Notes in a scenario where I care enough to do so.
+### `npm start`
 
-## Precautions
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-> #### _tl;dr: This is a pet project made by a washed-up 22-year-old as a hobby. Use at your own risk._
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-Using the app at this stage in development is a risk you knowingly take. The browser you use Title in stores your data. I don't see your data and therefore assume no responsibility for it.
+### `npm test`
 
-When I update Title on `master` the app may act unintentionally or clear your data. If you want, you can export your notes in json format using the "Export Data" button in the Folders menu, and re-import it using the "Import Data" button. 
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Ideally, only UI components will break update-to-update and your data will be accessible unless you clear the browser data yourself.
+### `npm run build`
 
-## Current Features
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- Create plaintext notes with a title and checkbox to reflect "completion" of that entry
-- Create folders of those notes, with thier own name and color
-- Rename/delete notes or folders as desired
-- Automatically save folders and their notes on exit
-- Import and Export user data to a plain json file when desired
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-## Flaws / To-Do
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-- Css is spaghetti, needs sass or other preprocessor
-- Element IDs don't match current naming scheme
+### `npm run eject`
 
-## Feature Roadmap
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-- [x] Implement jQuery to organize element events/references
-- [x] Implement standard UI framework for cleaner look (Bootstrap)
-- [x] Add color support to notes
-- [x] Add color support to folders
-- [x] Add icon support to folders
-- [x] Export/Import data as file
-- [ ] Offline use support
-- [ ] Implement history api to use back + forward nav
-- [ ] Add dark mode or other themes
-- [ ] Support other types of data in notes (richtext, images, etc.)
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

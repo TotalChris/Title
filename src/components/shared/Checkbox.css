@@ -1,0 +1,42 @@
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 700,
+    'GRAD' 200,
+    'opsz' 24
+}
+
+.checkbox{
+    height: 1.2rem;
+    width: 1.2rem;
+}
+
+.checkbox .checkbox__input{
+    visibility: hidden;
+    position: absolute;
+}
+
+.checkbox .checkbox__mark{
+    height: 1.2rem;
+    width: 1.2rem;
+    border: 1px solid black;
+    border-radius: 25px;
+    display: inline-block;
+    background-color: transparent;
+}
+
+.checkbox__input:checked+.checkbox__mark{
+    background-color: black;
+}
+
+.checkbox__input:checked+.checkbox__mark::after{
+    position: absolute;
+    font-family: "Material Symbols Outlined";
+    text-align: center;
+    content: "\e876";
+    color: #d5d5d5;
+    font-size: 1rem;
+    margin-top: .1rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}

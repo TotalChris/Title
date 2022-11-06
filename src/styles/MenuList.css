@@ -1,0 +1,9 @@
+.root{
+    border-radius: .75rem;
+    overflow: hidden;
+    margin: 1rem;
+}
+
+.root li:not(:last-child){
+    border-bottom: 1px solid black;
+}
