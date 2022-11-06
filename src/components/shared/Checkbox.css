@@ -25,18 +25,34 @@
     background-color: transparent;
 }
 
+.checkbox .checkbox__mark::after{
+  position: absolute;
+  font-family: "Material Symbols Outlined";
+  text-align: center;
+  content: "\e876";
+  color: transparent;
+  font-size: 1rem;
+  margin-top: .1rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.checkbox .checkbox__mark{
+  transition: background-color .6s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.checkbox .checkbox__mark::after{
+  transition: color .6s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.checkbox:hover .checkbox__mark::after{
+    color: #555555;
+}
+
 .checkbox__input:checked+.checkbox__mark{
     background-color: black;
 }
 
 .checkbox__input:checked+.checkbox__mark::after{
-    position: absolute;
-    font-family: "Material Symbols Outlined";
-    text-align: center;
-    content: "\e876";
     color: #d5d5d5;
-    font-size: 1rem;
-    margin-top: .1rem;
-    width: 1.2rem;
-    height: 1.2rem;
 }

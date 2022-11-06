@@ -14,7 +14,6 @@ function Notecard({ note }) {
   const styles = {
     global: {display: 'flex', paddingBlock: '.3rem', backgroundColor: '#d5d5d5'},
       heading: {marginInline: '1rem', display: 'flex', alignItems: 'center'},
-        status: {height: 'auto', margin: '12px'},
       content: {},
         title: {marginBlock: '0px', fontSize: '20px', textDecoration: (completed ? 'line-through' : 'none'), opacity: (completed ? '0.6' : '1')},
         body: {},
@@ -24,10 +23,10 @@ function Notecard({ note }) {
     <>
     <li style={styles.global}>
       <div style={styles.heading}>
-        <Checkbox style={styles.status} checked={completed} onChange={hStatus}></Checkbox>
+        <Checkbox checked={completed} onChange={hStatus}></Checkbox>
       </div>
       <div style={styles.content}>
-        <h2 style={styles.title} placeholder="Untitled" onBlur={hTitle} contentEditable >{name}</h2>
+        <h2 style={styles.title} placeholder="Untitled" onBlur={hTitle}>{name}</h2>
         <div style={styles.body}>{content}</div>
       </div>
     </li>
