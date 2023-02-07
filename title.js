@@ -11,12 +11,12 @@ class Shelf {
   constructor(name, notes, theme, icon) {
     this.notes = notes == undefined ? [] : notes;
     this.name = name == undefined ? "Untitled" : name;
-    this.theme = {
+    this.theme = theme == undefined ? {
       pale: '',
       light: '',
       dark: '',
       mute: '',
-    }
+    } : theme;
     this.icon = icon == undefined ? "bi-list-ul" : icon;
     this.uuid = crypto.randomUUID();
   }
@@ -156,7 +156,6 @@ class App {
 
     this.tool.import.on('change', (e) => {
       if (e.target.files && e.target.files[0]) {
-        console.log(e.target.files[0])
         const reader = new FileReader();
         reader.addEventListener('load', (e) => {
           this.lists = JSON.parse(e.target.result);
@@ -167,7 +166,6 @@ class App {
         })
         reader.readAsText(e.target.files[0]);
       } else {
-        console.log('e')
       }
     })
 
@@ -201,7 +199,6 @@ class App {
     $('#tFolderColors button').on('click', (e)=>{
       let colorName = ( !(e.target instanceof HTMLButtonElement) ? $(e.target.parentNode) : $(e.target) ).attr('color-name');
       this.activeList.theme = this.colors[colorName];
-      console.log(colorName)
       document.documentElement.style.setProperty('--fgcolor', this.activeList.theme.dark);
       document.documentElement.style.setProperty('--bgcolor', this.activeList.theme.pale);
       document.documentElement.style.setProperty('--fgcolorpass', this.activeList.theme.light);
@@ -280,7 +277,41 @@ class App {
         l.icon = 'bi-folder-fill';
       }
       if(!('theme' in l)){ //replace color with theme in old lists
-        l.theme = this.colors.yellow;
+        switch(l['color']){
+          case '#b92d5d':
+            l.theme = this.colors.magenta;
+            break;
+          case '#eb4d3d':
+            l.theme = this.colors.red;
+            break;
+          case '#da5100':
+            l.theme = this.colors.red;
+            break;
+          case '#d38301':
+            l.theme = this.colors.yellow;
+            break;
+          case '#009000':
+            l.theme = this.colors.green;
+            break;
+          case '#008cb4':
+            l.theme = this.colors.blue;
+            break;
+          case '#285ff4':
+            l.theme = this.colors.blue;
+            break;
+          case '#702898':
+            l.theme = this.colors.purple;
+            break;
+          case '#7b2900':
+            l.theme = this.colors.yellow;
+            break;
+          case '#333333':
+            l.theme = this.colors.blue;
+            break;
+          default:
+            l.theme = this.colors.red;
+            break;
+        }
         delete l['color'];
       }
       l.notes.forEach((n) => { //remove note color from old notes
@@ -326,8 +357,9 @@ class App {
 
   createList() {
     let len = this.lists.push(
-      new Shelf("New Folder", [], '#B92D5D', 'bi-folder-fill')
+      new Shelf("New Folder", [], this.colors.red, 'bi-folder-fill')
     );
+
     let l = this.lists[len - 1];
     this.component.listSelector.append(
       $(`
@@ -344,6 +376,15 @@ class App {
       </li>
     `)
     );
+    document.documentElement.style.setProperty('--fgcolor', l.theme.dark);
+    document.documentElement.style.setProperty('--bgcolor', l.theme.pale);
+    document.documentElement.style.setProperty('--fgcolorpass', l.theme.light);
+    document.documentElement.style.setProperty('--fgcolormid', l.theme.light);
+    $('meta[name="theme-color"]').attr('content', `${l.theme.pale}`);
+    $(`li.notelist-item[uuid=${l.uuid}] .shelf-name div`).html(`<i class="bi ${l.icon} folder-icon" style="background-color: ${l.theme.pale}; color: ${l.theme.dark};"></i>&nbsp;${l.name}`);
+    $(`li.notelist-item[uuid=${l.uuid}] .shelf-name div`).css('color', `${l.theme.dark}`)
+    $(`li.notelist-item[uuid=${l.uuid}] .shelf-option i`).css('color', `${l.theme.dark}`)
+    $(`li.notelist-item[uuid=${l.uuid}] `).css('background-color', l.theme.light)
     this.renameList(l);
     if (this.lists.length <= 1) {
       $(".shelfop-delete").css("display", "none");
@@ -379,7 +420,7 @@ class App {
     this.input.listName[0].style.height = (this.input.listName[0].scrollHeight) + 'px';
     this.input.listName.on('input', (e) => {
       list.name = e.target.value;
-      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.theme.light};"></i>&nbsp;${list.name}`);
+      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.theme.pale}; color: ${list.theme.dark};"></i>&nbsp;${list.name}`);
     })
   }
 
