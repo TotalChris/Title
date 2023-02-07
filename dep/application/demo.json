@@ -15,7 +15,12 @@
             }
         ],
         "name": "Notes",
-        "color": "#d38301",
+        "theme": {
+            "pale": "#EFEAE4",
+            "light": "#EFD9C0",
+            "dark": "#33291E",
+            "mute": "#1B1610"
+        },
         "icon": "bi-stickies-fill",
         "uuid": "00000000-0000-0000-0000-000000000001"
     },
@@ -47,7 +52,12 @@
             }
         ],
         "name": "Shopping",
-        "color": "#009000",
+        "theme": {
+            "pale": "#E4EFE8",
+            "light": "#BEEFCF",
+            "dark": "#1E3325",
+            "mute": "#101B14"
+        },
         "icon": "bi-basket-fill",
         "uuid": "9a24c14c-ff1a-4a6b-87b6-801099dc1841"
     },
@@ -79,7 +89,12 @@
             }
         ],
         "name": "Sales Leads",
-        "color": "#285ff4",
+        "theme": {
+            "pale": "#E4EAEF",
+            "light": "#BFD7EF",
+            "dark": "#1E2933",
+            "mute": "#10161B"
+        },
         "icon": "bi-person-video2",
         "uuid": "f19b626d-ed79-47d0-97a0-4297a861bd39"
     },
@@ -111,7 +126,12 @@
             }
         ],
         "name": "To-Do",
-        "color": "#eb4d3d",
+        "theme": {
+            "pale": "#EFE4E4",
+            "light": "#EFBFC0",
+            "dark": "#331E1F",
+            "mute": "#1B1010"
+        },
         "icon": "bi-tools",
         "uuid": "fe40a1e9-3640-418e-b97a-d4443f21f8cf"
     }

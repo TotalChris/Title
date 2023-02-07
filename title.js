@@ -8,10 +8,15 @@ class Note {
 }
 
 class Shelf {
-  constructor(name, notes, color, icon) {
+  constructor(name, notes, theme, icon) {
     this.notes = notes == undefined ? [] : notes;
     this.name = name == undefined ? "Untitled" : name;
-    this.color = color == undefined ? "#000000" : color;
+    this.theme = {
+      pale: '',
+      light: '',
+      dark: '',
+      mute: '',
+    }
     this.icon = icon == undefined ? "bi-list-ul" : icon;
     this.uuid = crypto.randomUUID();
   }
@@ -46,6 +51,46 @@ class App {
         event.target.style.height = (event.target.scrollHeight) + 'px';
       }
     }
+
+    this.colors = {
+      red: {
+        pale: '#EFE4E4',
+        light: '#EFBFC0',
+        dark: '#331E1F',
+        mute: '#1B1010',
+      },
+      yellow: {
+        pale: '#EFEAE4',
+        light: '#EFD9C0',
+        dark: '#33291E',
+        mute: '#1B1610',
+      },
+      green: {
+        pale: '#E4EFE8',
+        light: '#BEEFCF',
+        dark: '#1E3325',
+        mute: '#101B14',
+      },
+      blue: {
+        pale: '#E4EAEF',
+        light: '#BFD7EF',
+        dark: '#1E2933',
+        mute: '#10161B',
+      },
+      purple: {
+        pale: '#E9E4EF',
+        light: '#D6BFEF',
+        dark: '#281E33',
+        mute: '#15101B',
+      },
+      magenta: {
+        pale: '#EFE4EC',
+        light: '#EFBFE2',
+        dark: '#331E2D',
+        mute: '#1B1018',
+      },
+    }
+
     this.tool = {
       //buttons
       logo: $("#logo"),
@@ -146,29 +191,26 @@ class App {
     $('#tFolderIcons button').on("click", (e) => {
       if(!(e.target instanceof HTMLButtonElement)){
         this.activeList.icon = "bi-" + $(e.target.parentNode).attr('icon');
-      } else { 
+      } else {
         this.activeList.icon = "bi-" + $(e.target).attr('icon');
       }
       $('#tFolderIconSwitcher').html(`<i class="bi ${this.activeList.icon}"></i>`);
-      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).html(`<i class="bi ${this.activeList.icon} folder-icon" style="background-color: ${this.activeList.color};"></i>&nbsp;${this.activeList.name}`);
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).html(`<i class="bi ${this.activeList.icon} folder-icon" style="background-color: ${this.activeList.theme.pale}; color: ${this.activeList.theme.dark};"></i>&nbsp;${this.activeList.name}`);
     })
 
     $('#tFolderColors button').on('click', (e)=>{
-      console.log(e);
-      if(!(e.target instanceof HTMLButtonElement)){
-        this.activeList.color = $(e.target.parentNode).attr('color');
-      } else { 
-        this.activeList.color = $(e.target).attr('color');
-      }
-      document.documentElement.style.setProperty('--fgcolor', `${this.activeList.color}`);
-      document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(this.activeList.color)}`);
-      document.documentElement.style.setProperty('--fgcolorpass', `${this.activeList.color}20`);
-      document.documentElement.style.setProperty('--fgcolormid', `${this.activeList.color}77`);
-      $('meta[name="theme-color"]').attr('content', `${this.hexhelper(this.activeList.color)}`);
-      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).html(`<i class="bi ${this.activeList.icon} folder-icon" style="background-color: ${this.activeList.color};"></i>&nbsp;${this.activeList.name}`);
-      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).css('color', `${this.activeList.color}`)
-      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-option i`).css('color', `${this.activeList.color}`)
-      $(`li.notelist-item[uuid=${this.activeList.uuid}] `).css('background-color', `${this.activeList.color}20`)
+      let colorName = ( !(e.target instanceof HTMLButtonElement) ? $(e.target.parentNode) : $(e.target) ).attr('color-name');
+      this.activeList.theme = this.colors[colorName];
+      console.log(colorName)
+      document.documentElement.style.setProperty('--fgcolor', this.activeList.theme.dark);
+      document.documentElement.style.setProperty('--bgcolor', this.activeList.theme.pale);
+      document.documentElement.style.setProperty('--fgcolorpass', this.activeList.theme.light);
+      document.documentElement.style.setProperty('--fgcolormid', this.activeList.theme.light);
+      $('meta[name="theme-color"]').attr('content', `${this.activeList.theme.pale}`);
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).html(`<i class="bi ${this.activeList.icon} folder-icon" style="background-color: ${this.activeList.theme.pale}; color: ${this.activeList.theme.dark};"></i>&nbsp;${this.activeList.name}`);
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).css('color', `${this.activeList.theme.dark}`)
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-option i`).css('color', `${this.activeList.theme.dark}`)
+      $(`li.notelist-item[uuid=${this.activeList.uuid}] `).css('background-color', this.activeList.theme.light)
 
     })
 
@@ -244,14 +286,14 @@ class App {
       })
       this.component.listSelector.append(
         $(`
-        <li class="notelist-item" uuid="${l.uuid}" style="padding-inline: 1rem !important; background-color: ${l.color}20;">
+        <li class="notelist-item" uuid="${l.uuid}" style="padding-inline: 1rem !important; background-color: ${l.theme.light};">
         <button class="shelf-name" id="${l.uuid}" aria-label="View ${l.name} Folder" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-        <div style="color: ${l.color};"><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
+        <div style="color: ${l.theme.dark};"><i class="bi ${l.icon} folder-icon" style="background-color: ${l.theme.pale}; color: ${l.theme.dark};"></i>&nbsp;${l.name}</div>
           <button class="shelf-option" aria-label="Edit ${l.name} Folder" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-            <i class="bi bi-three-dots" style="color: ${l.color};"></i>
+            <i class="bi bi-three-dots" style="color: ${l.theme.dark};"></i>
           </button>
           <button class="shelf-option text-danger shelfop-delete" aria-label="Delete ${l.name} Folder" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-            <i class="bi bi-trash-fill" style="color: ${l.color};"></i>
+            <i class="bi bi-trash-fill" style="color: ${l.theme.dark};"></i>
           </button>
         </button>
       </li>
@@ -285,17 +327,17 @@ class App {
     let l = this.lists[len - 1];
     this.component.listSelector.append(
       $(`
-      <li class="notelist-item" uuid="${l.uuid}" style="padding-inline: 1rem !important; background-color: ${l.color}20;">
-      <button class="shelf-name" id="${l.uuid}" aria-label="View ${l.name} Folder" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-      <div style="color: ${l.color};"><i class="bi ${l.icon} folder-icon" style="background-color: ${l.color};"></i>&nbsp;${l.name}</div>
-        <button class="shelf-option" aria-label="Edit ${l.name} Folder" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-          <i class="bi bi-three-dots" style="color: ${l.color};"></i>
+        <li class="notelist-item" uuid="${l.uuid}" style="padding-inline: 1rem !important; background-color: ${l.theme.light};">
+        <button class="shelf-name" id="${l.uuid}" aria-label="View ${l.name} Folder" onclick="Title.viewList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+        <div style="color: ${l.theme.dark};"><i class="bi ${l.icon} folder-icon" style="background-color: ${l.theme.pale}; color: ${l.theme.dark};"></i>&nbsp;${l.name}</div>
+          <button class="shelf-option" aria-label="Edit ${l.name} Folder" onclick="Title.renameList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+            <i class="bi bi-three-dots" style="color: ${l.theme.dark};"></i>
+          </button>
+          <button class="shelf-option text-danger shelfop-delete" aria-label="Delete ${l.name} Folder" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
+            <i class="bi bi-trash-fill" style="color: ${l.theme.dark};"></i>
+          </button>
         </button>
-        <button class="shelf-option text-danger shelfop-delete" aria-label="Delete ${l.name} Folder" onclick="Title.deleteList(Title.lists.find((s) => { return s.uuid == '${l.uuid}' }))">
-          <i class="bi bi-trash-fill" style="color: ${l.color};"></i>
-        </button>
-      </button>
-    </li>
+      </li>
     `)
     );
     this.renameList(l);
@@ -316,22 +358,24 @@ class App {
     this.activeNote = undefined;
     this.activeList = list;
     document.title = list.name == undefined ? "Untitled Folder" : list.name;
-
-
+    document.documentElement.style.setProperty('--fgcolor', this.activeList.theme.dark);
+    document.documentElement.style.setProperty('--bgcolor', this.activeList.theme.pale);
+    document.documentElement.style.setProperty('--fgcolorpass', this.activeList.theme.light);
+    document.documentElement.style.setProperty('--fgcolormid', this.activeList.theme.light);
+    $('meta[name="theme-color"]').attr('content', `${this.activeList.theme.pale}`);
+    $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).html(`<i class="bi ${this.activeList.icon} folder-icon" style="background-color: ${this.activeList.theme.pale}; color: ${this.activeList.theme.dark};"></i>&nbsp;${this.activeList.name}`);
+    $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-name div`).css('color', `${this.activeList.theme.dark}`)
+    $(`li.notelist-item[uuid=${this.activeList.uuid}] .shelf-option i`).css('color', `${this.activeList.theme.dark}`)
+    $(`li.notelist-item[uuid=${this.activeList.uuid}] `).css('background-color', this.activeList.theme.light)
     $('body').attr('activeview', 'editf');
-    document.documentElement.style.setProperty('--fgcolor', `${list.color}`);
-    document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
-    document.documentElement.style.setProperty('--fgcolorpass', `${list.color}20`);
-    document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
-    $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
     this.input.listName.val(list.name);
-    this.input.listColor.val(list.color);
+    this.input.listColor.val(list.theme.light);
     $('#tFolderIconSwitcher').html(`<i class="bi ${list.icon}"></i>`);
     this.input.listName[0].style.height = '5px';
     this.input.listName[0].style.height = (this.input.listName[0].scrollHeight) + 'px';
     this.input.listName.on('input', (e) => {
       list.name = e.target.value;
-      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.color};"></i>&nbsp;${list.name}`);
+      $(`li.notelist-item[uuid=${list.uuid}] .shelf-name div`).html(`<i class="bi ${list.icon} folder-icon" style="background-color: ${list.theme.light};"></i>&nbsp;${list.name}`);
     })
   }
 
@@ -481,7 +525,7 @@ class App {
     this.prefs.lastAction = 'all';
     window.localStorage.setItem('TitlePrefs', JSON.stringify(this.prefs));
     $("body").attr("activeView", "all");
-    $("#tBack").html(`<img src="img/logo.png" height="24px" width="44px" alt="" style="padding-inline: 10px;"></img>`)
+    $("#tBack").html(`<p style="margin-block: 0px; padding-inline: 10px; font-size: 26px; font-weight: 500;">Title</p>`)
     this.activeNote = undefined;
     this.activeList = undefined;
     document.title = "Folders";
@@ -503,11 +547,11 @@ class App {
     this.component.listHeader.html(
       `<i class="bi ${list.icon}"></i>&nbsp;` + (list.name == undefined ? "Untitled Folder" : list.name)
     );
-    document.documentElement.style.setProperty('--fgcolor', `${list.color}`);
-    document.documentElement.style.setProperty('--bgcolor', `${this.hexhelper(list.color)}`);
-    document.documentElement.style.setProperty('--fgcolorpass', `${list.color}20`);
-    document.documentElement.style.setProperty('--fgcolormid', `${list.color}77`);
-    $('meta[name="theme-color"]').attr('content', `${this.hexhelper(list.color)}`);
+    document.documentElement.style.setProperty('--fgcolor', list.theme.dark);
+    document.documentElement.style.setProperty('--bgcolor', list.theme.pale);
+    document.documentElement.style.setProperty('--fgcolorpass', list.theme.light);
+    document.documentElement.style.setProperty('--fgcolormid', list.theme.light);
+    $('meta[name="theme-color"]').attr('content', list.theme.pale);
 
       this.activeList = list;
       this.component.noteList.incomplete.html("");
@@ -575,15 +619,6 @@ class App {
     //any other closing ops
   }
 
-  hexhelper(hex) {
-    let r = parseInt(hex.substring(1, 3), 16);
-    let g = parseInt(hex.substring(3, 5), 16);
-    let b = parseInt(hex.substring(5, 7), 16);
-    r = Math.ceil(255 - .125 * (255 - r))
-    g = Math.ceil(255 - .125 * (255 - g))
-    b = Math.ceil(255 - .125 * (255 - b))
-    return "#" + r.toString(16) + g.toString(16) + b.toString(16);
-  }
 }
 
 function init() {

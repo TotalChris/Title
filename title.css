@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700;800;900&display=swap');
 
 .preload * {
     transition: none !important;
@@ -21,7 +22,7 @@
 
 body {
     -webkit-tap-highlight-color: transparent;
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Fraunces', sans-serif !important;
     background-color: var(--bgcolor) !important;
     transition: background-color 2s cubic-bezier(0.1, 0.9, 0.2, 1);
     overflow-y: hidden;
@@ -48,7 +49,7 @@ body {
 ul li button {
     color: var(--fgcolor);
     padding: 6px !important;
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Fraunces', sans-serif !important;
 }
 
 #iListColor {
@@ -98,10 +99,6 @@ hr {
     padding-bottom: .5rem;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-}
-
-.notelist-item:not(:first-child){
-    border-top: 1px solid var(--fgcolorpass);
 }
 
 .note-option {
@@ -168,8 +165,8 @@ hr {
 }
 
 .option-icon{
-    background-color: var(--fgcolor);
-    color: white;
+    background-color: var(--bgcolor);
+    color: var(--fgcolor);
     padding-inline: 8px;
     border-radius: 50px;
     padding-block: 6px;
@@ -195,7 +192,7 @@ hr {
 }
 
 #iNoteName, #iListName {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Fraunces', sans-serif !important;
     font-size: 34px;
     width: -webkit-fill-available;
     font-weight: 700;
@@ -219,7 +216,7 @@ hr {
 }
 
 #iNoteContent {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Fraunces', sans-serif !important;
     width: -webkit-fill-available;
     font-size: 20px;
     height: 90%;
@@ -282,7 +279,7 @@ button, input[type="checkbox"]{
 }
 
 .toolbutton {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Fraunces', sans-serif !important;
     font-size: 18px;
     height: 48px;
     color: var(--fgcolor) !important;
@@ -621,7 +618,7 @@ body[activeview="all"] #tBack i {
     font-size: 26px;
 }
 #iListName{
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Fraunces', sans-serif !important;
 }
 #cRenameHeader, #cDeleteHeader{
     margin-top: 0px;
