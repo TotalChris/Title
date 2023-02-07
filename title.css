@@ -338,7 +338,9 @@ button, input[type="checkbox"]{
 }
 
 .card-text:not(:empty){
-    margin-block: .5rem !important;
+    margin-block: 0.5rem !important;
+    padding-top: 0.5rem !important;
+    border-top: 1px solid var(--fgcolor);
 }
 
 .shelf-name i{
@@ -352,6 +354,13 @@ button, input[type="checkbox"]{
     font-size: 34px;
     color: var(--fgcolor);
     margin-inline: 5vw;
+}
+
+#tPageTitle i,
+#tFoldersTitle i{
+    padding-right: 10px;
+    margin-right: 3px;
+    border-right: 1px solid var(--fgcolor);
 }
 
 #cEmptyListHeader {
