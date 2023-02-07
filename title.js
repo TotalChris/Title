@@ -279,6 +279,10 @@ class App {
       if(!('icon' in l)){
         l.icon = 'bi-folder-fill';
       }
+      if(!('theme' in l)){ //replace color with theme in old lists
+        l.theme = this.colors.yellow;
+        delete l['color'];
+      }
       l.notes.forEach((n) => { //remove note color from old notes
         if('color' in n){
           delete n['color'];
